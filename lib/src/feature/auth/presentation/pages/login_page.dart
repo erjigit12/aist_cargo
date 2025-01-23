@@ -119,10 +119,12 @@ class LoginPage extends StatelessWidget {
                 const ElevatedButtonWidget(),
                 8.h,
                 const UserAgreement(),
-                16.h,
+                26.h,
                 Center(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.signup);
+                    },
                     child: Text(
                       'Регистрация',
                       style: AppTextStyles.f14w500.copyWith(

@@ -1,4 +1,4 @@
-import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Aist Cargo',
       theme: ThemeData(),
-      home: const LoginPage(),
+      onGenerateRoute: RouteGenerator.onGenerate,
+      initialRoute: '/',
     );
   }
 }
