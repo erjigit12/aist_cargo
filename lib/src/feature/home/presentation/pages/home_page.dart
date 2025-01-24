@@ -6,8 +6,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Scaffold(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -19,9 +19,9 @@ class HomePage extends StatelessWidget {
             image: AssetImage('assets/images/aistcargo.png'),
           ),
           50.h,
-          const Text(
+          Text(
             'У Вас отправка или поездка?',
-            style: AppTextStyles.f12w600,
+            style: AppTextStyles.f12w600.copyWith(color: AppColors.textColor),
           ),
           16.h,
           Row(
@@ -34,7 +34,12 @@ class HomePage extends StatelessWidget {
                     image: AssetImage('assets/images/send.png'),
                   ),
                   16.h,
-                  const Text('Отправить', style: AppTextStyles.f12w500),
+                  Text(
+                    'Отправить',
+                    style: AppTextStyles.f12w600.copyWith(
+                      color: AppColors.textColor,
+                    ),
+                  ),
                 ],
               ),
               16.w,
@@ -44,13 +49,23 @@ class HomePage extends StatelessWidget {
                     image: AssetImage('assets/images/deliver.png'),
                   ),
                   16.h,
-                  const Text('Отправить', style: AppTextStyles.f12w500),
+                  Text(
+                    'Доставить',
+                    style: AppTextStyles.f12w600.copyWith(
+                      color: AppColors.textColor,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
           50.h,
-          const Text('Что такое AISTCARGO?', style: AppTextStyles.f14w400),
+          Text(
+            'Что такое AISTCARGO?',
+            style: AppTextStyles.f12w600.copyWith(
+              color: AppColors.textColor,
+            ),
+          ),
           16.h,
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),

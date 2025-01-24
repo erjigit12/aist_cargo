@@ -11,7 +11,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MainScreen([
       HomePage(),
-      Center(child: Text('2')),
+      DeliverPage(),
       Center(child: Text('3')),
       Center(child: Text('4')),
       Center(child: Text('5')),
