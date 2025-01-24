@@ -35,8 +35,8 @@ class DeliverPage extends StatelessWidget {
 
           // Ромб из контейнеров
           SizedBox(
-            width: width * 1,
-            height: width * 1,
+            width: width,
+            height: width,
             child: Stack(
               alignment: Alignment.center,
               children: [
