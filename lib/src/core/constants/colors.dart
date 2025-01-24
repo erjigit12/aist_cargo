@@ -30,4 +30,6 @@ class AppColors {
   static const Color selectBoxBorderColor = Color(0xFFFF9C44);
   static const Color greyTextColor = Color(0xFFA3A3AE);
   static const Color textfieldBorderColor = Color(0xFFEDEDED);
+
+  static const Color mainColor = Color(0xFF474744);
 }

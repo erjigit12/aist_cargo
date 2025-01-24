@@ -116,7 +116,9 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 16.h,
-                const ElevatedButtonWidget(),
+                ElevatedButtonWidget(
+                  onPressed: () => Navigator.pushNamed(context, '/main'),
+                ),
                 8.h,
                 const UserAgreement(),
                 26.h,

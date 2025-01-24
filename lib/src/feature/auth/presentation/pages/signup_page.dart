@@ -119,7 +119,9 @@ class SignUpPage extends StatelessWidget {
                     hintText: '******',
                   ),
                   26.h,
-                  const ElevatedButtonWidget(),
+                  ElevatedButtonWidget(
+                    onPressed: () => Navigator.pushNamed(context, '/main'),
+                  ),
                   8.h,
                   const UserAgreement(),
                 ],
