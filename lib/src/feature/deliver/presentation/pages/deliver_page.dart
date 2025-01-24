@@ -1,9 +1,15 @@
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
-class DeliverPage extends StatelessWidget {
+class DeliverPage extends StatefulWidget {
   const DeliverPage({super.key});
 
+  @override
+  State<DeliverPage> createState() => _DeliverPageState();
+}
+
+class _DeliverPageState extends State<DeliverPage> {
+  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,44 +46,96 @@ class DeliverPage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Верхний контейнер
+                // Верхний контейнер (Самолетом)
                 Positioned(
                   top: width * 0.23,
-                  child: buildRotatedContainer(
-                    size: width * 0.22,
-                    color: const Color(0xffF1511B).withOpacity(0.3),
-                    icon: 'assets/images/airplane.png',
-                    label: 'Самолетом',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 0;
+                      });
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => AirplanePage()),
+                      // );
+                    },
+                    child: buildRotatedContainer(
+                      size: width * 0.22,
+                      color: selectedIndex == 0
+                          ? const Color(0xff80CC28).withOpacity(0.7)
+                          : const Color(0xffF1511B).withOpacity(0.3),
+                      icon: 'assets/images/airplane.png',
+                      label: 'Самолетом',
+                    ),
                   ),
                 ),
-                // Нижний контейнер
+                // Нижний контейнер (Поиск)
                 Positioned(
                   bottom: width * 0.23,
-                  child: buildRotatedContainer(
-                    size: width * 0.22,
-                    color: const Color(0xffFFB900).withOpacity(0.3),
-                    icon: 'assets/images/search_in_cloud.png',
-                    label: 'Поиск',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 1;
+                      });
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => SearchPage()),
+                      // );
+                    },
+                    child: buildRotatedContainer(
+                      size: width * 0.22,
+                      color: selectedIndex == 1
+                          ? const Color(0xff80CC28).withOpacity(0.7)
+                          : const Color(0xffFFB900).withOpacity(0.3),
+                      icon: 'assets/images/search_in_cloud.png',
+                      label: 'Поиск',
+                    ),
                   ),
                 ),
-                // Левый контейнер
+                // Левый контейнер (Автомобилем)
                 Positioned(
                   left: width * 0.23,
-                  child: buildRotatedContainer(
-                    size: width * 0.22,
-                    color: const Color(0xff80CC28).withOpacity(0.3),
-                    icon: 'assets/images/car.png',
-                    label: 'Автомобилем',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 2;
+                      });
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => CarPage()),
+                      // );
+                    },
+                    child: buildRotatedContainer(
+                      size: width * 0.22,
+                      color: selectedIndex == 2
+                          ? const Color(0xff80CC28).withOpacity(0.7)
+                          : const Color(0xff80CC28).withOpacity(0.3),
+                      icon: 'assets/images/car.png',
+                      label: 'Автомобилем',
+                    ),
                   ),
                 ),
-                // Правый контейнер
+                // Правый контейнер (Грузовиком)
                 Positioned(
                   right: width * 0.23,
-                  child: buildRotatedContainer(
-                    size: width * 0.22,
-                    color: const Color(0xff00ADEF).withOpacity(0.3),
-                    icon: 'assets/images/semi_truck.png',
-                    label: 'Грузовиком',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 3;
+                      });
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => TruckPage()),
+                      // );
+                    },
+                    child: buildRotatedContainer(
+                      size: width * 0.22,
+                      color: selectedIndex == 3
+                          ? const Color(0xff80CC28).withOpacity(0.7)
+                          : const Color(0xff00ADEF).withOpacity(0.3),
+                      icon: 'assets/images/semi_truck.png',
+                      label: 'Грузовиком',
+                    ),
                   ),
                 ),
               ],
