@@ -10,7 +10,7 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MainScreen([
-      Center(child: Text('1')),
+      HomePage(),
       Center(child: Text('2')),
       Center(child: Text('3')),
       Center(child: Text('4')),
