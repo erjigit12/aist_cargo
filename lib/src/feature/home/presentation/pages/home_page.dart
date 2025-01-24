@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
           const Image(
             image: AssetImage('assets/images/aistcargo.png'),
           ),
-          32.h,
+          50.h,
           const Text(
             'У Вас отправка или поездка?',
             style: AppTextStyles.f12w600,
@@ -48,6 +48,17 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+          50.h,
+          const Text('Что такое AISTCARGO?', style: AppTextStyles.f14w400),
+          16.h,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'AistCargo - быстро и удобно передать посылку между доставщиком и отправителем ?',
+              style: AppTextStyles.f12w400,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
