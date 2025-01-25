@@ -6,32 +6,17 @@ class DeliverDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: CustomAppBar(),
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, size: 16),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-      centerTitle: true,
-      title: Text(
-        'Самолет',
-        style: AppTextStyles.f18w400.copyWith(color: AppColors.textColor),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Text('Откуда, куда и когда вы едете?',
+                style: AppTextStyles.f12w600),
+          ],
+        ),
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
