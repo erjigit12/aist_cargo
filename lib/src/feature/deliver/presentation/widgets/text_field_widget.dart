@@ -1,3 +1,5 @@
+import 'package:aist_cargo/src/core/constants/colors.dart';
+import 'package:aist_cargo/src/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -19,6 +21,8 @@ class TextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: suffixIcon ?? const Icon(Icons.location_on),
         hintText: hintText,
+        hintStyle:
+            AppTextStyles.f12w400.copyWith(color: AppColors.greyBrightColor),
         enabledBorder: const UnderlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12),
