@@ -38,6 +38,7 @@ class DeliverDetailPage extends StatelessWidget {
               'Какие посылки вы готовы доставить?',
               style: AppTextStyles.f12w600,
             ),
+            16.h,
           ],
         ),
       ),
