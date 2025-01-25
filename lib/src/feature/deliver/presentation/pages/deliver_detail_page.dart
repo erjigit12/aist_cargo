@@ -86,7 +86,7 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
                   color: AppColors.greyBrightColor,
                 ),
               ),
-              16.h,
+              8.h,
               TextFormField(
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(16),
@@ -117,6 +117,13 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
                 maxLines: null,
                 minLines: 3,
                 keyboardType: TextInputType.multiline,
+              ),
+              32.h,
+              ElevatedButtonWidget(
+                title: 'Создать поездку',
+                onPressed: () async {
+                  showSubscriptionBottomSheet(context);
+                },
               ),
               32.h,
             ],
@@ -189,6 +196,81 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
               size: 26,
             ),
         ],
+      ),
+    );
+  }
+
+  void showSubscriptionBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(60)),
+      ),
+      isScrollControlled: true, // Управление высотой BottomSheet
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.7,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.f14w400.copyWith(
+                    color: AppColors.textColor,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildSubscriptionOption(
+                          'Подключить за 99Р на 1 месяц', Colors.green),
+                      const SizedBox(height: 8),
+                      _buildSubscriptionOption(
+                          'Подключить за 999Р на 3 месяцев', Colors.blue),
+                      const SizedBox(height: 8),
+                      _buildSubscriptionOption(
+                          'Подключить за 1499Р на 6 месяцев',
+                          Colors.pinkAccent),
+                      const SizedBox(height: 8),
+                      _buildSubscriptionOption(
+                          'Подключить за 1999Р на 12 месяцев',
+                          Colors.orangeAccent),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                ElevatedButtonWidget(title: 'Подключить', onPressed: () {}),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSubscriptionOption(String text, Color color) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        border: Border.all(color: color, width: 1.5),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
