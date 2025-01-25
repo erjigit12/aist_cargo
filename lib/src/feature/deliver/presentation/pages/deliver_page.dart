@@ -1,4 +1,5 @@
 import 'package:aist_cargo/src/core/core.dart';
+import 'package:aist_cargo/src/feature/deliver/presentation/pages/deliver_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class DeliverPage extends StatefulWidget {
@@ -54,10 +55,11 @@ class _DeliverPageState extends State<DeliverPage> {
                       setState(() {
                         selectedIndex = 0;
                       });
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => AirplanePage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DeliverDetailPage()),
+                      );
                     },
                     child: buildRotatedContainer(
                       size: width * 0.22,
