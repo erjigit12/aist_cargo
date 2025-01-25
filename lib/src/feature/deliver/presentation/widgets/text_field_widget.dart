@@ -7,19 +7,19 @@ class TextFieldWidget extends StatelessWidget {
     super.key,
     required this.hintText,
     this.controller,
-    this.suffixIcon,
+    this.prefixIcon,
   });
 
   final String hintText;
   final TextEditingController? controller;
-  final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        prefixIcon: suffixIcon ?? const Icon(Icons.location_on),
+        prefixIcon: prefixIcon ?? const Icon(Icons.location_on),
         hintText: hintText,
         hintStyle:
             AppTextStyles.f12w400.copyWith(color: AppColors.greyBrightColor),
