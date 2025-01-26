@@ -11,4 +11,5 @@ class AppRoutes {
   /* <---- Delivery -----> */
   static const createDelivery = '/createDelivery';
   static const addCardPage = '/addCardPage';
+  static const senderSubscriptionPage = '/senderSubscriptionPage';
 }

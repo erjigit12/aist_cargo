@@ -104,7 +104,9 @@ class AddCardPage extends StatelessWidget {
             12.h,
             ElevatedButtonWidget(
               title: 'Подключить',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.senderSubscriptionPage);
+              },
             ),
             const Spacer(),
             Row(

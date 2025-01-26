@@ -23,6 +23,10 @@ class RouteGenerator {
       case AppRoutes.addCardPage:
         return CupertinoPageRoute(builder: (_) => const AddCardPage());
 
+      case AppRoutes.senderSubscriptionPage:
+        return CupertinoPageRoute(
+            builder: (_) => const SenderSubscriptionPage());
+
       default:
         return errorRoute();
     }
