@@ -228,19 +228,20 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildSubscriptionOption(
-                          'Подключить за 99Р на 1 месяц', Colors.green),
+                      _buildSubscriptionOption('Подключить за 99Р на 1 месяц',
+                          AppColors.subscribeGreenColor),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
-                          'Подключить за 999Р на 3 месяцев', Colors.blue),
+                          'Подключить за 999Р на 3 месяцев',
+                          AppColors.subscribeBlueColor),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
                           'Подключить за 1499Р на 6 месяцев',
-                          Colors.pinkAccent),
+                          AppColors.subscribeRedColor),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
                           'Подключить за 1999Р на 12 месяцев',
-                          Colors.orangeAccent),
+                          AppColors.subscribeYellowColor),
                     ],
                   ),
                 ),
@@ -256,22 +257,28 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
 
   Widget _buildSubscriptionOption(String text, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          border: Border.all(color: color, width: 1.5),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 3,
+                offset: Offset(0, 3),
+              )
+            ],
             color: color,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
+            // border: Border.all(color: color, width: 1.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.f12w400.copyWith(color: AppColors.textColor),
           ),
         ),
       ),
