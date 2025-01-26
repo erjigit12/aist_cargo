@@ -7,5 +7,8 @@ class AppRoutes {
   static const login = 'login';
   static const signup = '/signup';
   static const forgotPassword = '/forgotPassword';
-  static const passwordReset = '/passwordReset';
+
+  /* <---- Delivery -----> */
+  static const createDelivery = '/createDelivery';
+  static const addCardPage = '/addCardPage';
 }

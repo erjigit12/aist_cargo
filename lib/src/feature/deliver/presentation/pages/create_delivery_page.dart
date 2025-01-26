@@ -2,14 +2,14 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 
-class DeliverDetailPage extends StatefulWidget {
-  const DeliverDetailPage({super.key});
+class CreateDeliveryPage extends StatefulWidget {
+  const CreateDeliveryPage({super.key});
 
   @override
-  State<DeliverDetailPage> createState() => _DeliverDetailPageState();
+  State<CreateDeliveryPage> createState() => _CreateDeliveryPageState();
 }
 
-class _DeliverDetailPageState extends State<DeliverDetailPage> {
+class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   int selectedCardIndex = -1;
   int selectedSubscriptionIndex = 0;
 
