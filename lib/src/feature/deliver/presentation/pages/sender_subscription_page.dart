@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
-import 'package:flutter/material.dart';
 
 class SenderSubscriptionPage extends StatefulWidget {
   const SenderSubscriptionPage({super.key});
