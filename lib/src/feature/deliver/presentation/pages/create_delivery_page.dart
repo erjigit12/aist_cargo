@@ -233,12 +233,12 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildSubscriptionOption(
-                          'Подключить за 99Р на 1 месяц',
-                          AppColors.subscribeGreenColor,
-                          1,
-                          localSelectedSubscriptionIndex,
-                          (index) {
+                        SubscriptionButton(
+                          text: 'Подключить за 99Р на 1 месяц',
+                          color: AppColors.subscribeGreenColor,
+                          index: 1,
+                          currentIndex: localSelectedSubscriptionIndex,
+                          onSelect: (index) {
                             setModalState(() {
                               localSelectedSubscriptionIndex = index;
                             });
@@ -247,13 +247,13 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                             });
                           },
                         ),
-                        const SizedBox(height: 8),
-                        _buildSubscriptionOption(
-                          'Подключить за 999Р на 3 месяцев',
-                          AppColors.subscribeBlueColor,
-                          2,
-                          localSelectedSubscriptionIndex,
-                          (index) {
+                        8.h,
+                        SubscriptionButton(
+                          text: 'Подключить за 999Р на 3 месяцев',
+                          color: AppColors.subscribeBlueColor,
+                          index: 2,
+                          currentIndex: localSelectedSubscriptionIndex,
+                          onSelect: (index) {
                             setModalState(() {
                               localSelectedSubscriptionIndex = index;
                             });
@@ -262,13 +262,13 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                             });
                           },
                         ),
-                        const SizedBox(height: 8),
-                        _buildSubscriptionOption(
-                          'Подключить за 1499Р на 6 месяцев',
-                          AppColors.subscribeRedColor,
-                          3,
-                          localSelectedSubscriptionIndex,
-                          (index) {
+                        8.h,
+                        SubscriptionButton(
+                          text: 'Подключить за 1499Р на 6 месяцев',
+                          color: AppColors.subscribeRedColor,
+                          index: 3,
+                          currentIndex: localSelectedSubscriptionIndex,
+                          onSelect: (index) {
                             setModalState(() {
                               localSelectedSubscriptionIndex = index;
                             });
@@ -277,13 +277,13 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                             });
                           },
                         ),
-                        const SizedBox(height: 8),
-                        _buildSubscriptionOption(
-                          'Подключить за 1999Р на 12 месяцев',
-                          AppColors.subscribeYellowColor,
-                          4,
-                          localSelectedSubscriptionIndex,
-                          (index) {
+                        8.h,
+                        SubscriptionButton(
+                          text: 'Подключить за 1999Р на 12 месяцев',
+                          color: AppColors.subscribeYellowColor,
+                          index: 4,
+                          currentIndex: localSelectedSubscriptionIndex,
+                          onSelect: (index) {
                             setModalState(() {
                               localSelectedSubscriptionIndex = index;
                             });
@@ -295,7 +295,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  24.h,
                   ElevatedButtonWidget(
                       title: 'Подключить',
                       onPressed: () {
@@ -307,47 +307,6 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
           );
         });
       },
-    );
-  }
-
-  Widget _buildSubscriptionOption(
-    String text,
-    Color color,
-    int index,
-    int currentIndex,
-    Function(int) onSelect,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: GestureDetector(
-        onTap: () => onSelect(index),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius: 3,
-                offset: Offset(0, 3),
-              )
-            ],
-            color: color,
-            border: Border.all(
-              color: currentIndex == index
-                  ? AppColors.greenColor
-                  : Colors.transparent,
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: AppTextStyles.f12w400.copyWith(color: AppColors.textColor),
-          ),
-        ),
-      ),
     );
   }
 }
