@@ -7,10 +7,12 @@ class TextFormFieldWidget extends StatefulWidget {
     super.key,
     this.hintText,
     this.suffix = false,
+    this.backroundColor = Colors.transparent,
   });
 
   final String? hintText;
   final bool? suffix;
+  final Color? backroundColor;
 
   @override
   _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
@@ -25,6 +27,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
       obscureText: widget.suffix == true ? _obscureText : false,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        fillColor: widget.backroundColor,
+        filled: true,
         suffixIcon: widget.suffix == true
             ? IconButton(
                 icon: Icon(

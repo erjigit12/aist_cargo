@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
-import 'package:flutter/material.dart';
 
 class CreateDeliveryPage extends StatefulWidget {
   const CreateDeliveryPage({super.key});
@@ -16,7 +16,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(title: 'Самолет'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
@@ -299,9 +299,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   ElevatedButtonWidget(
                       title: 'Подключить',
                       onPressed: () {
-                        if (selectedSubscriptionIndex != 0) {
-                          Navigator.pop(context);
-                        }
+                        Navigator.pushNamed(context, AppRoutes.addCardPage);
                       }),
                 ],
               ),
