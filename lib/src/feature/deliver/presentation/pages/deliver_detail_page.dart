@@ -215,7 +215,7 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 16),
+                const SizedBox(height: 30),
                 Text(
                   'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
                   textAlign: TextAlign.center,
@@ -255,21 +255,24 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
   }
 
   Widget _buildSubscriptionOption(String text, Color color) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        border: Border.all(color: color, width: 1.5),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: color,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          border: Border.all(color: color, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: color,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
