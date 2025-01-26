@@ -209,71 +209,120 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
       ),
       isScrollControlled: true, // Управление высотой BottomSheet
       builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.7,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                Text(
-                  'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.f14w400.copyWith(
-                    color: AppColors.textColor,
+        int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
+
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setModalState) {
+          return FractionallySizedBox(
+            heightFactor: 0.7,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 30),
+                  Text(
+                    'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.f14w400.copyWith(
+                      color: AppColors.textColor,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildSubscriptionOption('Подключить за 99Р на 1 месяц',
-                          AppColors.subscribeGreenColor, 1),
-                      const SizedBox(height: 8),
-                      _buildSubscriptionOption(
+                  const SizedBox(height: 24),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSubscriptionOption(
+                          'Подключить за 99Р на 1 месяц',
+                          AppColors.subscribeGreenColor,
+                          1,
+                          localSelectedSubscriptionIndex,
+                          (index) {
+                            setModalState(() {
+                              localSelectedSubscriptionIndex = index;
+                            });
+                            setState(() {
+                              selectedSubscriptionIndex = index;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        _buildSubscriptionOption(
                           'Подключить за 999Р на 3 месяцев',
                           AppColors.subscribeBlueColor,
-                          2),
-                      const SizedBox(height: 8),
-                      _buildSubscriptionOption(
+                          2,
+                          localSelectedSubscriptionIndex,
+                          (index) {
+                            setModalState(() {
+                              localSelectedSubscriptionIndex = index;
+                            });
+                            setState(() {
+                              selectedSubscriptionIndex = index;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        _buildSubscriptionOption(
                           'Подключить за 1499Р на 6 месяцев',
                           AppColors.subscribeRedColor,
-                          3),
-                      const SizedBox(height: 8),
-                      _buildSubscriptionOption(
+                          3,
+                          localSelectedSubscriptionIndex,
+                          (index) {
+                            setModalState(() {
+                              localSelectedSubscriptionIndex = index;
+                            });
+                            setState(() {
+                              selectedSubscriptionIndex = index;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        _buildSubscriptionOption(
                           'Подключить за 1999Р на 12 месяцев',
                           AppColors.subscribeYellowColor,
-                          4),
-                    ],
+                          4,
+                          localSelectedSubscriptionIndex,
+                          (index) {
+                            setModalState(() {
+                              localSelectedSubscriptionIndex = index;
+                            });
+                            setState(() {
+                              selectedSubscriptionIndex = index;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButtonWidget(
-                    title: 'Подключить',
-                    onPressed: () {
-                      if (selectedSubscriptionIndex != 0) {
-                        Navigator.pop(context);
-                      }
-                    }),
-              ],
+                  const SizedBox(height: 24),
+                  ElevatedButtonWidget(
+                      title: 'Подключить',
+                      onPressed: () {
+                        if (selectedSubscriptionIndex != 0) {
+                          Navigator.pop(context);
+                        }
+                      }),
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
 
-  Widget _buildSubscriptionOption(String text, Color color, int index) {
+  Widget _buildSubscriptionOption(
+    String text,
+    Color color,
+    int index,
+    int currentIndex,
+    Function(int) onSelect,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedSubscriptionIndex = index;
-          });
-        },
+        onTap: () => onSelect(index),
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -287,7 +336,7 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
             ],
             color: color,
             border: Border.all(
-              color: selectedSubscriptionIndex == index
+              color: currentIndex == index
                   ? AppColors.greenColor
                   : Colors.transparent,
               width: 3,
