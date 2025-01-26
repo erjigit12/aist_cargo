@@ -101,6 +101,7 @@ class AddCardPage extends StatelessWidget {
               ],
             ),
             const Spacer(),
+            12.h,
             ElevatedButtonWidget(
               title: 'Подключить',
               onPressed: () {},
@@ -110,8 +111,15 @@ class AddCardPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/protect.png'),
+                8.w,
+                Text(
+                  'Ваши данные защищены',
+                  style: AppTextStyles.f12w400
+                      .copyWith(color: AppColors.blueColor),
+                ),
               ],
             ),
+            30.h,
           ],
         ),
       ),
