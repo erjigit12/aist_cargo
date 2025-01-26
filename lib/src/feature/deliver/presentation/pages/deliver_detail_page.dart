@@ -11,6 +11,7 @@ class DeliverDetailPage extends StatefulWidget {
 
 class _DeliverDetailPageState extends State<DeliverDetailPage> {
   int selectedCardIndex = -1;
+  int selectedSubscriptionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -229,24 +230,33 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildSubscriptionOption('Подключить за 99Р на 1 месяц',
-                          AppColors.subscribeGreenColor),
+                          AppColors.subscribeGreenColor, 1),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
                           'Подключить за 999Р на 3 месяцев',
-                          AppColors.subscribeBlueColor),
+                          AppColors.subscribeBlueColor,
+                          2),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
                           'Подключить за 1499Р на 6 месяцев',
-                          AppColors.subscribeRedColor),
+                          AppColors.subscribeRedColor,
+                          3),
                       const SizedBox(height: 8),
                       _buildSubscriptionOption(
                           'Подключить за 1999Р на 12 месяцев',
-                          AppColors.subscribeYellowColor),
+                          AppColors.subscribeYellowColor,
+                          4),
                     ],
                   ),
                 ),
                 const SizedBox(height: 24),
-                ElevatedButtonWidget(title: 'Подключить', onPressed: () {}),
+                ElevatedButtonWidget(
+                    title: 'Подключить',
+                    onPressed: () {
+                      if (selectedSubscriptionIndex != 0) {
+                        Navigator.pop(context);
+                      }
+                    }),
               ],
             ),
           ),
@@ -255,11 +265,15 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
     );
   }
 
-  Widget _buildSubscriptionOption(String text, Color color) {
+  Widget _buildSubscriptionOption(String text, Color color, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          setState(() {
+            selectedSubscriptionIndex = index;
+          });
+        },
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -272,7 +286,12 @@ class _DeliverDetailPageState extends State<DeliverDetailPage> {
               )
             ],
             color: color,
-            // border: Border.all(color: color, width: 1.5),
+            border: Border.all(
+              color: selectedSubscriptionIndex == index
+                  ? AppColors.greenColor
+                  : Colors.transparent,
+              width: 3,
+            ),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
