@@ -78,7 +78,7 @@ class MainScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/icons/search.svg',
+                'assets/icons/all.svg',
                 colorFilter: ColorFilter.mode(
                   context.watch<MainCubit>().state == 2
                       ? Theme.of(context).brightness == Brightness.dark
