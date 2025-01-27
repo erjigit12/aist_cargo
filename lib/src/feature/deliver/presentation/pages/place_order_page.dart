@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class PlaceOrderPage extends StatelessWidget {
@@ -5,8 +6,11 @@ class PlaceOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Placeholder(),
+    return Scaffold(
+      appBar: const CustomAppBar(title: 'Создать поездку'),
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }
