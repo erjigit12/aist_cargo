@@ -57,12 +57,22 @@ class AppTextStyles {
   );
 
   static const f18w400 = TextStyle(
-    fontWeight: FontWeight.w800,
-    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontSize: 18,
   );
 
   static const f20w400 = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 20,
+  );
+
+  static const f20w500 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 20,
+  );
+
+  static const f24w400 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 24,
   );
 }

@@ -204,17 +204,60 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
       isScrollControlled: true,
       builder: (context) {
         return FractionallySizedBox(
-          heightFactor: 0.7,
+          heightFactor: 0.6,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 30),
+                30.h,
                 Text(
-                  'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
+                  'Поездка (номер генерируется автоматически)',
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.f14w400.copyWith(
+                  style: AppTextStyles.f10w400.copyWith(
+                    color: AppColors.textColor,
+                  ),
+                ),
+                8.h,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            fixedSize: const Size(
+                              double.infinity,
+                              60,
+                            ),
+                            side: const BorderSide(
+                                color: AppColors.greyBrightColor),
+                          ),
+                          child: Text(
+                            '№12345',
+                            style: AppTextStyles.f20w500.copyWith(
+                              color: AppColors.blackColor,
+                            ),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                24.h,
+                Text(
+                  'Спасибо!',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.f24w400.copyWith(
+                    color: AppColors.textColor,
+                  ),
+                ),
+                24.h,
+                Text(
+                  'Ваша поездка успешно обработана!',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.f18w400.copyWith(
                     color: AppColors.textColor,
                   ),
                 ),
