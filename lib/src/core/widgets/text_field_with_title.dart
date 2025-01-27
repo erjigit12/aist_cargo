@@ -1,0 +1,29 @@
+import 'package:aist_cargo/src/core/core.dart';
+import 'package:flutter/material.dart';
+
+class TextFieldWithTitle extends StatelessWidget {
+  const TextFieldWithTitle({
+    super.key,
+    required this.title,
+    this.hintText,
+  });
+
+  final String title;
+  final String? hintText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: AppTextStyles.f15w400),
+        8.h,
+        TextFormFieldWidget(
+          hintText: hintText,
+          backroundColor: AppColors.whiteColor,
+        ),
+      ],
+    );
+  }
+}
