@@ -7,7 +7,8 @@ class AddCardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Подключить подписку '),
+      resizeToAvoidBottomInset: false,
+      appBar: const CustomAppBar(title: 'Подключить подписку'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
