@@ -210,7 +210,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                30.h,
+                const Spacer(flex: 1),
                 Text(
                   'Поездка (номер генерируется автоматически)',
                   textAlign: TextAlign.center,
@@ -261,11 +261,16 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                     color: AppColors.textColor,
                   ),
                 ),
-                24.h,
+                const Spacer(flex: 2),
                 ElevatedButtonWidget(
-                  title: 'Подключить',
-                  onPressed: () {},
+                  title: 'Ок',
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.main,
+                    (route) => false,
+                  ),
                 ),
+                const Spacer(flex: 2),
               ],
             ),
           ),
