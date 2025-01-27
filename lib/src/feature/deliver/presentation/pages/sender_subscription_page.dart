@@ -42,45 +42,36 @@ class _SenderSubscriptionPageState extends State<SenderSubscriptionPage> {
             SubscriptionButton(
               text: 'Подключить за 999Р на 3 месяцев',
               color: AppColors.subscribeBlueColor,
-              index: 2,
-              currentIndex: 1,
+              index: 1,
+              currentIndex: selectedSubscriptionIndex,
               onSelect: (index) {
-                // setModalState(() {
-                //   localSelectedSubscriptionIndex = index;
-                // });
-                // setState(() {
-                //   selectedSubscriptionIndex = index;
-                // });
+                setState(() {
+                  selectedSubscriptionIndex = index;
+                });
               },
             ),
             12.h,
             SubscriptionButton(
               text: 'Подключить за 1499Р на 6 месяцев',
               color: AppColors.subscribeRedColor,
-              index: 3,
-              currentIndex: 1,
+              index: 2,
+              currentIndex: selectedSubscriptionIndex,
               onSelect: (index) {
-                // setModalState(() {
-                //   localSelectedSubscriptionIndex = index;
-                // });
-                // setState(() {
-                //   selectedSubscriptionIndex = index;
-                // });
+                setState(() {
+                  selectedSubscriptionIndex = index;
+                });
               },
             ),
             12.h,
             SubscriptionButton(
               text: 'Подключить за 1999Р на 12 месяцев',
               color: AppColors.subscribeYellowColor,
-              index: 4,
-              currentIndex: 1,
+              index: 3,
+              currentIndex: selectedSubscriptionIndex,
               onSelect: (index) {
-                // setModalState(() {
-                //   localSelectedSubscriptionIndex = index;
-                // });
-                // setState(() {
-                //   selectedSubscriptionIndex = index;
-                // });
+                setState(() {
+                  selectedSubscriptionIndex = index;
+                });
               },
             ),
             8.h,

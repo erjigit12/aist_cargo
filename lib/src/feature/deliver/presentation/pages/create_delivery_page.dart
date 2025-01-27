@@ -209,10 +209,10 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
       ),
       isScrollControlled: true, // Управление высотой BottomSheet
       builder: (context) {
-        int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
-
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setModalState) {
+          int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
+
           return FractionallySizedBox(
             heightFactor: 0.7,
             child: Padding(
