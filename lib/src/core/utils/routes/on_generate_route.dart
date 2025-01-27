@@ -27,6 +27,9 @@ class RouteGenerator {
         return CupertinoPageRoute(
             builder: (_) => const SenderSubscriptionPage());
 
+      case AppRoutes.placeOrderPage:
+        return CupertinoPageRoute(builder: (_) => const PlaceOrderPage());
+
       default:
         return errorRoute();
     }
