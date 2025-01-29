@@ -12,7 +12,7 @@ class MainView extends StatelessWidget {
     return const MainScreen([
       HomePage(),
       DeliverPage(),
-      Center(child: Text('3')),
+      SizedBox(),
       Center(child: Text('4')),
       Center(child: Text('5')),
     ]);
@@ -45,7 +45,13 @@ class MainScreen extends StatelessWidget {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           currentIndex: context.watch<MainCubit>().state,
-          onTap: context.read<MainCubit>().change,
+          onTap: (index) {
+            if (index == 2) {
+              showCustomBottomSheet(context);
+            } else {
+              context.read<MainCubit>().change(index);
+            }
+          },
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
