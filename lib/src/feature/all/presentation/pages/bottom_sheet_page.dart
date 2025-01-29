@@ -1,49 +1,77 @@
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 void showCustomBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    // Чтобы сделать красивый скруглённый верх,
-    // лучше всего задать и backgroundColor, и shape.
     backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    transitionAnimationController: AnimationController(
+      vsync: Navigator.of(context),
+      duration: const Duration(milliseconds: 300),
+    ),
     builder: (BuildContext context) {
-      return Container(
-        // Задний «фоновый» Container с закруглённым верхом
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+      return FractionallySizedBox(
+        heightFactor: 0.5,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+          transform: Matrix4.translationValues(0, 10, 0),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60),
+                topRight: Radius.circular(60),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Spacer(flex: 1),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: ListTile(
+                      leading: const Icon(Icons.directions_car),
+                      title: const Text('Поездки'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ),
+                10.h,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: ListTile(
+                      leading: const Icon(Icons.local_shipping),
+                      title: const Text('Посылки'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ),
+                const Spacer(flex: 4),
+              ],
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisSize:
-              MainAxisSize.min, // чтоб размер подгонялся под содержимое
-          children: [
-            // Первый вариант — «Поездки»
-            ListTile(
-              leading: const Icon(Icons.directions_car),
-              title: const Text('Поездки'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                // Действие при нажатии
-                // ...
-                Navigator.pop(context);
-              },
-            ),
-            // Второй вариант — «Посылки»
-            ListTile(
-              leading: const Icon(Icons.local_shipping),
-              title: const Text('Посылки'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                // Действие при нажатии
-                // ...
-                Navigator.pop(context);
-              },
-            ),
-            const SizedBox(height: 8),
-          ],
         ),
       );
     },
