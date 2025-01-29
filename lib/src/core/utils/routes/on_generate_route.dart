@@ -30,6 +30,9 @@ class RouteGenerator {
       case AppRoutes.placeOrderPage:
         return CupertinoPageRoute(builder: (_) => const PlaceOrderPage());
 
+      case AppRoutes.tripsOrParcelsPage:
+        return CupertinoPageRoute(builder: (_) => const TripsOrParcelsPage());
+
       default:
         return errorRoute();
     }

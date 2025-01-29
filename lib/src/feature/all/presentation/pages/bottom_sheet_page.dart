@@ -43,7 +43,8 @@ void showCustomBottomSheet(BuildContext context) {
                       title: const Text('Поездки'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(AppRoutes.tripsOrParcelsPage);
                       },
                     ),
                   ),
@@ -62,9 +63,7 @@ void showCustomBottomSheet(BuildContext context) {
                       leading: const Icon(Icons.local_shipping),
                       title: const Text('Посылки'),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                      onTap: () {},
                     ),
                   ),
                 ),

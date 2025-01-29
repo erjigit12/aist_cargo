@@ -13,4 +13,7 @@ class AppRoutes {
   static const addCardPage = '/addCardPage';
   static const senderSubscriptionPage = '/senderSubscriptionPage';
   static const placeOrderPage = '/placeOrderPage';
+
+  /*  <---- All -----> */
+  static const tripsOrParcelsPage = '/tripsOrParcelsPage';
 }
