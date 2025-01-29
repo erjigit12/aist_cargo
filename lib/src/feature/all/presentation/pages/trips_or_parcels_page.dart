@@ -1,3 +1,5 @@
+import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class TripsOrParcelsPage extends StatelessWidget {
@@ -5,10 +7,26 @@ class TripsOrParcelsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('DATA'),
-      ),
+    return Scaffold(
+      appBar: const CustomAppBar(title: 'Поездки'),
+      body: ListView.builder(
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: TripCard(
+                name: 'Erzhigit',
+                tripNumber: '12345',
+                from: 'Batken',
+                to: 'Osh',
+                packageSize: 'M',
+                arrivalDate: '2023-09-01',
+                departureDate: '2323-09-01',
+                packageType: 'Box',
+                profileImageUrl: 'assets/images/truck_mx3.png',
+              ),
+            );
+          }),
     );
   }
 }

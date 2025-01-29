@@ -43,6 +43,9 @@ void showCustomBottomSheet(BuildContext context) {
                       title: const Text('Поездки'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
                         Navigator.of(context, rootNavigator: true)
                             .pushNamed(AppRoutes.tripsOrParcelsPage);
                       },
