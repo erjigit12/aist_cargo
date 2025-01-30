@@ -58,7 +58,9 @@ class _DeliverPageState extends State<DeliverPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CreateDeliveryPage()),
+                          builder: (context) =>
+                              const CreateDeliveryPage(appBar: 'Самолет'),
+                        ),
                       );
                     },
                     child: buildRotatedContainer(
@@ -79,10 +81,13 @@ class _DeliverPageState extends State<DeliverPage> {
                       setState(() {
                         selectedIndex = 1;
                       });
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => SearchPage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const CreateDeliveryPage(appBar: 'Поиск'),
+                        ),
+                      );
                     },
                     child: buildRotatedContainer(
                       size: width * 0.22,
@@ -102,10 +107,13 @@ class _DeliverPageState extends State<DeliverPage> {
                       setState(() {
                         selectedIndex = 2;
                       });
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => CarPage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const CreateDeliveryPage(appBar: 'Автомобилем'),
+                        ),
+                      );
                     },
                     child: buildRotatedContainer(
                       size: width * 0.22,
@@ -125,10 +133,13 @@ class _DeliverPageState extends State<DeliverPage> {
                       setState(() {
                         selectedIndex = 3;
                       });
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => TruckPage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const CreateDeliveryPage(appBar: 'Грузовик'),
+                        ),
+                      );
                     },
                     child: buildRotatedContainer(
                       size: width * 0.22,

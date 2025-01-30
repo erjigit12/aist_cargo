@@ -3,7 +3,24 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 
 class CreateDeliveryPage extends StatefulWidget {
-  const CreateDeliveryPage({super.key});
+  const CreateDeliveryPage({
+    super.key,
+    required this.appBar,
+    // required this.from,
+    // required this.to,
+    // required this.departureDate,
+    // required this.arrivalDate,
+    // required this.indexCard,
+    // required this.description,
+  });
+
+  final String appBar;
+  // final String from;
+  // final String to;
+  // final String departureDate;
+  // final String arrivalDate;
+  // final int indexCard;
+  // final String description;
 
   @override
   State<CreateDeliveryPage> createState() => _CreateDeliveryPageState();
@@ -16,7 +33,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Самолет'),
+      appBar: CustomAppBar(title: widget.appBar),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
