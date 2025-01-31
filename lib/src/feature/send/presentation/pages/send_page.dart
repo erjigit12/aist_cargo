@@ -5,6 +5,11 @@ class SendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [],
+      ),
+    );
   }
 }

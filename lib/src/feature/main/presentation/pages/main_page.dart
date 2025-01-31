@@ -13,7 +13,7 @@ class MainView extends StatelessWidget {
       HomePage(),
       DeliverPage(),
       SizedBox(),
-      Center(child: Text('4')),
+      SendPage(),
       Center(child: Text('5')),
     ]);
   }
