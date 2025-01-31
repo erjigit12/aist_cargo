@@ -1,16 +1,6 @@
+import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
-import 'package:aist_cargo/src/feature/deliver/presentation/pages/create_delivery_page.dart';
-
-// Модель для типа доставки
-class DeliveryOption {
-  final String title;
-  final String iconPath;
-  final Color color;
-
-  DeliveryOption(
-      {required this.title, required this.iconPath, required this.color});
-}
 
 class DeliverPage extends StatefulWidget {
   const DeliverPage({super.key});
