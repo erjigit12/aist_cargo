@@ -9,12 +9,12 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainScreen([
-      const HomePage(),
+    return const MainScreen([
+      HomePage(),
       DeliverPage(),
-      const SizedBox(),
-      const Center(child: Text('4')),
-      const Center(child: Text('5')),
+      SizedBox(),
+      Center(child: Text('4')),
+      Center(child: Text('5')),
     ]);
   }
 }
