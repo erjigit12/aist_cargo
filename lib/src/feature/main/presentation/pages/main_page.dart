@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:aist_cargo/src/core/core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainView extends StatelessWidget {
@@ -14,7 +14,7 @@ class MainView extends StatelessWidget {
       DeliverPage(),
       SizedBox(),
       SendPage(),
-      Center(child: Text('5')),
+      ProfilePage(),
     ]);
   }
 }
