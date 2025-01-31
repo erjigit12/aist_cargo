@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -6,46 +7,77 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Профиль"),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+      appBar: const CustomAppBar(
+        title: 'Профиль',
+        icon: SizedBox(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              radius: 40,
-              backgroundImage: AssetImage('assets/images/semi_truck.png'),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "Айжан Асылова",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              "+996 503-00-00-00",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            const Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/images/semi_truck.png'),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Айжан Асылова",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "+996 503-00-00-00",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Мои поездки",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                TextButton(
-                  onPressed: () {},
-                  child:
-                      const Text("Все", style: TextStyle(color: Colors.orange)),
-                ),
-              ],
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                // border: Border.all(color: Colors.orange, width: 1),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Мои поездки",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text("Все",
+                            style: TextStyle(color: Colors.orange)),
+                      ),
+                    ],
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      text: 'ID ',
+                      style: AppTextStyles.f12w600
+                          .copyWith(color: AppColors.greyBrightColor),
+                      children: [
+                        TextSpan(
+                          text: '50',
+                          style: AppTextStyles.f12w600
+                              .copyWith(color: AppColors.blackColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
+            8.h,
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -88,7 +120,12 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            52.h,
+            Text(
+              'Профиль',
+              style: AppTextStyles.f12w500
+                  .copyWith(color: AppColors.greyBrightColor),
+            ),
             ListTile(
               leading: const Icon(Icons.edit, color: Colors.black54),
               title: const Text("Редактировать профиль"),
@@ -117,7 +154,13 @@ class ProfilePage extends StatelessWidget {
                   size: 16, color: Colors.grey),
               onTap: () {},
             ),
-            const SizedBox(height: 20),
+            16.h,
+            Text(
+              'Поддержка',
+              style: AppTextStyles.f12w500
+                  .copyWith(color: AppColors.greyBrightColor),
+            ),
+            8.h,
             ListTile(
               leading: const Icon(Icons.help_outline, color: Colors.black54),
               title: const Text("Часто задаваемые вопросы"),
