@@ -46,8 +46,9 @@ void showCustomBottomSheet(BuildContext context) {
                         if (Navigator.canPop(context)) {
                           Navigator.pop(context);
                         }
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed(AppRoutes.tripsOrParcelsPage);
+                        Navigator.of(context, rootNavigator: true).pushNamed(
+                            AppRoutes.tripsOrParcelsPage,
+                            arguments: 'Поездки');
                       },
                     ),
                   ),
@@ -66,7 +67,14 @@ void showCustomBottomSheet(BuildContext context) {
                       leading: const Icon(Icons.local_shipping),
                       title: const Text('Посылки'),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {},
+                      onTap: () {
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                        Navigator.of(context, rootNavigator: true).pushNamed(
+                            AppRoutes.tripsOrParcelsPage,
+                            arguments: 'Посылки');
+                      },
                     ),
                   ),
                 ),
