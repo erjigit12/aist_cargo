@@ -3,12 +3,17 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class TripsOrParcelsPage extends StatelessWidget {
-  const TripsOrParcelsPage({super.key});
+  const TripsOrParcelsPage({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Поездки'),
+      appBar: CustomAppBar(title: title),
       body: ListView.builder(
           itemCount: 2,
           itemBuilder: (context, index) {
