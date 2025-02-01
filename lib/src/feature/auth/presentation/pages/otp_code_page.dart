@@ -8,6 +8,7 @@ class OtpCodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppBar(title: 'Подтверждение'),
+      body: Center(child: Text('OtpCodePage')),
     );
   }
 }

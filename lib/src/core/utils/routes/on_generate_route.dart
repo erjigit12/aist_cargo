@@ -17,6 +17,9 @@ class RouteGenerator {
       case AppRoutes.forgotPassword:
         return CupertinoPageRoute(builder: (_) => const ForgotPasswordPage());
 
+      case AppRoutes.otpCode:
+        return CupertinoPageRoute(builder: (_) => const OtpCodePage());
+
       case AppRoutes.main:
         return CupertinoPageRoute(builder: (_) => const MainView());
 
@@ -25,17 +28,17 @@ class RouteGenerator {
             builder: (_) =>
                 CreateDeliveryPage(appBar: settings.arguments as String));
 
-      case AppRoutes.addCardPage:
+      case AppRoutes.addCard:
         return CupertinoPageRoute(builder: (_) => const AddCardPage());
 
-      case AppRoutes.senderSubscriptionPage:
+      case AppRoutes.senderSubscription:
         return CupertinoPageRoute(
             builder: (_) => const SenderSubscriptionPage());
 
-      case AppRoutes.placeOrderPage:
+      case AppRoutes.placeOrder:
         return CupertinoPageRoute(builder: (_) => const PlaceOrderPage());
 
-      case AppRoutes.tripsOrParcelsPage:
+      case AppRoutes.tripsOrParcels:
         return CupertinoPageRoute(
             builder: (_) => TripsOrParcelsPage(
                   title: settings.arguments as String,

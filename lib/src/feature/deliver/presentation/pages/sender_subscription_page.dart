@@ -79,7 +79,7 @@ class _SenderSubscriptionPageState extends State<SenderSubscriptionPage> {
             ElevatedButtonWidget(
               title: 'Далее',
               onPressed: () =>
-                  Navigator.pushNamed(context, AppRoutes.placeOrderPage),
+                  Navigator.pushNamed(context, AppRoutes.placeOrder),
             ),
             30.h,
           ],

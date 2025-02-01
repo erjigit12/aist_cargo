@@ -242,7 +242,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     ElevatedButtonWidget(
                       title: 'Подключить',
                       onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.addCardPage);
+                        Navigator.pushNamed(context, AppRoutes.addCard);
                       },
                     ),
                   ],

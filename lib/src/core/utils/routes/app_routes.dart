@@ -7,13 +7,14 @@ class AppRoutes {
   static const login = 'login';
   static const signup = '/signup';
   static const forgotPassword = '/forgotPassword';
+  static const otpCode = '/otpCode';
 
   /* <---- Delivery -----> */
   static const createDelivery = '/createDelivery';
-  static const addCardPage = '/addCardPage';
-  static const senderSubscriptionPage = '/senderSubscriptionPage';
-  static const placeOrderPage = '/placeOrderPage';
+  static const addCard = '/addCardPage';
+  static const senderSubscription = '/senderSubscription';
+  static const placeOrder = '/placeOrder';
 
   /*  <---- All -----> */
-  static const tripsOrParcelsPage = '/tripsOrParcelsPage';
+  static const tripsOrParcels = '/tripsOrParcels';
 }
