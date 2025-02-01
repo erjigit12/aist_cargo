@@ -18,7 +18,8 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => const ForgotPasswordPage());
 
       case AppRoutes.otpCode:
-        return CupertinoPageRoute(builder: (_) => const OtpCodePage());
+        return CupertinoPageRoute(
+            builder: (_) => OtpCodePage(email: settings.arguments as String));
 
       case AppRoutes.main:
         return CupertinoPageRoute(builder: (_) => const MainView());

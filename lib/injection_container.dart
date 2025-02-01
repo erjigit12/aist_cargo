@@ -6,4 +6,6 @@ final sl = GetIt.instance;
 Future<void> init() async {
   /// Bloc
   sl.registerFactory<MainCubit>(() => MainCubit());
+
+  sl.registerFactory<OtpBloc>(() => OtpBloc());
 }
