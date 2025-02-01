@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
@@ -27,6 +28,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
       obscureText: widget.suffix == true ? _obscureText : false,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: const TextStyle(color: AppColors.hintTextColor),
         fillColor: widget.backroundColor,
         filled: true,
         suffixIcon: widget.suffix == true

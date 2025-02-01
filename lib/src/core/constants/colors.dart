@@ -32,4 +32,5 @@ class AppColors {
   static const Color textfieldBorderColor = Color(0xFFEDEDED);
 
   static const Color mainColor = Color(0xFF474744);
+  static const Color hintTextColor = Color(0xFF878787);
 }

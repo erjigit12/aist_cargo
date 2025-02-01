@@ -75,4 +75,9 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 24,
   );
+
+  static const f24w600 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 24,
+  );
 }
