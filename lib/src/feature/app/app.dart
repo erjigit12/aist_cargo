@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'Aist Cargo',
         theme: ThemeData(),
         onGenerateRoute: RouteGenerator.onGenerate,
-        initialRoute: '/',
+        initialRoute: 'login',
       ),
     );
   }

@@ -14,6 +14,9 @@ class RouteGenerator {
       case AppRoutes.signup:
         return CupertinoPageRoute(builder: (_) => const SignUpPage());
 
+      case AppRoutes.forgotPassword:
+        return CupertinoPageRoute(builder: (_) => const ForgotPasswordPage());
+
       case AppRoutes.main:
         return CupertinoPageRoute(builder: (_) => const MainView());
 

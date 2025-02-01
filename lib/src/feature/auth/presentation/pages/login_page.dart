@@ -105,7 +105,8 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/forgotPassword'),
                       child: Text(
                         'Забыли пароль?',
                         style: AppTextStyles.f14w500.copyWith(
