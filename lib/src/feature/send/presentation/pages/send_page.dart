@@ -1,6 +1,6 @@
-import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
+import 'package:aist_cargo/src/core/core.dart';
 
 class SendPage extends StatefulWidget {
   const SendPage({super.key});
@@ -16,19 +16,19 @@ class _SendPageState extends State<SendPage> {
     DeliveryOption(
         title: 'Конверт',
         iconPath: 'assets/images/wpf_message.png',
-        color: const Color(0xffF1511B)),
+        color: AppColors.redBrighterColor),
     DeliveryOption(
         title: 'Поиск',
         iconPath: 'assets/images/search_in_cloud.png',
-        color: const Color(0xffFFB900)),
+        color: AppColors.yellowBrighterColor),
     DeliveryOption(
         title: 'Каробка',
         iconPath: 'assets/images/la_box_open.png',
-        color: const Color(0xff80CC28)),
+        color: AppColors.greenBrighterColor),
     DeliveryOption(
         title: 'Чемодан',
         iconPath: 'assets/images/travel_luggage.png',
-        color: const Color(0xff00ADEF)),
+        color: AppColors.blueBrighterColor),
   ];
 
   @override
@@ -62,10 +62,10 @@ class _SendPageState extends State<SendPage> {
                 final option = deliveryOptions[index];
 
                 return Positioned(
-                  top: index == 0 ? width * 0.23 : null,
-                  bottom: index == 1 ? width * 0.23 : null,
-                  left: index == 2 ? width * 0.23 : null,
-                  right: index == 3 ? width * 0.23 : null,
+                  top: index == 0 ? width * 0.22 : null,
+                  bottom: index == 1 ? width * 0.22 : null,
+                  left: index == 2 ? width * 0.22 : null,
+                  right: index == 3 ? width * 0.22 : null,
                   child: GestureDetector(
                     onTap: () {
                       setState(() => selectedIndex = index);
@@ -78,13 +78,13 @@ class _SendPageState extends State<SendPage> {
                       );
                     },
                     child: buildRotatedContainer(
-                      size: width * 0.22,
-                      color: selectedIndex == index
-                          ? option.color.withOpacity(0.7)
-                          : option.color.withOpacity(0.3),
-                      icon: option.iconPath,
-                      label: option.title,
-                    ),
+                        size: width * 0.22,
+                        color: selectedIndex == index
+                            ? option.color
+                            : option.color,
+                        icon: option.iconPath,
+                        label: option.title,
+                        index: index),
                   ),
                 );
               }),
@@ -100,13 +100,24 @@ class _SendPageState extends State<SendPage> {
     required Color color,
     required String icon,
     required String label,
+    required int index,
   }) {
     return Transform.rotate(
-      angle: 0.78,
+      angle: 0.80,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: color,
+          boxShadow: selectedIndex == index
+              ? [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.5),
+                    blurRadius: 0,
+                    spreadRadius: 7,
+                    offset: const Offset(1, 1),
+                  )
+                ]
+              : null,
         ),
         width: size,
         height: size,
@@ -127,3 +138,22 @@ class _SendPageState extends State<SendPage> {
     );
   }
 }
+
+final List<DeliveryOption> deliveryOptions = [
+  DeliveryOption(
+      title: 'Конверт',
+      iconPath: 'assets/images/wpf_message.png',
+      color: const Color(0xffF1511B)),
+  DeliveryOption(
+      title: 'Поиск',
+      iconPath: 'assets/images/search_in_cloud.png',
+      color: const Color(0xffFFB900)),
+  DeliveryOption(
+      title: 'Каробка',
+      iconPath: 'assets/images/la_box_open.png',
+      color: const Color(0xff80CC28)),
+  DeliveryOption(
+      title: 'Чемодан',
+      iconPath: 'assets/images/travel_luggage.png',
+      color: const Color(0xff00ADEF)),
+];
