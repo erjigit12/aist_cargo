@@ -11,6 +11,11 @@ class AppTextStyles {
     fontSize: 10,
   );
 
+  static const f10w500 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 10,
+  );
+
   static const f12w400 = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 12,
@@ -26,6 +31,11 @@ class AppTextStyles {
     fontSize: 12,
   );
 
+  static const f12w700 = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 12,
+  );
+
   static const f14w400 = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 14,
@@ -38,6 +48,11 @@ class AppTextStyles {
 
   static const f15w400 = TextStyle(
     fontWeight: FontWeight.w400,
+    fontSize: 15,
+  );
+
+  static const f15w500 = TextStyle(
+    fontWeight: FontWeight.w500,
     fontSize: 15,
   );
 
@@ -58,6 +73,11 @@ class AppTextStyles {
 
   static const f18w400 = TextStyle(
     fontWeight: FontWeight.w400,
+    fontSize: 18,
+  );
+
+  static const f18w700 = TextStyle(
+    fontWeight: FontWeight.w700,
     fontSize: 18,
   );
 

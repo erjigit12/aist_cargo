@@ -6,10 +6,16 @@ class ElevatedButtonWidget extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.title,
+    this.style,
+    this.backgroundColor,
+    this.side,
   });
 
   final void Function()? onPressed;
   final String title;
+  final TextStyle? style;
+  final Color? backgroundColor;
+  final BorderSide? side;
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +25,21 @@ class ElevatedButtonWidget extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonColor,
-                fixedSize: const Size(double.infinity, 60),
+                backgroundColor: backgroundColor ?? AppColors.buttonColor,
+                fixedSize: style == null
+                    ? const Size(double.infinity, 60)
+                    : const Size(double.infinity, 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+                side: side,
                 textStyle: AppTextStyles.f18w400),
             child: Text(
               title,
-              style: AppTextStyles.f20w400.copyWith(
-                color: const Color(0xFF101010),
-              ),
+              style: style ??
+                  AppTextStyles.f20w400.copyWith(
+                    color: const Color(0xFF101010),
+                  ),
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
@@ -29,131 +30,140 @@ class TripCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.amber[100], // Фон карточки
+        color: AppColors.buttonColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Верхняя часть с фото и именем
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(profileImageUrl),
+              const CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/images/profile.jpeg'),
               ),
-              const SizedBox(width: 12),
+              Text(
+                name,
+                style: AppTextStyles.f15w500,
+              ),
+            ],
+          ),
+          8.h,
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.buttonColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text('Поездка', style: AppTextStyles.f14w400),
+              ),
+              Text(
+                '№ $tripNumber',
+                style: AppTextStyles.f18w700,
+              ),
+            ],
+          ),
+          8.h,
+
+          // Описание
+          Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width * 0.3,
+            ),
+            child: const Text(
+              'Я даю гарантию безопасную транспортировку.',
+              style: AppTextStyles.f12w400,
+            ),
+          ),
+          8.h,
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  const Text(
+                    'Бишкек',
+                    style: AppTextStyles.f12w700,
+                  ),
+                  const Text(
+                    'Дата вылета',
+                    style: AppTextStyles.f12w600,
+                  ),
+                  const Text(
+                    'Дата прилёта',
+                    style: AppTextStyles.f12w600,
                   ),
                   Text(
-                    '№ $tripNumber',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54,
-                    ),
+                    packageType,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Баткен',
+                    style: AppTextStyles.f12w700,
+                  ),
+                  Text(
+                    departureDate,
+                    style: AppTextStyles.f12w400,
+                  ),
+                  Text(
+                    arrivalDate,
+                    style: AppTextStyles.f12w400,
+                  ),
+                  Text(
+                    packageSize,
+                    style: AppTextStyles.f12w400,
                   ),
                 ],
               ),
             ],
           ),
+          8.h,
 
-          const SizedBox(height: 12),
-
-          // Жёлтая кнопка "Поездка"
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text(
-              'Поездка',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          // Описание
-          const Text(
-            'Я даю гарантию безопасную транспортировку.',
-            style: TextStyle(fontSize: 14),
-          ),
-
-          const SizedBox(height: 12),
-
-          // Информация о поездке
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Бишкек',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Баткен',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Дата вылета\n$departureDate',
-                style: const TextStyle(fontSize: 14),
-              ),
-              Text(
-                'Дата прилёта\n$arrivalDate',
-                style: const TextStyle(fontSize: 14),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            '$packageType   $packageSize',
-            style: const TextStyle(fontSize: 14),
-          ),
-
-          const SizedBox(height: 16),
-
-          // Кнопки "Архивировать" и "Редактировать"
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.black54,
+          Padding(
+            padding: const EdgeInsets.only(left: 70),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButtonWidget(
+                    title: 'Архивировать',
+                    onPressed: () {},
+                    backgroundColor: AppColors.whiteColor,
+                    side: const BorderSide(
+                      color: AppColors.blackColor,
+                      width: 0.3,
+                    ),
+                    style: AppTextStyles.f10w500
+                        .copyWith(color: AppColors.greyTextColor),
                   ),
-                  child: const Text('Архивировать'),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButtonWidget(
+                    title: 'Редактировать',
+                    onPressed: () {},
+                    style: AppTextStyles.f10w500
+                        .copyWith(color: AppColors.textColor),
                   ),
-                  child: const Text('Редактировать'),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

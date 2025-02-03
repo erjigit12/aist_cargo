@@ -20,7 +20,7 @@ class TripsOrParcelsPage extends StatelessWidget {
             return const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: TripCard(
-                name: 'Erzhigit',
+                name: 'Асел Асылбекова',
                 tripNumber: '12345',
                 from: 'Batken',
                 to: 'Osh',
