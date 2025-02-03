@@ -18,7 +18,7 @@ class TripsOrParcelsPage extends StatelessWidget {
           itemCount: 2,
           itemBuilder: (context, index) {
             return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.only(left: 16, right: 16, top: 38),
               child: TripCard(
                 name: 'Асел Асылбекова',
                 tripNumber: '12345',
@@ -27,6 +27,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                 packageSize: 'M',
                 arrivalDate: '2023-09-01',
                 departureDate: '2323-09-01',
+                autoNumber: 'IA 3456 K',
                 packageType: 'Box',
                 profileImageUrl: 'assets/images/truck_mx3.png',
               ),
