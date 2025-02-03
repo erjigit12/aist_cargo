@@ -78,12 +78,13 @@ class _DeliverPageState extends State<DeliverPage> {
                       );
                     },
                     child: buildRotatedContainer(
-                      size: width * 0.22,
-                      color:
-                          selectedIndex == index ? option.color : option.color,
-                      icon: option.iconPath,
-                      label: option.title,
-                    ),
+                        size: width * 0.22,
+                        color: selectedIndex == index
+                            ? option.color
+                            : option.color,
+                        icon: option.iconPath,
+                        label: option.title,
+                        index: index),
                   ),
                 );
               }),
@@ -99,6 +100,7 @@ class _DeliverPageState extends State<DeliverPage> {
     required Color color,
     required String icon,
     required String label,
+    required int index,
   }) {
     return Transform.rotate(
       angle: 0.78,
@@ -106,17 +108,16 @@ class _DeliverPageState extends State<DeliverPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: color,
-          border: Border.all(
-            color: Colors.green,
-            width: 2,
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.green,
-              blurRadius: 6,
-              offset: Offset(0, 3),
-            )
-          ],
+          boxShadow: selectedIndex == index
+              ? [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.5),
+                    blurRadius: 0,
+                    spreadRadius: 7,
+                    offset: const Offset(1, 1),
+                  )
+                ]
+              : null,
         ),
         width: size,
         height: size,
