@@ -62,10 +62,10 @@ class _DeliverPageState extends State<DeliverPage> {
                 final option = deliveryOptions[index];
 
                 return Positioned(
-                  top: index == 0 ? width * 0.23 : null,
-                  bottom: index == 1 ? width * 0.23 : null,
-                  left: index == 2 ? width * 0.23 : null,
-                  right: index == 3 ? width * 0.23 : null,
+                  top: index == 0 ? width * 0.22 : null,
+                  bottom: index == 1 ? width * 0.22 : null,
+                  left: index == 2 ? width * 0.22 : null,
+                  right: index == 3 ? width * 0.22 : null,
                   child: GestureDetector(
                     onTap: () {
                       setState(() => selectedIndex = index);
@@ -103,7 +103,7 @@ class _DeliverPageState extends State<DeliverPage> {
     required int index,
   }) {
     return Transform.rotate(
-      angle: 0.78,
+      angle: 0.80,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
