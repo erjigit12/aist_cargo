@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<OtpBloc>(),
         ),
+        BlocProvider(
+          create: (context) => di.sl<HomeCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

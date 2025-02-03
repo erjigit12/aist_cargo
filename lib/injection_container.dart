@@ -8,4 +8,6 @@ Future<void> init() async {
   sl.registerFactory<MainCubit>(() => MainCubit());
 
   sl.registerFactory<OtpBloc>(() => OtpBloc());
+
+  sl.registerFactory<HomeCubit>(() => HomeCubit());
 }
