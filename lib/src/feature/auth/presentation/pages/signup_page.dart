@@ -121,7 +121,8 @@ class SignUpPage extends StatelessWidget {
                   26.h,
                   ElevatedButtonWidget(
                     title: 'Продолжить',
-                    onPressed: () => Navigator.pushNamed(context, '/main'),
+                    onPressed: () => Navigator.pushNamed(context, '/otpCode',
+                        arguments: 'pesfifaer20@gmail.com'),
                   ),
                   8.h,
                   const UserAgreement(),

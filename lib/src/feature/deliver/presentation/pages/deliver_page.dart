@@ -16,19 +16,19 @@ class _DeliverPageState extends State<DeliverPage> {
     DeliveryOption(
         title: 'Самолет',
         iconPath: 'assets/images/airplane.png',
-        color: const Color(0xffF1511B)),
+        color: AppColors.redBrighterColor),
     DeliveryOption(
         title: 'Поиск',
         iconPath: 'assets/images/search_in_cloud.png',
-        color: const Color(0xffFFB900)),
+        color: AppColors.yellowBrighterColor),
     DeliveryOption(
         title: 'Автомобиль',
         iconPath: 'assets/images/car.png',
-        color: const Color(0xff80CC28)),
+        color: AppColors.greenBrighterColor),
     DeliveryOption(
         title: 'Грузовик',
         iconPath: 'assets/images/semi_truck.png',
-        color: const Color(0xff00ADEF)),
+        color: AppColors.blueBrighterColor),
   ];
 
   @override
@@ -79,9 +79,8 @@ class _DeliverPageState extends State<DeliverPage> {
                     },
                     child: buildRotatedContainer(
                       size: width * 0.22,
-                      color: selectedIndex == index
-                          ? option.color.withOpacity(0.7)
-                          : option.color.withOpacity(0.3),
+                      color:
+                          selectedIndex == index ? option.color : option.color,
                       icon: option.iconPath,
                       label: option.title,
                     ),
@@ -107,6 +106,17 @@ class _DeliverPageState extends State<DeliverPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: color,
+          border: Border.all(
+            color: Colors.green,
+            width: 2,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.green,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            )
+          ],
         ),
         width: size,
         height: size,
