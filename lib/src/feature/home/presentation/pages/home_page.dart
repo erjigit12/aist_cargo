@@ -34,7 +34,6 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   context.read<HomeCubit>().selectIndex(1);
                   context.read<MainCubit>().change(3);
-                  // Навигация на другую страницу
                 },
                 child: Column(
                   children: [
@@ -75,7 +74,6 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   context.read<HomeCubit>().selectIndex(2);
                   context.read<MainCubit>().change(1);
-                  // Навигация на другую страницу
                 },
                 child: Column(
                   children: [
