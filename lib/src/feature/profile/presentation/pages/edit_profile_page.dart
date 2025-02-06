@@ -6,13 +6,28 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Укажите основную информацию, чтобы завоевать больше доверие людей',
             style: AppTextStyles.f14w400,
+            textAlign: TextAlign.center,
           ),
+          20.h,
+          const CircleAvatar(
+            radius: 40,
+            backgroundImage: AssetImage('assets/images/semi_truck.png'),
+          ),
+          10.h,
+          const Text(
+            "Айжан Асылова",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          20.h,
+          const TextFieldWithTitle(title: 'Имя', hintText: 'Айжан Асылова'),
         ],
       ),
     );
