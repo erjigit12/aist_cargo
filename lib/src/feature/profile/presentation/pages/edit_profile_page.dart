@@ -2,7 +2,18 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  const EditProfilePage({
+    super.key,
+    this.title,
+    this.image,
+    this.name,
+    this.surName,
+  });
+
+  final String? title;
+  final String? image;
+  final String? name;
+  final String? surName;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
