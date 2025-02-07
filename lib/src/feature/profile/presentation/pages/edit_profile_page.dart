@@ -39,11 +39,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           10.h,
           const Text(
-            "Айжан Асылова",
+            "Айжан ",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           20.h,
-          const TextFieldWithTitle(title: 'Имя', hintText: 'Айжан Асылова'),
+          const TextFieldWithTitle(title: 'Имя', hintText: 'Асылова'),
         ],
       ),
     );
