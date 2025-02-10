@@ -111,7 +111,7 @@ class _DeliverPageState extends State<DeliverPage> {
           boxShadow: selectedIndex == index
               ? [
                   BoxShadow(
-                    color: Colors.green.withOpacity(0.5),
+                    color: Colors.green.withValues(alpha: 0.2),
                     blurRadius: 0,
                     spreadRadius: 7,
                     offset: const Offset(1, 1),

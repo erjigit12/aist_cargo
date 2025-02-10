@@ -35,7 +35,7 @@ class TripCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.buttonColor.withOpacity(0.2),
+            color: AppColors.buttonColor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
