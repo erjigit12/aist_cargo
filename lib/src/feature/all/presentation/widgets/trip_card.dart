@@ -2,17 +2,6 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
-  final String name;
-  final String tripNumber;
-  final String from;
-  final String to;
-  final String departureDate;
-  final String arrivalDate;
-  final String packageType;
-  final String packageSize;
-  final String? autoNumber;
-  final String profileImageUrl;
-
   const TripCard({
     super.key,
     required this.name,
@@ -25,7 +14,20 @@ class TripCard extends StatelessWidget {
     required this.packageSize,
     required this.profileImageUrl,
     this.autoNumber,
+    this.isParcel,
   });
+
+  final String name;
+  final String tripNumber;
+  final String from;
+  final String to;
+  final String departureDate;
+  final String arrivalDate;
+  final String packageType;
+  final String packageSize;
+  final String? autoNumber;
+  final String profileImageUrl;
+  final bool? isParcel;
 
   @override
   Widget build(BuildContext context) {
@@ -135,35 +137,37 @@ class TripCard extends StatelessWidget {
               ),
               8.h,
 
-              Padding(
-                padding: const EdgeInsets.only(left: 70),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButtonWidget(
-                        title: 'Архивировать',
-                        onPressed: () {},
-                        backgroundColor: AppColors.whiteColor,
-                        side: const BorderSide(
-                          color: AppColors.blackColor,
-                          width: 0.3,
-                        ),
-                        style: AppTextStyles.f10w500
-                            .copyWith(color: AppColors.greyTextColor),
+              isParcel == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 70),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButtonWidget(
+                              title: 'Архивировать',
+                              onPressed: () {},
+                              backgroundColor: AppColors.whiteColor,
+                              side: const BorderSide(
+                                color: AppColors.blackColor,
+                                width: 0.3,
+                              ),
+                              style: AppTextStyles.f10w500
+                                  .copyWith(color: AppColors.greyTextColor),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ElevatedButtonWidget(
+                              title: 'Редактировать',
+                              onPressed: () {},
+                              style: AppTextStyles.f10w500
+                                  .copyWith(color: AppColors.textColor),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: ElevatedButtonWidget(
-                        title: 'Редактировать',
-                        onPressed: () {},
-                        style: AppTextStyles.f10w500
-                            .copyWith(color: AppColors.textColor),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

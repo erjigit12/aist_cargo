@@ -6,6 +6,8 @@ import 'unknown_page.dart';
 class RouteGenerator {
   static Route? onGenerate(RouteSettings settings) {
     final route = settings.name;
+    final Object? arguments = settings.arguments;
+    final args = (arguments is Map<String, dynamic>) ? arguments : {};
 
     switch (route) {
       case AppRoutes.login:
@@ -42,7 +44,8 @@ class RouteGenerator {
       case AppRoutes.tripsOrParcels:
         return CupertinoPageRoute(
             builder: (_) => TripsOrParcelsPage(
-                  title: settings.arguments as String,
+                  title: args['title'] as String,
+                  isParcel: args['isParcel'] as bool,
                 ));
 
       default:

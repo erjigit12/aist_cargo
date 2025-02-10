@@ -6,9 +6,11 @@ class TripsOrParcelsPage extends StatelessWidget {
   const TripsOrParcelsPage({
     super.key,
     required this.title,
+    this.isParcel,
   });
 
   final String title;
+  final bool? isParcel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class TripsOrParcelsPage extends StatelessWidget {
       body: ListView.builder(
           itemCount: 2,
           itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 38),
+            return Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 38),
               child: TripCard(
                 name: 'Асел Асылбекова',
                 tripNumber: '12345',
@@ -30,6 +32,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                 autoNumber: 'IA 3456 K',
                 packageType: 'Box',
                 profileImageUrl: 'assets/images/truck_mx3.png',
+                isParcel: isParcel,
               ),
             );
           }),

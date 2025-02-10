@@ -47,8 +47,12 @@ void showCustomBottomSheet(BuildContext context) {
                           Navigator.pop(context);
                         }
                         Navigator.of(context, rootNavigator: true).pushNamed(
-                            AppRoutes.tripsOrParcels,
-                            arguments: 'Поездки');
+                          AppRoutes.tripsOrParcels,
+                          arguments: {
+                            'title': 'Поездки',
+                            'isParcel': true,
+                          },
+                        );
                       },
                     ),
                   ),
@@ -72,8 +76,12 @@ void showCustomBottomSheet(BuildContext context) {
                           Navigator.pop(context);
                         }
                         Navigator.of(context, rootNavigator: true).pushNamed(
-                            AppRoutes.tripsOrParcels,
-                            arguments: 'Посылки');
+                          AppRoutes.tripsOrParcels,
+                          arguments: {
+                            'title': 'Посылки',
+                            'isParcel': false,
+                          },
+                        );
                       },
                     ),
                   ),
