@@ -17,4 +17,7 @@ class AppRoutes {
 
   /*  <---- All -----> */
   static const tripsOrParcels = '/tripsOrParcels';
+
+  /*  <---- Profile -----> */
+  static const editProfile = '/editProfile';
 }
