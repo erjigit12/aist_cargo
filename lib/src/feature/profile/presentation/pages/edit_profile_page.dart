@@ -27,23 +27,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Укажите основную информацию, чтобы завоевать больше доверие людей',
+          Text(
+            '${widget.title}',
             style: AppTextStyles.f14w400,
             textAlign: TextAlign.center,
           ),
           20.h,
-          const CircleAvatar(
+          CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage('assets/images/semi_truck.png'),
+            backgroundImage: AssetImage('${widget.image}'),
           ),
           10.h,
-          const Text(
-            "Айжан ",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Text(
+            "${widget.name}",
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           20.h,
-          const TextFieldWithTitle(title: 'Имя', hintText: 'Асылова'),
+          TextFieldWithTitle(title: 'Имя', hintText: '${widget.surName}'),
         ],
       ),
     );
