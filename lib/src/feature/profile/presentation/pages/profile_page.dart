@@ -127,15 +127,15 @@ class ProfilePage extends StatelessWidget {
                   .copyWith(color: AppColors.greyBrightColor),
             ),
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.editProfile),
-              child: ListTile(
-                leading: const Icon(Icons.edit, color: Colors.black54),
-                title: const Text("Редактировать профиль"),
-                trailing: const Icon(Icons.arrow_forward_ios,
-                    size: 16, color: Colors.grey),
-                onTap: () {},
-              ),
-            ),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.editProfile),
+                child: ListTile(
+                  leading: const Icon(Icons.edit, color: Colors.black54),
+                  title: const Text("Редактировать профиль"),
+                  trailing: const Icon(Icons.arrow_forward_ios,
+                      size: 16, color: Colors.grey),
+                  onTap: () {},
+                )),
             ListTile(
               leading: const Icon(Icons.directions_car, color: Colors.black54),
               title: const Text("Мои поездки"),
