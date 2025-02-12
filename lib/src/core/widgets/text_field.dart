@@ -10,12 +10,14 @@ class TextFormFieldWidget extends StatefulWidget {
     this.suffix = false,
     this.backroundColor = Colors.transparent,
     this.controller,
+    this.keyboardType,
   });
 
   final String? hintText;
   final bool? suffix;
   final Color? backroundColor;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
 
   @override
   _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
@@ -27,6 +29,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       controller: widget.controller,
       obscureText: widget.suffix == true ? _obscureText : false,
       decoration: InputDecoration(

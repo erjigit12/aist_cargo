@@ -8,12 +8,14 @@ class TextFieldWithTitle extends StatelessWidget {
     this.hintText,
     this.backgroundColor,
     this.suffix,
+    this.keyboardType,
   });
 
   final String title;
   final String? hintText;
   final Color? backgroundColor;
   final bool? suffix;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class TextFieldWithTitle extends StatelessWidget {
           hintText: hintText,
           backroundColor: backgroundColor ?? AppColors.whiteColor,
           suffix: suffix,
+          keyboardType: keyboardType,
         ),
       ],
     );
