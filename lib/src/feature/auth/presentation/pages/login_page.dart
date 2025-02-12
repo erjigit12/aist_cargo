@@ -89,14 +89,15 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Email', style: AppTextStyles.f14w500),
-                8.h,
-                const TextFormFieldWidget(hintText: 'Email'),
+                const TextFieldWithTitle(
+                  title: 'Электронная почта',
+                  backgroundColor: Colors.transparent,
+                  hintText: 'Электронная почта',
+                ),
                 16.h,
-                const Text('Пароль', style: AppTextStyles.f14w500),
-                8.h,
-                const TextFormFieldWidget(
-                  suffix: true,
+                const TextFieldWithTitle(
+                  title: 'Пароль',
+                  backgroundColor: Colors.transparent,
                   hintText: 'Пароль',
                 ),
                 8.h,
