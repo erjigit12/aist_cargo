@@ -7,11 +7,13 @@ class TextFieldWithTitle extends StatelessWidget {
     required this.title,
     this.hintText,
     this.backgroundColor,
+    this.suffix,
   });
 
   final String title;
   final String? hintText;
   final Color? backgroundColor;
+  final bool? suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class TextFieldWithTitle extends StatelessWidget {
         TextFormFieldWidget(
           hintText: hintText,
           backroundColor: backgroundColor ?? AppColors.whiteColor,
+          suffix: suffix,
         ),
       ],
     );

@@ -99,6 +99,7 @@ class LoginPage extends StatelessWidget {
                   title: 'Пароль',
                   backgroundColor: Colors.transparent,
                   hintText: 'Пароль',
+                  suffix: true,
                 ),
                 8.h,
                 Row(
