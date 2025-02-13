@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: Colors.transparent,
       leading: IconButton(
         icon: icon == null
             ? const Icon(Icons.arrow_back_ios_new, size: 16)

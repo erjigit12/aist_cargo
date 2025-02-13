@@ -186,11 +186,21 @@ class ProfilePage extends StatelessWidget {
                     Navigator.of(context, rootNavigator: true).pushNamed(
                       AppRoutes.mySubscription,
                       arguments: {
+                        'title': 'Отправки',
+                      },
+                    );
+                  },
+                  onTap2: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Navigator.of(context, rootNavigator: true).pushNamed(
+                      AppRoutes.mySubscription,
+                      arguments: {
                         'title': 'Доставки',
                       },
                     );
                   },
-                  onTap2: () {},
                 );
               },
             ),

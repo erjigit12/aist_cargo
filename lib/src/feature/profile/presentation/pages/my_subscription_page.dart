@@ -17,8 +17,11 @@ class MySubscriptionPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const Spacer(flex: 2),
           Image.asset('assets/images/dollars.png'),
+          const Spacer(flex: 2),
           const Text('1 месяц за 99₽', style: AppTextStyles.f16w600),
+          const Spacer(flex: 2),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Row(
@@ -39,7 +42,15 @@ class MySubscriptionPage extends StatelessWidget {
               ],
             ),
           ),
-          // ElevatedButtonWidget(title: 'Обновить  подписку', onPressed: () {}),
+          const Spacer(flex: 2),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ElevatedButtonWidget(
+              title: 'Обновить  подписку',
+              onPressed: () {},
+            ),
+          ),
+          const Spacer(flex: 2),
         ],
       ),
     );
