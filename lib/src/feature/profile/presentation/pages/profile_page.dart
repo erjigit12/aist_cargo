@@ -261,7 +261,13 @@ class ProfilePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.login,
+                  (route) => false,
+                );
+              },
               child: const Center(
                 child:
                     Text("Выйти из аккаунта", style: TextStyle(fontSize: 16)),
