@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
-    this.title,
-    this.image,
-    this.name,
-    this.surName,
+    // this.title,
+    // this.image,
+    // this.name,
+    // this.surName,
   });
 
-  final String? title;
-  final String? image;
-  final String? name;
-  final String? surName;
+  // final String? title;
+  // final String? image;
+  // final String? name;
+  // final String? surName;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -28,22 +28,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '${widget.title}',
+            '{widget.title}',
             style: AppTextStyles.f14w400,
             textAlign: TextAlign.center,
           ),
           20.h,
           CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage('${widget.image}'),
+            backgroundImage: AssetImage('{widget.image}'),
           ),
           10.h,
           Text(
-            "${widget.name}",
+            "{widget.name}",
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           20.h,
-          TextFieldWithTitle(title: 'Имя', hintText: '${widget.surName}'),
+          TextFieldWithTitle(title: 'Имя', hintText: '{widget.surName}'),
         ],
       ),
     );
