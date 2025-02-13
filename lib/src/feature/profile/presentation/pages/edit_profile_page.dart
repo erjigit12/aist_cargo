@@ -1,7 +1,7 @@
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
-class EditProfilePage extends StatefulWidget {
+class EditProfilePage extends StatelessWidget {
   const EditProfilePage({
     super.key,
     // this.title,
@@ -15,11 +15,6 @@ class EditProfilePage extends StatefulWidget {
   // final String? name;
   // final String? surName;
 
-  @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
-}
-
-class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
