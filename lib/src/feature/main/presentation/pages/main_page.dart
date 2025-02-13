@@ -47,7 +47,35 @@ class MainScreen extends StatelessWidget {
           currentIndex: context.watch<MainCubit>().state,
           onTap: (index) {
             if (index == 2) {
-              showCustomBottomSheet(context);
+              showCustomBottomSheet(
+                context,
+                listTitle1: 'Поездки',
+                listTitle2: 'Посылки',
+                onTap1: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                  Navigator.of(context, rootNavigator: true).pushNamed(
+                    AppRoutes.tripsOrParcels,
+                    arguments: {
+                      'title': 'Поездки',
+                      'isParcel': true,
+                    },
+                  );
+                },
+                onTap2: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                  Navigator.of(context, rootNavigator: true).pushNamed(
+                    AppRoutes.tripsOrParcels,
+                    arguments: {
+                      'title': 'Посылки',
+                      'isParcel': false,
+                    },
+                  );
+                },
+              );
             } else {
               context.read<MainCubit>().change(index);
             }

@@ -1,7 +1,14 @@
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
-void showCustomBottomSheet(BuildContext context) {
+void showCustomBottomSheet(
+  BuildContext context, {
+  String? title,
+  String? listTitle1,
+  String? listTitle2,
+  void Function()? onTap1,
+  void Function()? onTap2,
+}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -28,6 +35,7 @@ void showCustomBottomSheet(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Text(title ?? '', style: AppTextStyles.f12w600),
                 const Spacer(flex: 1),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -39,21 +47,10 @@ void showCustomBottomSheet(BuildContext context) {
                     ),
                     onPressed: () {},
                     child: ListTile(
-                      leading: const Icon(Icons.directions_car),
-                      title: const Text('Поездки'),
+                      leading: Image.asset('assets/icons/tourist.png'),
+                      title: Text(listTitle1 ?? ''),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-                        Navigator.of(context, rootNavigator: true).pushNamed(
-                          AppRoutes.tripsOrParcels,
-                          arguments: {
-                            'title': 'Поездки',
-                            'isParcel': true,
-                          },
-                        );
-                      },
+                      onTap: onTap1,
                     ),
                   ),
                 ),
@@ -68,21 +65,10 @@ void showCustomBottomSheet(BuildContext context) {
                     ),
                     onPressed: () {},
                     child: ListTile(
-                      leading: const Icon(Icons.local_shipping),
-                      title: const Text('Посылки'),
+                      leading: Image.asset('assets/icons/worker.png'),
+                      title: Text(listTitle2 ?? ''),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-                        Navigator.of(context, rootNavigator: true).pushNamed(
-                          AppRoutes.tripsOrParcels,
-                          arguments: {
-                            'title': 'Посылки',
-                            'isParcel': false,
-                          },
-                        );
-                      },
+                      onTap: onTap2,
                     ),
                   ),
                 ),
