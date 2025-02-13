@@ -1,7 +1,7 @@
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
     // this.title,
@@ -10,15 +10,18 @@ class EditProfilePage extends StatelessWidget {
     // this.surName,
   });
 
-  // final String? title;
-  // final String? image;
-  // final String? name;
-  // final String? surName;
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  bool isCheck = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -54,11 +57,26 @@ class EditProfilePage extends StatelessWidget {
               Row(
                 children: [
                   Checkbox(
-                    value: false,
-                    onChanged: (value) {},
+                    value: isCheck,
+                    onChanged: (value) {
+                      setState(() {
+                        isCheck = value ?? false;
+                      });
+                    },
+                  ),
+                  Text(
+                    'Даю согласие на обработку персональных данных',
+                    style: AppTextStyles.f9w400
+                        .copyWith(color: AppColors.blueColor),
                   ),
                 ],
               ),
+              20.h,
+              ElevatedButtonWidget(
+                title: 'Сохранить',
+                onPressed: () {},
+              ),
+              20.h,
             ],
           ),
         ),
