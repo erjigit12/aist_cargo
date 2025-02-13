@@ -22,23 +22,23 @@ class EditProfilePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             '{widget.title}',
             style: AppTextStyles.f14w400,
             textAlign: TextAlign.center,
           ),
           20.h,
-          CircleAvatar(
+          const CircleAvatar(
             radius: 40,
             backgroundImage: AssetImage('{widget.image}'),
           ),
           10.h,
-          Text(
+          const Text(
             "{widget.name}",
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           20.h,
-          TextFieldWithTitle(title: 'Имя', hintText: '{widget.surName}'),
+          const TextFieldWithTitle(title: 'Имя', hintText: '{widget.surName}'),
         ],
       ),
     );
