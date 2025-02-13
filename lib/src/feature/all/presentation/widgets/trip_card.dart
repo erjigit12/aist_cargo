@@ -15,8 +15,10 @@ class TripCard extends StatelessWidget {
     required this.profileImageUrl,
     this.autoNumber,
     this.isParcel,
+    required this.title,
   });
 
+  final String title;
   final String name;
   final String tripNumber;
   final String from;
@@ -56,7 +58,7 @@ class TripCard extends StatelessWidget {
                       color: AppColors.buttonColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text('Поездка', style: AppTextStyles.f14w400),
+                    child: Text(title, style: AppTextStyles.f14w400),
                   ),
                   Text(
                     '№ $tripNumber',
