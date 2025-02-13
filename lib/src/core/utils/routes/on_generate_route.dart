@@ -47,7 +47,7 @@ class RouteGenerator {
       case AppRoutes.mySubscription:
         return CupertinoPageRoute(
             builder: (_) =>
-                MySubscriptionPage(appBarTitle: settings.arguments as String));
+                MySubscriptionPage(appBarTitle: args['title'] as String));
 
       case AppRoutes.tripsOrParcels:
         return CupertinoPageRoute(

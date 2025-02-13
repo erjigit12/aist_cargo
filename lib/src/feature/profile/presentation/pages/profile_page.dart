@@ -179,7 +179,17 @@ class ProfilePage extends StatelessWidget {
                   title: 'Мои подписки',
                   listTitle1: 'Отправить',
                   listTitle2: 'Доставить',
-                  onTap1: () {},
+                  onTap1: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Navigator.of(context, rootNavigator: true).pushNamed(
+                      AppRoutes.mySubscription,
+                      arguments: {
+                        'title': 'Доставки',
+                      },
+                    );
+                  },
                   onTap2: () {},
                 );
               },
