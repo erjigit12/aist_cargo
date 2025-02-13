@@ -44,6 +44,11 @@ class RouteGenerator {
       case AppRoutes.editProfile:
         return CupertinoPageRoute(builder: (_) => const EditProfilePage());
 
+      case AppRoutes.mySubscription:
+        return CupertinoPageRoute(
+            builder: (_) =>
+                MySubscriptionPage(appBarTitle: settings.arguments as String));
+
       case AppRoutes.tripsOrParcels:
         return CupertinoPageRoute(
             builder: (_) => TripsOrParcelsPage(

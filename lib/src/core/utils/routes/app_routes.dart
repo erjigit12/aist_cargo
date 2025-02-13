@@ -20,4 +20,5 @@ class AppRoutes {
 
   /*  <---- Profile -----> */
   static const editProfile = '/editProfile';
+  static const mySubscription = '/mySubscription';
 }
