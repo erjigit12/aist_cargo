@@ -18,28 +18,50 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            '{widget.title}',
-            style: AppTextStyles.f14w400,
-            textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              80.h,
+              const Text(
+                'Укажите основную информацию, чтобы завоевать больше доверие людей',
+                style: AppTextStyles.f14w400,
+                textAlign: TextAlign.center,
+              ),
+              20.h,
+              const CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/images/profile.jpeg'),
+              ),
+              10.h,
+              Text(
+                "Фото пользователя",
+                style:
+                    AppTextStyles.f12w400.copyWith(color: AppColors.greyColor),
+              ),
+              20.h,
+              const TextFieldWithTitle(title: 'Имя'),
+              20.h,
+              const TextFieldWithTitle(title: 'Фамилия'),
+              20.h,
+              const TextFieldWithTitle(title: 'Дата рождения'),
+              20.h,
+              const TextFieldWithTitle(title: 'Email для восстановление'),
+              20.h,
+              Row(
+                children: [
+                  Checkbox(
+                    value: false,
+                    onChanged: (value) {},
+                  ),
+                ],
+              ),
+            ],
           ),
-          20.h,
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage('{widget.image}'),
-          ),
-          10.h,
-          const Text(
-            "{widget.name}",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          20.h,
-          const TextFieldWithTitle(title: 'Имя', hintText: '{widget.surName}'),
-        ],
+        ),
       ),
     );
   }
