@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -172,7 +173,16 @@ class ProfilePage extends StatelessWidget {
                 size: 16,
                 color: Colors.grey,
               ),
-              onTap: () {},
+              onTap: () async {
+                showCustomBottomSheet(
+                  context,
+                  title: 'Мои подписки',
+                  listTitle1: 'Отправить',
+                  listTitle2: 'Доставить',
+                  onTap1: () {},
+                  onTap2: () {},
+                );
+              },
             ),
             16.h,
             Text(

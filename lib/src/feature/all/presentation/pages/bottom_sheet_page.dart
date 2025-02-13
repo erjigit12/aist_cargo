@@ -35,7 +35,8 @@ void showCustomBottomSheet(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(title ?? '', style: AppTextStyles.f12w600),
+                const Spacer(flex: 1),
+                Text(title ?? '', style: AppTextStyles.f20w500),
                 const Spacer(flex: 1),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
