@@ -7,11 +7,13 @@ class OutlineButtonWidget extends StatelessWidget {
     this.onPressed,
     this.icon,
     required this.title,
+    this.titleColor,
   });
 
   final void Function()? onPressed;
   final String? icon;
   final String title;
+  final Color? titleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class OutlineButtonWidget extends StatelessWidget {
           Text(
             title,
             style: AppTextStyles.f16w400.copyWith(
-              color: AppColors.greyTextColor,
+              color: titleColor ?? AppColors.greyTextColor,
             ),
           ),
         ],
