@@ -251,28 +251,7 @@ class ProfilePage extends StatelessWidget {
               ),
               onTap: () {},
             ),
-            const SizedBox(height: 20),
-            // ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: Colors.orange,
-            //     foregroundColor: Colors.white,
-            //     padding: const EdgeInsets.symmetric(vertical: 14),
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(12),
-            //     ),
-            //   ),
-            //   onPressed: () {
-            //     Navigator.pushNamedAndRemoveUntil(
-            //       context,
-            //       AppRoutes.login,
-            //       (route) => false,
-            //     );
-            //   },
-            //   child: const Center(
-            //     child:
-            //         Text("Выйти из аккаунта", style: TextStyle(fontSize: 16)),
-            //   ),
-            // ),
+            20.h,
             OutlineButtonWidget(
               icon: 'assets/icons/logout.png',
               title: 'Выйти из аккаунта',
