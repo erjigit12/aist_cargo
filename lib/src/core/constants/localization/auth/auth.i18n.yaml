@@ -1,5 +1,4 @@
-slogan: An application for mothers, where there is everything about children under 2 years old
-confirm : Confirm
+confirm: Confirm
 alreadyHaveAccount: Already have an account
 phoneNumber: Phone number
 noAccount: No account
@@ -11,5 +10,3 @@ sendAnotherOneIn: Send another one in
 sendOneMore: Send one more
 numberNotRegistered: Number not registered
 invalidPassword: Invalid password
-
-
