@@ -74,7 +74,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               20.h,
               ElevatedButtonWidget(
                 title: 'Сохранить',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
               20.h,
             ],
