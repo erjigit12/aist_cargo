@@ -46,7 +46,7 @@ class MySubscriptionPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ElevatedButtonWidget(
-              title: 'Обновить  подписку',
+              title: 'Обновить подписку',
               onPressed: () {},
             ),
           ),
