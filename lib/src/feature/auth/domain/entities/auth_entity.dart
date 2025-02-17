@@ -1,11 +1,11 @@
-class UserEntity {
+class AuthEntity {
   final String? id;
   final String? name;
   final String? surName;
   final String? email;
   final String? password;
 
-  UserEntity({
+  AuthEntity({
     this.id,
     this.name,
     this.surName,
