@@ -8,6 +8,6 @@ class RegisterUsecase {
   final AuthRepository authRepository;
 
   Future<Either> call(SignupRegParams signupReg) async {
-    return await authRepository.singUpUser(signupReg);
+    return await authRepository.signUpUser(signupReg);
   }
 }

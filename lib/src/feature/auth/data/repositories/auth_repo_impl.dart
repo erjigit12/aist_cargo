@@ -11,6 +11,6 @@ class AuthRepositoryImpl implements AuthRepository {
       remoteAuthDataSource.signInUser(signinReg);
 
   @override
-  Future<Either> singUpUser(SignupRegParams signupReg) async =>
-      remoteAuthDataSource.singUpUser(signupReg);
+  Future<Either> signUpUser(SignupRegParams signupReg) async =>
+      remoteAuthDataSource.signUpUser(signupReg);
 }
