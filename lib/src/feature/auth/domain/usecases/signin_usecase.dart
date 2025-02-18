@@ -1,8 +1,8 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 
-class LoginUsecase {
-  LoginUsecase({required this.authRepository});
+class SigninUsecase {
+  SigninUsecase({required this.authRepository});
 
   final AuthRepository authRepository;
 
