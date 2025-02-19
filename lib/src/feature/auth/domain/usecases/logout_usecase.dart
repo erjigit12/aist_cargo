@@ -7,6 +7,6 @@ class SignoutUsecase {
   SignoutUsecase({required this.authRepository});
 
   Future<Either> call() async {
-    return await authRepository.signOut();
+    return await authRepository.logOut();
   }
 }
