@@ -8,10 +8,12 @@ part 'credential_state.dart';
 class CredentialCubit extends Cubit<CredentialState> {
   final SigninUsecase signinUsecase;
   final SignupUsecase signupUsecase;
+  final LogoutUsecase logoutUsecase;
 
   CredentialCubit({
     required this.signinUsecase,
     required this.signupUsecase,
+    required this.logoutUsecase,
   }) : super(CredentialInitial());
 
   void signUp(SignupRegParams signupReg) async {
@@ -32,6 +34,20 @@ class CredentialCubit extends Cubit<CredentialState> {
     emit(CredentialLoading());
     try {
       Either result = await signinUsecase(signinReg);
+      result.fold((l) {
+        emit(CredentialFailure(errorMessage: l));
+      }, (r) {
+        emit(CredentialSuccess());
+      });
+    } catch (e) {
+      emit(CredentialFailure(errorMessage: e.toString()));
+    }
+  }
+
+  void logout() async {
+    emit(CredentialLoading());
+    try {
+      Either result = await logoutUsecase.call();
       result.fold((l) {
         emit(CredentialFailure(errorMessage: l));
       }, (r) {

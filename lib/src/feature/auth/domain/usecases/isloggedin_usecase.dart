@@ -1,9 +1,9 @@
 import 'package:aist_cargo/src/feature/auth/auth.dart';
 
-class IslLoggedInUsecase {
+class IsLoggedInUsecase {
   final AuthRepository authRepository;
 
-  IslLoggedInUsecase({required this.authRepository});
+  IsLoggedInUsecase({required this.authRepository});
 
   Future<bool> call() async {
     return await authRepository.isLoggedIn();
