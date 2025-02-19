@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           create: (context) => di.sl<CredentialCubit>(),
         ),
         BlocProvider(
-          create: (context) => di.sl<AuthCubit>(),
+          create: (context) => di.sl<AuthCubit>()..appStarted(),
         ),
       ],
       child: MaterialApp(

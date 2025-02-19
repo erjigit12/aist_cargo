@@ -23,7 +23,7 @@ class OtpCodePage extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Код подтвержден!")),
             );
-            Navigator.pushNamed(context, '/main');
+            Navigator.pushNamed(context, 'main');
           } else if (state is OtpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),

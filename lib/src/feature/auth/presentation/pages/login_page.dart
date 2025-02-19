@@ -110,7 +110,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () =>
-                          Navigator.pushNamed(context, '/forgotPassword'),
+                          Navigator.pushNamed(context, 'forgotPassword'),
                       child: Text(
                         'Забыли пароль?',
                         style: AppTextStyles.f14w500.copyWith(
@@ -123,7 +123,7 @@ class LoginPage extends StatelessWidget {
                 16.h,
                 ElevatedButtonWidget(
                   title: 'Продолжить',
-                  onPressed: () => Navigator.pushNamed(context, '/otpCode',
+                  onPressed: () => Navigator.pushNamed(context, 'otpCode',
                       arguments: 'pesfifaer20@gmail.com'),
                 ),
                 8.h,
