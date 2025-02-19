@@ -4,9 +4,10 @@ import 'injection_container.dart' as di;
 import 'src/core/constant/generated/strings.g.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await di.init();
 
-  WidgetsFlutterBinding.ensureInitialized(); // add this
   LocaleSettings.useDeviceLocale();
   runApp(const MyApp());
 }

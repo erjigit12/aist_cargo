@@ -61,9 +61,9 @@ Future<void> init() async {
   sl.registerSingleton<DioClient>(DioClient());
 
   /// External
-  final dio = Dio();
   final sharedPreferences = await SharedPreferences.getInstance();
+  final dio = Dio();
 
-  sl.registerLazySingleton(() => dio);
   sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton(() => dio);
 }
