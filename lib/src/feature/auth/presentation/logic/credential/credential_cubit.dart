@@ -28,5 +28,17 @@ class CredentialCubit extends Cubit<CredentialState> {
     }
   }
 
-  void signIn(SigninRegParams signinReg) async {}
+  void signIn(SigninRegParams signinReg) async {
+    emit(CredentialLoading());
+    try {
+      Either result = await signinUsecase(signinReg);
+      result.fold((l) {
+        emit(CredentialFailure(errorMessage: l));
+      }, (r) {
+        emit(CredentialSuccess());
+      });
+    } catch (e) {
+      emit(CredentialFailure(errorMessage: e.toString()));
+    }
+  }
 }
