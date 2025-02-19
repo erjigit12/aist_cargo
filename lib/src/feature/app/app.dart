@@ -20,13 +20,34 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<HomeCubit>(),
         ),
+        BlocProvider(
+          create: (context) => di.sl<CredentialCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<AuthCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Aist Cargo',
         theme: ThemeData(),
         onGenerateRoute: RouteGenerator.onGenerate,
-        initialRoute: 'login',
+        initialRoute: '/',
+        routes: {
+          '/': (context) {
+            return BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (state is Authenticated) {
+                  return const MainView();
+                }
+                if (state is UnAuthenticated) {
+                  return const LoginPage();
+                }
+                return Container();
+              },
+            );
+          }
+        },
       ),
     );
   }
