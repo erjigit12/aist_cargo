@@ -1,5 +1,6 @@
 import 'package:aist_cargo/src/feature/auth/auth.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 part 'credential_state.dart';
@@ -13,7 +14,19 @@ class CredentialCubit extends Cubit<CredentialState> {
     required this.signupUsecase,
   }) : super(CredentialInitial());
 
-  Future<void> signUp(SignupRegParams signupReg) async {}
+  void signUp(SignupRegParams signupReg) async {
+    emit(CredentialLoading());
+    try {
+      Either result = await signupUsecase(signupReg);
+      result.fold((l) {
+        emit(CredentialFailure(errorMessage: l));
+      }, (r) {
+        emit(CredentialSuccess());
+      });
+    } catch (e) {
+      emit(CredentialFailure(errorMessage: e.toString()));
+    }
+  }
 
-  Future<void> signIn(SigninRegParams signinReg) async {}
+  void signIn(SigninRegParams signinReg) async {}
 }
