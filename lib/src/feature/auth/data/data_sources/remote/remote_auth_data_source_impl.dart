@@ -49,4 +49,10 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
       throw Exception('Failed to sign up: ${e.response?.data ?? e.message}');
     }
   }
+
+  @override
+  Future<Either> verifyOtp({required String otp}) async {
+    // TODO: implement verifyOtp
+    throw UnimplementedError();
+  }
 }

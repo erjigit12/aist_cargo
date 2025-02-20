@@ -19,6 +19,10 @@ class AuthRepositoryImpl implements AuthRepository {
       remoteAuthDataSource.signUpUser(signupReg);
 
   @override
+  Future<Either> verifyOtp({required String otp}) async =>
+      remoteAuthDataSource.verifyOtp(otp: otp);
+
+  @override
   Future<bool> isLoggedIn() async => localAuthDataSource.isLoggedIn();
 
   @override

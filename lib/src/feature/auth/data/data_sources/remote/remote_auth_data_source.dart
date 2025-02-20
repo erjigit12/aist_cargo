@@ -4,4 +4,5 @@ import 'package:dartz/dartz.dart';
 abstract class RemoteAuthDataSource {
   Future<Either> signUpUser(SignupRegParams signupReg);
   Future<Either> signInUser(SigninRegParams signinReg);
+  Future<Either> verifyOtp({required String otp});
 }
