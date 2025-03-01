@@ -1,5 +1,7 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({
@@ -11,8 +13,21 @@ class AuthRepositoryImpl implements AuthRepository {
   final LocalAuthDataSource localAuthDataSource;
 
   @override
-  Future<Either> signInUser(SigninRegParams signinReg) async =>
-      remoteAuthDataSource.signInUser(signinReg);
+  Future<Either> signInUser(SigninRegParams signInReg) async {
+    Either result = await remoteAuthDataSource.signInUser(signInReg);
+    return result.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) async {
+        Response response = r;
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.setString('token', response.data['token']);
+        // storage.setInt('id', response.data['id']);
+        return Right(response);
+      },
+    );
+  }
 
   @override
   Future<Either> signUpUser(SignupRegParams signupReg) async =>
