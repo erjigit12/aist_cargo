@@ -1,23 +1,20 @@
 class SignupRegParams {
   SignupRegParams({
-    this.id,
-    this.name,
-    this.surName,
+    this.firstName,
+    this.lastName,
     this.email,
     this.password,
   });
 
-  final String? id;
-  final String? name;
-  final String? surName;
+  final String? firstName;
+  final String? lastName;
   final String? email;
   final String? password;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'surName': surName,
+      'firstName': firstName,
+      'lastName': lastName,
       'email': email,
       'password': password,
     };
@@ -25,9 +22,8 @@ class SignupRegParams {
 
   factory SignupRegParams.fromMap(Map<String, dynamic> map) {
     return SignupRegParams(
-      id: map['id'] != null ? map['id'] as String : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      surName: map['surName'] != null ? map['surName'] as String : null,
+      firstName: map['firstName'] != null ? map['firstName'] as String : null,
+      lastName: map['lastName'] != null ? map['lastName'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       password: map['password'] != null ? map['password'] as String : null,
     );
