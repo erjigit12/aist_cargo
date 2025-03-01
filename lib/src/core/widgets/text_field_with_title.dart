@@ -9,6 +9,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.backgroundColor,
     this.suffix,
     this.keyboardType,
+    this.controller,
   });
 
   final String title;
@@ -16,6 +17,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final Color? backgroundColor;
   final bool? suffix;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TextFieldWithTitle extends StatelessWidget {
         Text(title, style: AppTextStyles.f15w400),
         8.h,
         TextFormFieldWidget(
+          controller: controller,
           hintText: hintText,
           backroundColor: backgroundColor ?? AppColors.whiteColor,
           suffix: suffix,

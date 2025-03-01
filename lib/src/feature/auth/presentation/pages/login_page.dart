@@ -1,15 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
+      body: BlocListener<CredentialCubit, CredentialState>(
+        listener: (context, state) {
+          if (state is CredentialSuccess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutes.main, (route) => false);
+          }
+          if (state is CredentialFailure) {
+            var snackBar = SnackBar(content: Text(state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: _bodyWidget(context),
+      ),
+    );
+  }
+
+  Widget _bodyWidget(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -89,14 +118,16 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextFieldWithTitle(
+                TextFieldWithTitle(
+                  controller: _emailController,
                   title: 'Электронная почта',
                   backgroundColor: Colors.transparent,
                   hintText: 'Электронная почта',
                   keyboardType: TextInputType.emailAddress,
                 ),
                 16.h,
-                const TextFieldWithTitle(
+                TextFieldWithTitle(
+                  controller: _passwordController,
                   title: 'Пароль',
                   backgroundColor: Colors.transparent,
                   hintText: 'Пароль',
@@ -121,10 +152,27 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 16.h,
-                ElevatedButtonWidget(
-                  title: 'Продолжить',
-                  onPressed: () => Navigator.pushNamed(context, 'otpCode',
-                      arguments: 'pesfifaer20@gmail.com'),
+                BlocBuilder<CredentialCubit, CredentialState>(
+                  builder: (context, state) {
+                    if (state is CredentialLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+                    return ElevatedButtonWidget(
+                        key: _formKey,
+                        title: 'Продолжить',
+                        onPressed: () {
+                          context.read<CredentialCubit>().signIn(
+                                SigninRegParams(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
+                        });
+                  },
                 ),
                 8.h,
                 const UserAgreement(),
