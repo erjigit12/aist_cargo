@@ -13,8 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final LocalAuthDataSource localAuthDataSource;
 
   @override
-  Future<Either> signInUser(SigninRegParams signInReg) async {
-    Either result = await remoteAuthDataSource.signInUser(signInReg);
+  Future<Either> signInUser(SigninRegParams signinReg) async {
+    Either result = await remoteAuthDataSource.signInUser(signinReg);
     return result.fold(
       (l) {
         return Left(l);
@@ -30,8 +30,21 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either> signUpUser(SignupRegParams signupReg) async =>
-      remoteAuthDataSource.signUpUser(signupReg);
+  Future<Either> signUpUser(SignupRegParams signupReg) async {
+    Either result = await remoteAuthDataSource.signUpUser(signupReg);
+    return result.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) async {
+        Response response = r;
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.setString('token', response.data['token']);
+        // storage.setInt('id', response.data['id']);
+        return Right(response);
+      },
+    );
+  }
 
   @override
   Future<Either> verifyOtp({required String otp}) async =>
