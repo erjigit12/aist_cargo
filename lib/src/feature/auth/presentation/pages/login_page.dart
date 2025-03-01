@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _bodyWidget(BuildContext context) {
+  Form _bodyWidget(BuildContext context) {
     return Form(
       key: _formKey,
       child: Padding(
@@ -165,12 +165,14 @@ class _LoginPageState extends State<LoginPage> {
                         key: _formKey,
                         title: 'Продолжить',
                         onPressed: () {
-                          context.read<CredentialCubit>().signIn(
-                                SigninRegParams(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
+                          if (_formKey.currentState!.validate()) {
+                            context.read<CredentialCubit>().signIn(
+                                  SigninRegParams(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  ),
+                                );
+                          }
                         });
                   },
                 ),
