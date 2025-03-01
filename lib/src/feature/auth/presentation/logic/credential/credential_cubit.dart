@@ -19,12 +19,15 @@ class CredentialCubit extends Cubit<CredentialState> {
   void signUp(SignupRegParams signupReg) async {
     emit(CredentialLoading());
     try {
-      Either result = await signupUsecase(signupReg);
-      result.fold((l) {
-        emit(CredentialFailure(errorMessage: l));
-      }, (r) {
-        emit(CredentialSuccess());
-      });
+      Either result = await signupUsecase.call(signupReg);
+      result.fold(
+        (l) {
+          emit(CredentialFailure(errorMessage: l));
+        },
+        (r) {
+          emit(CredentialSuccess());
+        },
+      );
     } catch (e) {
       emit(CredentialFailure(errorMessage: e.toString()));
     }
@@ -34,11 +37,14 @@ class CredentialCubit extends Cubit<CredentialState> {
     emit(CredentialLoading());
     try {
       Either result = await signinUsecase.call(signinReg);
-      result.fold((l) {
-        emit(CredentialFailure(errorMessage: l));
-      }, (r) {
-        emit(CredentialSuccess());
-      });
+      result.fold(
+        (l) {
+          emit(CredentialFailure(errorMessage: l));
+        },
+        (r) {
+          emit(CredentialSuccess());
+        },
+      );
     } catch (e) {
       emit(CredentialFailure(errorMessage: e.toString()));
     }
