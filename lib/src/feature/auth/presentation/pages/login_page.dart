@@ -156,15 +156,12 @@ class _LoginPageState extends State<LoginPage> {
                   builder: (context, state) {
                     if (state is CredentialLoading) {
                       return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
+                        child: CircularProgressIndicator(),
                       );
                     }
                     return ElevatedButtonWidget(
-                        key: _formKey,
                         title: 'Продолжить',
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             context.read<CredentialCubit>().signIn(
                                   SigninRegParams(
