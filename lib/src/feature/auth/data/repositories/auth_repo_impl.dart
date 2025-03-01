@@ -1,6 +1,5 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -20,10 +19,10 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(l);
       },
       (r) async {
-        Response response = r;
+        Map<String, dynamic> response = r;
 
         SharedPreferences storage = await SharedPreferences.getInstance();
-        storage.setString('token', response.data['token']);
+        storage.setString('token', response['token']);
         // storage.setInt('id', response.data['id']);
         return Right(response);
       },
@@ -38,10 +37,10 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(l);
       },
       (r) async {
-        Response response = r;
+        Map<String, dynamic> response = r;
 
         SharedPreferences storage = await SharedPreferences.getInstance();
-        storage.setString('token', response.data['token']);
+        storage.setString('token', response['token']);
         // storage.setInt('id', response.data['id']);
         return Right(response);
       },
