@@ -22,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
         Map<String, dynamic> response = r;
 
         SharedPreferences storage = await SharedPreferences.getInstance();
-        storage.setString('token', response['token']);
+        storage.setString('accessToken', response['token']);
         // storage.setInt('id', response.data['id']);
         return Right(response);
       },
@@ -40,7 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
         Map<String, dynamic> response = r;
 
         SharedPreferences storage = await SharedPreferences.getInstance();
-        storage.setString('token', response['token']);
+        storage.setString('accessToken', response['token']);
         // storage.setInt('id', response.data['id']);
         return Right(response);
       },
@@ -52,8 +52,8 @@ class AuthRepositoryImpl implements AuthRepository {
       remoteAuthDataSource.verifyOtp(otp: otp);
 
   @override
-  Future<bool> isLoggedIn() async => localAuthDataSource.isLoggedIn();
+  Future<bool> isLoggedIn() async => await localAuthDataSource.isLoggedIn();
 
   @override
-  Future<Either> logOut() async => localAuthDataSource.logOut();
+  Future<Either> logOut() async => await localAuthDataSource.logOut();
 }
