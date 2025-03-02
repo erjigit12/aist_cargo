@@ -1,4 +1,5 @@
 import 'package:aist_cargo/src/feature/auth/auth.dart';
+import 'package:aist_cargo/src/feature/auth/domain/usecases/otp_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -8,11 +9,13 @@ part 'credential_state.dart';
 class CredentialCubit extends Cubit<CredentialState> {
   final SigninUsecase signinUsecase;
   final SignupUsecase signupUsecase;
+  final OtpUsecase otpUsecase;
   final LogoutUsecase logoutUsecase;
 
   CredentialCubit({
     required this.signinUsecase,
     required this.signupUsecase,
+    required this.otpUsecase,
     required this.logoutUsecase,
   }) : super(CredentialInitial());
 
@@ -37,6 +40,23 @@ class CredentialCubit extends Cubit<CredentialState> {
     emit(CredentialLoading());
     try {
       Either result = await signinUsecase.call(signinReg);
+      result.fold(
+        (l) {
+          emit(CredentialFailure(errorMessage: l));
+        },
+        (r) {
+          emit(CredentialSuccess());
+        },
+      );
+    } catch (e) {
+      emit(CredentialFailure(errorMessage: e.toString()));
+    }
+  }
+
+  void verifyOtp(String otp) async {
+    emit(CredentialLoading());
+    try {
+      Either result = await otpUsecase.call(otp);
       result.fold(
         (l) {
           emit(CredentialFailure(errorMessage: l));
