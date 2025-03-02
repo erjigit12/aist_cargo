@@ -32,8 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: BlocListener<CredentialCubit, CredentialState>(
         listener: (context, state) {
           if (state is CredentialSuccess) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.otpCode, (route) => false);
+            Navigator.pushNamed(context, AppRoutes.otpCode);
           }
           if (state is CredentialFailure) {
             var snackBar = SnackBar(content: Text(state.errorMessage));
