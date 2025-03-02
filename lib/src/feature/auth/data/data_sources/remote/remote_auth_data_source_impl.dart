@@ -43,16 +43,29 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
         return Right(response.data);
       } else {
         throw Exception(
-            'Failed to sign up. Status code: ${response.statusCode}');
+            'Failed to verify otp. Status code: ${response.statusCode}');
       }
     } on DioError catch (e) {
-      throw Exception('Failed to sign up: ${e.response?.data ?? e.message}');
+      throw Exception('Failed to verify otp: ${e.response?.data ?? e.message}');
     }
   }
 
   @override
   Future<Either> verifyOtp({required String otp}) async {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
+    try {
+      final response = await sl<DioClient>().post(
+        ApiConst.verifyCode,
+        data: {'code': otp},
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Right(response.data);
+      } else {
+        throw Exception(
+            'Failed to sign up. Status code: ${response.statusCode}');
+      }
+    } on DioError catch (e) {
+      throw Exception('Failed to sign up: ${e.response?.data ?? e.message}');
+    }
   }
 }
