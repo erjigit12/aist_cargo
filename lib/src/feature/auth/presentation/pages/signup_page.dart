@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
         listener: (context, state) {
           if (state is CredentialSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.main, (route) => false);
+                context, AppRoutes.otpCode, (route) => false);
           }
           if (state is CredentialFailure) {
             var snackBar = SnackBar(content: Text(state.errorMessage));
