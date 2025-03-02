@@ -5,7 +5,7 @@ class ApiConst {
 
   static const signUp = '$domain/api/auth/signUp';
   static const signIn = '$domain/api/auth/signIn';
-  static const verifyCode = '$domain/api/auth/veryfy';
+  static const verifyCode = '$domain/api/auth/verify';
   // static const userProfile = '$domain/api/users/getProfile';
   // static const googleSignIn = '$domain/api/auth/withGoogle';
   // static const announcement = '$domain/api/announcements/getAll';
