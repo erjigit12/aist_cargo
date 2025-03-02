@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/auth/domain/usecases/otp_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
@@ -37,6 +38,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<LogoutUsecase>(
     () => LogoutUsecase(authRepository: sl.call()),
+  );
+
+  sl.registerLazySingleton<OtpUsecase>(
+    () => OtpUsecase(authRepository: sl.call()),
   );
 
   sl.registerLazySingleton<IsLoggedInUsecase>(
