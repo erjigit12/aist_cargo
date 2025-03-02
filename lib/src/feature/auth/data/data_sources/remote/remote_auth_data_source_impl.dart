@@ -43,10 +43,10 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
         return Right(response.data);
       } else {
         throw Exception(
-            'Failed to verify otp. Status code: ${response.statusCode}');
+            'Failed to sign up. Status code: ${response.statusCode}');
       }
     } on DioError catch (e) {
-      throw Exception('Failed to verify otp: ${e.response?.data ?? e.message}');
+      throw Exception('Failed to sign up: ${e.response?.data ?? e.message}');
     }
   }
 
@@ -62,10 +62,10 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
         return Right(response.data);
       } else {
         throw Exception(
-            'Failed to sign up. Status code: ${response.statusCode}');
+            'Failed to verify otp. Status code: ${response.statusCode}');
       }
     } on DioError catch (e) {
-      throw Exception('Failed to sign up: ${e.response?.data ?? e.message}');
+      throw Exception('Failed to verify otp: ${e.response?.data ?? e.message}');
     }
   }
 }
