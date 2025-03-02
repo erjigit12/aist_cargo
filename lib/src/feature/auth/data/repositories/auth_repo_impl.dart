@@ -23,7 +23,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
         SharedPreferences storage = await SharedPreferences.getInstance();
         storage.setString('accessToken', response['token']);
-        // storage.setInt('id', response.data['id']);
         return Right(response);
       },
     );
@@ -39,9 +38,8 @@ class AuthRepositoryImpl implements AuthRepository {
       (r) async {
         Map<String, dynamic> response = r;
 
-        // SharedPreferences storage = await SharedPreferences.getInstance();
-        // storage.setString('accessToken', response['token']);
-        // storage.setInt('id', response.data['id']);
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.setString('accessToken', response['token']);
         return Right(response);
       },
     );
@@ -56,9 +54,6 @@ class AuthRepositoryImpl implements AuthRepository {
       },
       (r) async {
         Map<String, dynamic> response = r;
-
-        SharedPreferences storage = await SharedPreferences.getInstance();
-        storage.setString('accessToken', response['token']);
 
         return Right(response);
       },

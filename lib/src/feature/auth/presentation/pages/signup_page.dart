@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocListener<CredentialCubit, CredentialState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is CredentialSuccess) {
             Navigator.pushNamed(context, AppRoutes.otpCode,
                 arguments: _emailController.text);
