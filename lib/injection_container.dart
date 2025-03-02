@@ -18,7 +18,8 @@ Future<void> init() async {
     () => CredentialCubit(
         signupUsecase: sl.call(),
         signinUsecase: sl.call(),
-        logoutUsecase: sl.call()),
+        logoutUsecase: sl.call(),
+        otpUsecase: sl.call()),
   );
 
   sl.registerFactory<AuthCubit>(
