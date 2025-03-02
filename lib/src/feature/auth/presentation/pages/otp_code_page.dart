@@ -17,16 +17,16 @@ class OtpCodePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: const CustomAppBar(title: 'Подтверждения'),
-      body: BlocConsumer<OtpBloc, OtpState>(
+      body: BlocConsumer<CredentialCubit, CredentialState>(
         listener: (context, state) {
-          if (state is OtpSuccess) {
+          if (state is CredentialSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Код подтвержден!")),
             );
-            Navigator.pushNamed(context, 'main');
-          } else if (state is OtpFailure) {
+            Navigator.pushNamed(context, AppRoutes.main);
+          } else if (state is CredentialFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              SnackBar(content: Text(state.errorMessage)),
             );
           }
         },
@@ -49,7 +49,7 @@ class OtpCodePage extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   onChanged: (value) {},
                   onCompleted: (value) {
-                    context.read<OtpBloc>().add(OtpSubmitted(value));
+                    context.read<CredentialCubit>().verifyOtp(value);
                   },
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
