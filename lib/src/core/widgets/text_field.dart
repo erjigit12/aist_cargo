@@ -11,6 +11,7 @@ class TextFormFieldWidget extends StatefulWidget {
     this.backroundColor = Colors.transparent,
     this.controller,
     this.keyboardType,
+    this.validator,
   });
 
   final String? hintText;
@@ -18,6 +19,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final Color? backroundColor;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
   @override
   _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
@@ -32,6 +34,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       obscureText: widget.suffix == true ? _obscureText : false,
+      validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: const TextStyle(color: AppColors.hintTextColor),
