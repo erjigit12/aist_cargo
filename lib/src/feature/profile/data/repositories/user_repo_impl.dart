@@ -2,9 +2,12 @@ import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 
 class UserRepoImpl implements UserRepo {
+  UserRepoImpl({required this.remoteUserDataSource});
+
+  final RemoteUserDataSource remoteUserDataSource;
+
   @override
-  Future<Either> getUserData(UserModel user) {
-    // TODO: implement getUserData
-    throw UnimplementedError();
+  Future<Either> getUserData(UserModel user) async {
+    return await remoteUserDataSource.getUserData(user);
   }
 }
