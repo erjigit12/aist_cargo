@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -124,6 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                   backgroundColor: Colors.transparent,
                   hintText: 'Электронная почта',
                   keyboardType: TextInputType.emailAddress,
+                  validator: (val) {
+                    if (val!.isValidEmail == false) {
+                      return "Enter a valid email";
+                    }
+                    return null;
+                  },
                 ),
                 16.h,
                 TextFieldWithTitle(
@@ -133,6 +140,12 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: 'Пароль',
                   keyboardType: TextInputType.visiblePassword,
                   suffix: true,
+                  validator: (val) {
+                    if (val!.isValidPassword == false) {
+                      return "Enter a valid password";
+                    }
+                    return null;
+                  },
                 ),
                 8.h,
                 Row(

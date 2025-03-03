@@ -152,6 +152,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextFormFieldWidget(
                     controller: _emailController,
                     hintText: 'Ivan@gmail.com',
+                    validator: (val) {
+                      if (val!.isValidEmail == false) {
+                        return "Enter a valid email";
+                      }
+                      return null;
+                    },
                   ),
                   16.h,
                   const Text('Пароль', style: AppTextStyles.f14w500),
@@ -160,6 +166,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: _passwordController,
                     suffix: true,
                     hintText: '******',
+                    validator: (val) {
+                      if (val!.isValidPassword == false) {
+                        return "Enter a valid password";
+                      }
+                      return null;
+                    },
                   ),
                   16.h,
                   const Text(
@@ -171,6 +183,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: _confirmPasswordController,
                     suffix: true,
                     hintText: '******',
+                    validator: (val) {
+                      if (val!.isValidPassword == false) {
+                        return "Enter a valid password";
+                      }
+                      return null;
+                    },
                   ),
                   26.h,
                   BlocBuilder<CredentialCubit, CredentialState>(
@@ -185,22 +203,25 @@ class _SignUpPageState extends State<SignUpPage> {
                       return ElevatedButtonWidget(
                           title: 'Продолжить',
                           onPressed: () async {
-                            if (_passwordController.text !=
-                                _confirmPasswordController.text) {
-                              var snackBar = const SnackBar(
-                                  content: Text('Пароли не совпадают'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              return;
-                            } else {
-                              context
-                                  .read<CredentialCubit>()
-                                  .signUp(SignupRegParams(
-                                    firstName: _firstNameController.text,
-                                    lastName: _lastNameController.text,
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                  ));
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              if (_passwordController.text !=
+                                  _confirmPasswordController.text) {
+                                var snackBar = const SnackBar(
+                                    content: Text('Пароли не совпадают'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                return;
+                              } else {
+                                context
+                                    .read<CredentialCubit>()
+                                    .signUp(SignupRegParams(
+                                      firstName: _firstNameController.text,
+                                      lastName: _lastNameController.text,
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    ));
+                              }
                             }
                           });
                     },

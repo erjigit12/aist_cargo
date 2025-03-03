@@ -10,6 +10,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.suffix,
     this.keyboardType,
     this.controller,
+    this.validator,
   });
 
   final String title;
@@ -18,6 +19,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final bool? suffix;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class TextFieldWithTitle extends StatelessWidget {
         8.h,
         TextFormFieldWidget(
           controller: controller,
+          validator: validator,
           hintText: hintText,
           backroundColor: backgroundColor ?? AppColors.whiteColor,
           suffix: suffix,
