@@ -163,7 +163,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: AppTextStyles.f14w500,
                 ),
                 8.h,
-                const TextFormFieldWidget(
+                TextFormFieldWidget(
+                  controller: _confirmPasswordController,
                   suffix: true,
                   hintText: '******',
                 ),
@@ -180,14 +181,23 @@ class _SignUpPageState extends State<SignUpPage> {
                     return ElevatedButtonWidget(
                         title: 'Продолжить',
                         onPressed: () async {
-                          context
-                              .read<CredentialCubit>()
-                              .signUp(SignupRegParams(
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                              ));
+                          if (_passwordController.text !=
+                              _confirmPasswordController.text) {
+                            var snackBar = const SnackBar(
+                                content: Text('Пароли не совпадают'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            return;
+                          } else {
+                            context
+                                .read<CredentialCubit>()
+                                .signUp(SignupRegParams(
+                                  firstName: _firstNameController.text,
+                                  lastName: _lastNameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                ));
+                          }
                         });
                   },
                 ),
