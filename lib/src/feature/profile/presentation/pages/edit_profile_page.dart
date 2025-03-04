@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
-    // this.title,
-    // this.image,
-    // this.name,
-    // this.surName,
   });
 
   @override
