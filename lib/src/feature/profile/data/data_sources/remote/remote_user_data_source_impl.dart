@@ -17,7 +17,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
         ApiConst.userProfile,
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token ',
+            'Authorization': 'Bearer $token',
           },
         ),
       );
