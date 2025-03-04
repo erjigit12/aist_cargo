@@ -67,8 +67,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       20.h,
                       TextFieldWithTitle(title: '${state.user.dateOfBirth}'),
                       20.h,
-                      const TextFieldWithTitle(
-                          title: 'Email для восстановление'),
+                      TextFieldWithTitle(
+                          title:
+                              'Email для восстановление: ${state.user.email}'),
                       20.h,
                       Row(
                         children: [
