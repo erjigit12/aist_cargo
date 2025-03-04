@@ -12,7 +12,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     try {
       final response = await sl<DioClient>().get(
         '${ApiConst.userProfile}/$id',
-        queryParameters: {'id': id},
+        // queryParameters: {'id': id},
       );
 
       log('Маалымат келди: ${response.data}');

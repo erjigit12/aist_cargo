@@ -34,7 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               return const Center(child: CircularProgressIndicator());
             }
             if (state is UserSuccess) {
-              SingleChildScrollView(
+              return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -63,9 +63,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       20.h,
                       TextFieldWithTitle(title: '${state.user.firstName}'),
                       20.h,
-                      const TextFieldWithTitle(title: 'Фамилия'),
+                      TextFieldWithTitle(title: '${state.user.lastName}'),
                       20.h,
-                      const TextFieldWithTitle(title: 'Дата рождения'),
+                      TextFieldWithTitle(title: '${state.user.dateOfBirth}'),
                       20.h,
                       const TextFieldWithTitle(
                           title: 'Email для восстановление'),
@@ -100,7 +100,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
               );
             }
-            return Container();
+            return const Placeholder();
           },
         ),
       ),
