@@ -1,6 +1,7 @@
 import 'package:aist_cargo/src/feature/auth/domain/usecases/otp_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
+import 'package:aist_cargo/src/feature/profile/domain/usecases/get_user_data_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<IsLoggedInUsecase>(
     () => IsLoggedInUsecase(authRepository: sl.call()),
+  );
+
+  sl.registerLazySingleton<GetUserDataUsecase>(
+    () => GetUserDataUsecase(repository: sl.call()),
   );
 
   /// Repositories
