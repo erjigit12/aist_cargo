@@ -7,7 +7,7 @@ class UserRepositoryImpl implements UserRepository {
   final RemoteUserDataSource remoteUserDataSource;
 
   @override
-  Future<Either> getUserData() async {
-    return await remoteUserDataSource.getUserData();
+  Future<Either> getUserData(int id) async {
+    return await remoteUserDataSource.getUserData(id);
   }
 }

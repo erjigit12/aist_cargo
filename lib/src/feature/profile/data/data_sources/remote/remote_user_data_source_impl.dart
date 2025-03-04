@@ -9,12 +9,13 @@ import 'package:dio/dio.dart';
 
 class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   @override
-  Future<Either> getUserData() async {
+  Future<Either> getUserData(int id) async {
     try {
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var token = storage.getString('token');
       final response = await sl<DioClient>().get(
-        ApiConst.userProfile,
+        '${ApiConst.userProfile}/$id',
+        queryParameters: {'id': id},
         // options: Options(
         //   headers: {
         //     'Authorization': 'Bearer $token',

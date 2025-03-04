@@ -10,7 +10,7 @@ class UserCubit extends Cubit<UserState> {
 
   void getUserData() async {
     emit(UserLoading());
-    var result = await getUserDataUsecase.call();
+    var result = await getUserDataUsecase.call(14);
     result.fold(
       (l) => emit(UserFailure(message: l)),
       (r) => emit(UserSuccess(user: r)),

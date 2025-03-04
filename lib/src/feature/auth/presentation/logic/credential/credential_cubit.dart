@@ -1,5 +1,4 @@
 import 'package:aist_cargo/src/feature/auth/auth.dart';
-import 'package:aist_cargo/src/feature/auth/domain/usecases/otp_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
