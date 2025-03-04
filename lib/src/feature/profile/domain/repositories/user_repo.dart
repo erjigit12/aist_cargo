@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
 
-abstract class UserRepo {
+abstract class UserRepository {
   Future<Either> getUserData();
 }

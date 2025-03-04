@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 class GetUserDataUsecase {
   GetUserDataUsecase({required this.repository});
 
-  final UserRepo repository;
+  final UserRepository repository;
 
   Future<Either> call() async {
     return await repository.getUserData();

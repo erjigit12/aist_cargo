@@ -1,8 +1,8 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 
-class UserRepoImpl implements UserRepo {
-  UserRepoImpl({required this.remoteUserDataSource});
+class UserRepositoryImpl implements UserRepository {
+  UserRepositoryImpl({required this.remoteUserDataSource});
 
   final RemoteUserDataSource remoteUserDataSource;
 

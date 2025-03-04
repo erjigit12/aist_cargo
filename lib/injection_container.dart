@@ -1,7 +1,5 @@
-import 'package:aist_cargo/src/feature/auth/domain/usecases/otp_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
-import 'package:aist_cargo/src/feature/profile/domain/usecases/get_user_data_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +24,10 @@ Future<void> init() async {
 
   sl.registerFactory<AuthCubit>(
     () => AuthCubit(isLoggedInUsecase: sl.call()),
+  );
+
+  sl.registerFactory<UserCubit>(
+    () => UserCubit(getUserDataUsecase: sl.call()),
   );
 
   /// Use Cases
@@ -59,6 +61,10 @@ Future<void> init() async {
         remoteAuthDataSource: sl.call(), localAuthDataSource: sl.call()),
   );
 
+  sl.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(remoteUserDataSource: sl.call()),
+  );
+
   /// Data Sources
   sl.registerLazySingleton<RemoteAuthDataSource>(
     () => RemoteAuthDataSourceImpl(dio: sl.call()),
@@ -66,6 +72,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<LocalAuthDataSource>(
     () => LocalAuthDataSourceImpl(),
+  );
+
+  sl.registerLazySingleton<RemoteUserDataSource>(
+    () => RemoteUserDataSourceImpl(),
   );
 
   /// Network
