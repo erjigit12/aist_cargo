@@ -11,10 +11,17 @@ final class UserInitial extends UserState {}
 
 final class UserLoading extends UserState {}
 
-final class UserSuccess extends UserState {}
+final class UserSuccess extends UserState {
+  const UserSuccess({required this.user});
+
+  final UserEntity user;
+
+  @override
+  List<Object> get props => [user];
+}
 
 final class UserFailure extends UserState {
-  const UserFailure(this.message);
+  const UserFailure({required this.message});
 
   final String message;
 

@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:aist_cargo/injection_container.dart';
-import 'package:aist_cargo/src/core/constants/api/api.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dio/dio.dart';
