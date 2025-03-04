@@ -15,9 +15,6 @@ final class UserSuccess extends UserState {
   const UserSuccess({required this.user});
 
   final UserEntity user;
-
-  @override
-  List<Object> get props => [user];
 }
 
 final class UserFailure extends UserState {

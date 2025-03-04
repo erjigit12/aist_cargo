@@ -1,3 +1,5 @@
+import 'package:aist_cargo/src/feature/feature.dart';
+
 class UserModel {
   final int? id;
   final String? firstName;
@@ -40,6 +42,20 @@ class UserModel {
       dateOfBirth:
           map['dateOfBirth'] != null ? map['dateOfBirth'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
+    );
+  }
+}
+
+extension UserXModel on UserModel {
+  UserEntity toEntity() {
+    return UserEntity(
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber ?? '',
+      dateOfBirth: dateOfBirth ?? '',
+      image: image ?? 'assets/images/profile.jpeg',
     );
   }
 }
