@@ -6,7 +6,7 @@ class GetUserDataUsecase {
 
   final UserRepo repository;
 
-  Future<Either> call(UserModel user) async {
-    return await repository.getUserData(user);
+  Future<Either> call() async {
+    return await repository.getUserData();
   }
 }

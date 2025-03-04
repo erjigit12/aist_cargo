@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   @override
-  Future<Either> getUserData(UserModel user) async {
+  Future<Either> getUserData() async {
     try {
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var token = storage.getString('token');
