@@ -6,7 +6,11 @@ part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   final GetUserDataUsecase getUserDataUsecase;
-  UserCubit({required this.getUserDataUsecase}) : super(UserInitial());
+  final UpdateUserDataUsecase updateUserDataUsecase;
+  UserCubit({
+    required this.getUserDataUsecase,
+    required this.updateUserDataUsecase,
+  }) : super(UserInitial());
 
   void getUserData() async {
     emit(UserLoading());
@@ -19,5 +23,19 @@ class UserCubit extends Cubit<UserState> {
 
   void updateUserData(UserModel userModel) async {
     emit(UserLoading());
+    final user = UserModel(
+      id: userModel.id,
+      firstName: userModel.firstName,
+      lastName: userModel.lastName,
+      email: userModel.email,
+      phoneNumber: userModel.phoneNumber,
+      dateOfBirth: userModel.dateOfBirth,
+      image: userModel.image,
+    );
+    var result = await updateUserDataUsecase.call(user);
+    result.fold(
+      (l) => emit(UserFailure(message: l)),
+      (r) => emit(UserSuccess(user: r)),
+    );
   }
 }
