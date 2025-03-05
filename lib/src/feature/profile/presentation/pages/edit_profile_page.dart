@@ -103,7 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             phoneNumber: state.user.phoneNumber,
                             dateOfBirth: state.user.dateOfBirth,
                             image: state.user.image,
-                          )
+                          );
                           context.read<UserCubit>().updateUserData(user);
                         },
                       ),
