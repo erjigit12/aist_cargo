@@ -23,4 +23,10 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
           'Failed to get user data: ${e.response?.data ?? e.message}');
     }
   }
+
+  @override
+  Future<Either> updateUserData(UserModel userModel) async {
+    // TODO: implement updateUserData
+    throw UnimplementedError();
+  }
 }

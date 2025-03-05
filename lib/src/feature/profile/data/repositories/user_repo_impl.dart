@@ -21,4 +21,9 @@ class UserRepositoryImpl implements UserRepository {
       return Right(userEntity);
     });
   }
+
+  @override
+  Future<Either> updateUserData(UserModel userModel) async {
+    return await remoteUserDataSource.updateUserData(userModel);
+  }
 }
