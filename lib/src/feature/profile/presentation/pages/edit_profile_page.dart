@@ -92,7 +92,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ElevatedButtonWidget(
                         title: 'Сохранить',
                         onPressed: () {
-                          Navigator.pop(context);
+                          if (!isCheck) {
+                            return;
+                          }
+                          final user = UserModel(
+                            id: state.user.id,
+                            firstName: state.user.firstName,
+                            lastName: state.user.lastName,
+                            email: state.user.email,
+                            phoneNumber: state.user.phoneNumber,
+                            dateOfBirth: state.user.dateOfBirth,
+                            image: state.user.image,
+                          )
+                          context.read<UserCubit>().updateUserData(user);
                         },
                       ),
                       20.h,
