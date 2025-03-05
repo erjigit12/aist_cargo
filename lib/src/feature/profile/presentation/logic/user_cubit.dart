@@ -16,4 +16,8 @@ class UserCubit extends Cubit<UserState> {
       (r) => emit(UserSuccess(user: r)),
     );
   }
+
+  void updateUserData(UserModel userModel) async {
+    emit(UserLoading());
+  }
 }
