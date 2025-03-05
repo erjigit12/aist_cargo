@@ -27,7 +27,10 @@ Future<void> init() async {
   );
 
   sl.registerFactory<UserCubit>(
-    () => UserCubit(getUserDataUsecase: sl.call()),
+    () => UserCubit(
+      getUserDataUsecase: sl.call(),
+      updateUserDataUsecase: sl.call(),
+    ),
   );
 
   /// Use Cases
