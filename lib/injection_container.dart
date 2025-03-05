@@ -58,6 +58,10 @@ Future<void> init() async {
     () => GetUserDataUsecase(repository: sl.call()),
   );
 
+  sl.registerLazySingleton<UpdateUserDataUsecase>(
+    () => UpdateUserDataUsecase(repository: sl.call()),
+  );
+
   /// Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
