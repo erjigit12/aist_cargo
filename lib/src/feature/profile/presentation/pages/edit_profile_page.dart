@@ -30,6 +30,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
@@ -135,7 +140,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
               );
             }
-            return const Placeholder();
+            return Container();
           },
         ),
       ),
