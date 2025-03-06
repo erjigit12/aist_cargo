@@ -22,7 +22,6 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void updateUserData(UserModel userModel) async {
-    emit(UserLoading());
     final user = UserModel(
       id: userModel.id,
       firstName: userModel.firstName,
