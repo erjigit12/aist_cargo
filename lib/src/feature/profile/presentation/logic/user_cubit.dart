@@ -1,6 +1,5 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'user_state.dart';
 
