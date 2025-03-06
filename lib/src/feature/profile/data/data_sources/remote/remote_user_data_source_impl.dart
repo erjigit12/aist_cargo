@@ -12,7 +12,6 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     try {
       final response = await sl<DioClient>().get(
         '${ApiConst.userProfile}/$id',
-        // queryParameters: {'id': id},
       );
 
       log('Маалымат келди: ${response.data}');
@@ -27,16 +26,9 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   @override
   Future<Either> updateUserData(UserModel userModel) async {
     try {
-      // SharedPreferences storage = await SharedPreferences.getInstance();
-      // var token = storage.getString('token');
-
       final response = await sl<DioClient>().put(
         '${ApiConst.userUpdate}/${userModel.id}',
-        // options: Options(
-        //   headers: {
-        //     'Authorization': 'Bearer $token',
-        //   },
-        // ),
+        queryParameters: {'id': userModel.id},
       );
 
       log('Маалымат келди: ${response.data}');
