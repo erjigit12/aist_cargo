@@ -15,15 +15,20 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   bool isCheck = false;
 
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController dateOfBirthController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          if (state is UserFailure) {
-            var snackBar = SnackBar(content: Text(state.message));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
+          // if (state is UserFailure) {
+          //   var snackBar = SnackBar(content: Text(state.message));
+          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // }
           if (state is UserSuccess) {
             Navigator.pop(context);
           }
@@ -61,15 +66,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             .copyWith(color: AppColors.greyColor),
                       ),
                       20.h,
-                      TextFieldWithTitle(title: '${state.user.firstName}'),
-                      20.h,
-                      TextFieldWithTitle(title: '${state.user.lastName}'),
-                      20.h,
-                      TextFieldWithTitle(title: '${state.user.dateOfBirth}'),
+                      TextFieldWithTitle(
+                        controller: firstNameController,
+                        title: '${state.user.firstName}',
+                      ),
                       20.h,
                       TextFieldWithTitle(
-                          title:
-                              'Email для восстановление: ${state.user.email}'),
+                          controller: lastNameController,
+                          title: '${state.user.lastName}'),
+                      20.h,
+                      TextFieldWithTitle(
+                          controller: dateOfBirthController,
+                          title: '${state.user.dateOfBirth}'),
+                      20.h,
+                      TextFieldWithTitle(
+                        controller: emailController,
+                        title: 'Email для восстановление: ${state.user.email}',
+                      ),
                       20.h,
                       Row(
                         children: [
