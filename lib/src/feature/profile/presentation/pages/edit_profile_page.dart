@@ -119,19 +119,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ElevatedButtonWidget(
                         title: 'Сохранить',
                         onPressed: () {
-                          if (isCheck) {
+                          if (!isCheck) {
+                            var snackBar = const SnackBar(
+                              content: Text(
+                                  'Вы не дали согласие на обработку персональных данных'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            final user = UserModel(
+                              id: state.user.id,
+                              firstName: state.user.firstName,
+                              lastName: state.user.lastName,
+                              email: state.user.email,
+                              phoneNumber: state.user.phoneNumber,
+                              dateOfBirth: state.user.dateOfBirth,
+                              image: state.user.image,
+                            );
+                            context.read<UserCubit>().updateUserData(user);
                             Navigator.pop(context);
                           }
-                          // final user = UserModel(
-                          //   id: state.user.id,
-                          //   firstName: state.user.firstName,
-                          //   lastName: state.user.lastName,
-                          //   email: state.user.email,
-                          //   phoneNumber: state.user.phoneNumber,
-                          //   dateOfBirth: state.user.dateOfBirth,
-                          //   image: state.user.image,
-                          // );
-                          // context.read<UserCubit>().updateUserData(user);
                         },
                       ),
                       20.h,
