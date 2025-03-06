@@ -128,12 +128,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 .showSnackBar(snackBar);
                           } else {
                             final user = UserModel(
-                              id: state.user.id,
                               firstName: firstNameController.text,
-                              lastName: state.user.lastName,
-                              email: state.user.email,
+                              lastName: lastNameController.text,
+                              email: emailController.text,
                               phoneNumber: state.user.phoneNumber,
-                              dateOfBirth: state.user.dateOfBirth,
+                              dateOfBirth: dateOfBirthController.text,
                               image: state.user.image,
                             );
                             context.read<UserCubit>().updateUserData(user);
