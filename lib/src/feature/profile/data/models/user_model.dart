@@ -1,7 +1,7 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 
 class UserModel {
-  // final int? id;
+  final int? id;
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -10,7 +10,7 @@ class UserModel {
   final String? image;
 
   UserModel({
-    // required this.id,
+    required this.id,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -33,7 +33,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      // id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as int : null,
       firstName: map['firstName'] != null ? map['firstName'] as String : null,
       lastName: map['lastName'] != null ? map['lastName'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
@@ -49,7 +49,7 @@ class UserModel {
 extension UserXModel on UserModel {
   UserEntity toEntity() {
     return UserEntity(
-      // id: id,
+      id: id,
       firstName: firstName,
       lastName: lastName,
       email: email,

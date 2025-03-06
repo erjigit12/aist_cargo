@@ -27,16 +27,21 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   Future<Either> updateUserData(UserModel userModel) async {
     try {
       final response = await sl<DioClient>().put(
-        '${ApiConst.userUpdate}/${14}',
-        queryParameters: {'id': 14},
+        '${ApiConst.userUpdate}/${userModel.id}',
         data: userModel.toMap(),
       );
 
-      log('Маалымат келди: ${response.data}');
+      log('📩 Жөнөтүлгөн маалымат: ${userModel.toMap()}');
+      log('📩 Сервердин жообу (data): ${response.data}');
+      log('📩 Сервердин жообу (statusCode): ${response.statusCode}');
 
       return Right(response);
     } on DioException catch (e) {
-      throw Exception('ката чыкты: $e');
+      log('❌ Ката кетти: ${e.response?.data}');
+      log('❌ Ката статус коду: ${e.response?.statusCode}');
+      log('❌ Ката тексти: ${e.message}');
+
+      return Left(Exception('Серверден ката жооп келди!'));
     }
   }
 }

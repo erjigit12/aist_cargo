@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -30,10 +32,16 @@ class UserRepositoryImpl implements UserRepository {
     }, (r) async {
       Response response = r;
 
-      var userModel = UserModel.fromMap(response.data);
-      var userEntity = userModel.toEntity();
+      log('Серверден келген жооп: ${response.data}');
 
-      return Right(userEntity);
+      try {
+        var userModel = UserModel.fromMap(response.data);
+        var userEntity = userModel.toEntity();
+        return Right(userEntity);
+      } catch (e) {
+        log('JSON парсингинде ката кетти: $e');
+        return Left(Exception('Маалыматты иштетүүдө ката кетти.'));
+      }
     });
   }
 }
