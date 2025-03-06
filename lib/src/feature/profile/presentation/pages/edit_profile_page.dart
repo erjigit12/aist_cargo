@@ -129,7 +129,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           } else {
                             final user = UserModel(
                               id: state.user.id,
-                              firstName: state.user.firstName,
+                              firstName: firstNameController.text,
                               lastName: state.user.lastName,
                               email: state.user.email,
                               phoneNumber: state.user.phoneNumber,
