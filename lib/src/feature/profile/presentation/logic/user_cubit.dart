@@ -15,8 +15,12 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     var result = await getUserDataUsecase.call(14);
     result.fold(
-      (l) => emit(UserFailure(message: l)),
-      (r) => emit(UserSuccess(user: r)),
+      (l) {
+        emit(UserFailure(message: l));
+      },
+      (r) {
+        emit(UserSuccess(user: r));
+      },
     );
   }
 
@@ -32,8 +36,12 @@ class UserCubit extends Cubit<UserState> {
     );
     var result = await updateUserDataUsecase.call(user);
     result.fold(
-      (l) => emit(UserFailure(message: l)),
-      (r) => emit(UserSuccess(user: r)),
+      (l) {
+        emit(UserFailure(message: l));
+      },
+      (r) {
+        emit(UserSuccess(user: r));
+      },
     );
   }
 }

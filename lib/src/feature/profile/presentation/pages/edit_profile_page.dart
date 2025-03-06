@@ -43,9 +43,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           //   var snackBar = SnackBar(content: Text(state.message));
           //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
           // }
-          if (state is UserSuccess) {
-            Navigator.pop(context);
-          }
+          // if (state is UserSuccess) {
+          //   Navigator.pop(context);
+          // }
         },
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
