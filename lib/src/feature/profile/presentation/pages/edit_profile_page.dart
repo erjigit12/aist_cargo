@@ -21,6 +21,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController emailController = TextEditingController();
 
   @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    dateOfBirthController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
