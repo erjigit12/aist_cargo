@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/deliver/presentation/logic/delivery_cubit.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
@@ -33,6 +34,10 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerFactory<DeliveryCubit>(
+    () => DeliveryCubit(createDeliveryUsecase: sl.call()),
+  );
+
   /// Use Cases
   sl.registerLazySingleton<SignupUsecase>(
     () => SignupUsecase(authRepository: sl.call()),
@@ -62,6 +67,10 @@ Future<void> init() async {
     () => UpdateUserDataUsecase(repository: sl.call()),
   );
 
+  sl.registerLazySingleton<CreateDeliveryUsecase>(
+    () => CreateDeliveryUsecase(repository: sl.call()),
+  );
+
   /// Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -70,6 +79,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(remoteUserDataSource: sl.call()),
+  );
+
+  sl.registerLazySingleton<DeliveryRepository>(
+    () => DeliveryRepositoryImpl(remoteDeliveryDataSource: sl.call()),
   );
 
   /// Data Sources
@@ -83,6 +96,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<RemoteUserDataSource>(
     () => RemoteUserDataSourceImpl(),
+  );
+
+  sl.registerLazySingleton<RemoteDeliveryDataSource>(
+    () => RemoteDeliveryDataSourceImpl(),
   );
 
   /// Network
