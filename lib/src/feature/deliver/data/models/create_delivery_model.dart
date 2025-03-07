@@ -1,17 +1,9 @@
-class CreateDeliveryModel {
-  final String? fromWhere;
-  final String? toWhere;
-  final String? description;
-  final String? dispatchDate;
-  final String? arrivalDate;
-  final String? fullName;
-  final String? transportNumber;
-  final String? transportType;
-  final String? packageType;
-  final String? truckSize;
-  final String? size;
-  final String? role;
+import 'package:json_annotation/json_annotation.dart';
 
+part 'create_delivery_model.g.dart';
+
+@JsonSerializable()
+class CreateDeliveryModel {
   CreateDeliveryModel({
     this.fromWhere,
     this.toWhere,
@@ -26,4 +18,22 @@ class CreateDeliveryModel {
     this.size,
     this.role,
   });
+
+  final String? fromWhere;
+  final String? toWhere;
+  final String? description;
+  final String? dispatchDate;
+  final String? arrivalDate;
+  final String? fullName;
+  final String? transportNumber;
+  final String? transportType;
+  final String? packageType;
+  final String? truckSize;
+  final String? size;
+  final String? role;
+
+  Map<String, dynamic> toJson() => _$CreateDeliveryModelToJson(this);
+
+  factory CreateDeliveryModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateDeliveryModelFromJson(json);
 }
