@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
 
@@ -37,7 +39,10 @@ class UserCubit extends Cubit<UserState> {
     var result = await updateUserDataUsecase.call(user);
     result.fold(
       (l) {
-        emit(UserFailure(message: l));
+        String errorMessage =
+            l.toString(); // Ката тууралуу маалыматты String кылуу
+        log('❌ Ката кетти: $errorMessage'); // Логдоону кошуу
+        emit(UserFailure(message: errorMessage));
       },
       (r) {
         emit(UserSuccess(user: r));
