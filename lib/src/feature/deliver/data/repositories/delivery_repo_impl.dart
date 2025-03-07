@@ -1,4 +1,5 @@
 import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:dartz/dartz.dart';
 
 class DeliveryRepositoryImpl implements DeliveryRepository {
   DeliveryRepositoryImpl({required this.remoteDeliveryDataSource});
@@ -6,7 +7,7 @@ class DeliveryRepositoryImpl implements DeliveryRepository {
   final RemoteDeliveryDataSource remoteDeliveryDataSource;
 
   @override
-  Future<void> createDelivery(CreateDeliveryModel delivery) async {
+  Future<Either> createDelivery(CreateDeliveryModel delivery) async {
     return await remoteDeliveryDataSource.createDelivery(delivery);
   }
 }

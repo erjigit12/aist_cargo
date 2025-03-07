@@ -1,5 +1,6 @@
 import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class RemoteDeliveryDataSource {
-  Future<void> createDelivery(CreateDeliveryModel delivery);
+  Future<Either> createDelivery(CreateDeliveryModel delivery);
 }
