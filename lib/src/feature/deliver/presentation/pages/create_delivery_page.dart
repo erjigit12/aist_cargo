@@ -70,9 +70,15 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   const Text('Откуда, куда и когда вы едете?',
                       style: AppTextStyles.f12w600),
                   16.h,
-                  const TextFieldWidget(hintText: 'Москва'),
+                  TextFieldWidget(
+                    controller: fromWhereController,
+                    hintText: 'Москва',
+                  ),
                   16.h,
-                  const TextFieldWidget(hintText: 'Ош'),
+                  TextFieldWidget(
+                    controller: toWhereController,
+                    hintText: 'Ош',
+                  ),
                   16.h,
                   Row(
                     children: [
@@ -109,6 +115,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   ),
                   8.h,
                   TextFormField(
+                    controller: descriptionController,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       hintText: 'Я даю гарантию безопасную транспортировку.',
@@ -146,7 +153,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return ElevatedButtonWidget(
-                          title: 'Создать поездку', onPressed: () async {});
+                        title: 'Создать поездку',
+                        onPressed: () async {},
+                      );
                     },
                   ),
                   32.h,
