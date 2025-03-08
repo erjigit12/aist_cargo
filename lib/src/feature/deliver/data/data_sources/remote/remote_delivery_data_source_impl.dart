@@ -10,7 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
   @override
-  Future<Either> createDelivery(CreateDeliveryModel delivery) async {
+  Future<Either> createDelivery(String fromWhere, String toWhere,
+      String dispatchDate, String arrivalDate, String description) async {
     try {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var accessToken = storage.getString('accessToken');
@@ -19,25 +20,43 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
 
       final response = await sl<DioClient>().post(
         ApiConst.createDelivery,
-        data: delivery.toJson(),
+        data: {
+          'fromWhere': fromWhere,
+          'toWhere': toWhere,
+          'dispatchDate': dispatchDate,
+          'arrivalDate': arrivalDate,
+          'description': description,
+          'fullName': 'Asan Sulaimanov',
+          'transportNumber': "AC202F",
+          'transportType': "AIRPLANE",
+          'packageType': "LUGGAGE",
+          'truckSize': "SMALL",
+          'size': "S",
+          'role': "DELIVERY",
+        },
         options: Options(
-          headers: {'Authorization': 'Bearer $accessToken'},
+          headers: {
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+          },
         ),
       );
 
-      log("📤 Жиберилип жаткан маалымат: ${jsonEncode(delivery.toJson())}");
+      log("📤 Жиберилип жаткан маалымат: ${jsonEncode(response.data)}");
 
-      // 🔥 Жооп JSON форматка айлана алабы, текшерүү
-      try {
-        var jsonResponse = jsonDecode(response.data.toString());
-        log('📩 Сервердин жообу (JSON): $jsonResponse');
-      } catch (jsonError) {
-        log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.data}');
-        throw Exception(
-            "Server response is not a valid JSON: ${response.data}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // 🔥 Жооп JSON форматка айлана алабы, текшерүү
+        try {
+          var jsonResponse = jsonDecode(response.data.toString());
+          log('📩 Сервердин жообу (JSON): $jsonResponse');
+        } catch (jsonError) {
+          log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.data}');
+          throw Exception(
+              "Server response is not a valid JSON: ${response.data}");
+        }
+
+        log("🚨 Серверден келген түпнуска жооп: ${response.toString()}");
       }
-
-      log("🚨 Серверден келген түпнуска жооп: ${response.toString()}");
 
       return Right(response);
     } on DioException catch (e) {

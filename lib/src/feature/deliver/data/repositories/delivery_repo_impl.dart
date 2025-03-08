@@ -7,8 +7,20 @@ class DeliveryRepositoryImpl implements DeliveryRepository {
   final RemoteDeliveryDataSource remoteDeliveryDataSource;
 
   @override
-  Future<Either> createDelivery(CreateDeliveryModel delivery) async {
-    Either result = await remoteDeliveryDataSource.createDelivery(delivery);
+  Future<Either> createDelivery(
+    String fromWhere,
+    String toWhere,
+    String dispatchDate,
+    String arrivalDate,
+    String description,
+  ) async {
+    Either result = await remoteDeliveryDataSource.createDelivery(
+      fromWhere,
+      toWhere,
+      dispatchDate,
+      arrivalDate,
+      description,
+    );
     return result.fold(
       (l) {
         return Left(l);
