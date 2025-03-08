@@ -10,22 +10,10 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     required this.createDeliveryUsecase,
   }) : super(DeliveryInitial());
 
-  void createDeliveries(
-    String fromWhere,
-    String toWhere,
-    String dispatchDate,
-    String arrivalDate,
-    String description,
-  ) async {
+  void createDeliveries(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
-    final result = await createDeliveryUsecase.call(
-      fromWhere,
-      toWhere,
-      dispatchDate,
-      arrivalDate,
-      description,
-    );
+    final result = await createDeliveryUsecase.call(delivery);
     result.fold(
       (l) => emit(DeliveryFailure(message: l)),
       (r) => emit(DeliverySuccess(deliveries: r)),
