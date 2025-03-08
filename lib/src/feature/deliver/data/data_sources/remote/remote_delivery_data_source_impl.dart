@@ -42,8 +42,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
       return Right(response);
     } on DioException catch (e) {
       log('❌ Сервер ката берди: ${e.response?.data ?? e.message}');
-      throw Exception(
-          'Failed to create delivery: ${e.response?.data ?? e.message}');
+      throw Exception('Failed to create delivery: ${e.response}');
     } catch (e) {
       log('❌ Жалпы ката: $e');
       throw Exception('Unexpected error: $e');
