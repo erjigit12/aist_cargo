@@ -166,7 +166,24 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       }
                       return ElevatedButtonWidget(
                         title: 'Создать поездку',
-                        onPressed: () async {},
+                        onPressed: () async {
+                          context
+                              .read<DeliveryCubit>()
+                              .createDeliveries(CreateDeliveryModel(
+                                fromWhere: fromWhereController.text,
+                                toWhere: toWhereController.text,
+                                dispatchDate: dispatchController.text,
+                                arrivalDate: arriveController.text,
+                                description: descriptionController.text,
+                                fullName: 'Asan Sulaimanov',
+                                transportNumber: "AC202F",
+                                transportType: "AIRPLANE",
+                                packageType: "LUGGAGE",
+                                truckSize: "SMALL",
+                                size: "S",
+                                role: "DELIVERY",
+                              ));
+                        },
                       );
                     },
                   ),
