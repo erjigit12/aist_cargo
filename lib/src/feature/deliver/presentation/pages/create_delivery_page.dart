@@ -1,6 +1,7 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Модель для посылки
 class PackageOption {
@@ -34,89 +35,111 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: widget.appBar),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            const Text('Откуда, куда и когда вы едете?',
-                style: AppTextStyles.f12w600),
-            16.h,
-            const TextFieldWidget(hintText: 'Москва'),
-            16.h,
-            const TextFieldWidget(hintText: 'Ош'),
-            16.h,
-            Row(
-              children: [
-                const Expanded(child: TextFieldWidget(hintText: '24.01.2025')),
-                8.w,
-                const Expanded(child: TextFieldWidget(hintText: '28.01.2025')),
-              ],
-            ),
-            32.h,
-            const Text('Какие посылки вы готовы доставить?',
-                style: AppTextStyles.f12w600),
-            const SizedBox(height: 16),
-            Column(
-              children: List.generate(packageOptions.length, (index) {
-                final package = packageOptions[index];
-                return GestureDetector(
-                  onTap: () => setState(() => selectedCardIndex = index),
-                  child: _buildProductCard(
-                    title: package.title,
-                    subtitle: package.size,
-                    isSelected: selectedCardIndex == index,
+      body: BlocListener<DeliveryCubit, DeliveryState>(
+        listener: (context, state) {
+          if (state is DeliverySuccess) {}
+          if (state is DeliveryFailure) {
+            var snackBar = SnackBar(content: Text(state.message));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: BlocBuilder<DeliveryCubit, DeliveryState>(
+          builder: (context, state) {
+            if (state is DeliveryLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const Text('Откуда, куда и когда вы едете?',
+                      style: AppTextStyles.f12w600),
+                  16.h,
+                  const TextFieldWidget(hintText: 'Москва'),
+                  16.h,
+                  const TextFieldWidget(hintText: 'Ош'),
+                  16.h,
+                  Row(
+                    children: [
+                      const Expanded(
+                          child: TextFieldWidget(hintText: '24.01.2025')),
+                      8.w,
+                      const Expanded(
+                          child: TextFieldWidget(hintText: '28.01.2025')),
+                    ],
                   ),
-                );
-              }),
-            ),
-            32.h,
-            Text(
-              'Допольнительная информация о поездке',
-              style: AppTextStyles.f12w400.copyWith(
-                color: AppColors.greyBrightColor,
-              ),
-            ),
-            8.h,
-            TextFormField(
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(16),
-                hintText: 'Я даю гарантию безопасную транспортировку.',
-                hintStyle:
-                    AppTextStyles.f12w400.copyWith(color: AppColors.textColor),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                    width: 1,
+                  32.h,
+                  const Text('Какие посылки вы готовы доставить?',
+                      style: AppTextStyles.f12w600),
+                  const SizedBox(height: 16),
+                  Column(
+                    children: List.generate(packageOptions.length, (index) {
+                      final package = packageOptions[index];
+                      return GestureDetector(
+                        onTap: () => setState(() => selectedCardIndex = index),
+                        child: _buildProductCard(
+                          title: package.title,
+                          subtitle: package.size,
+                          isSelected: selectedCardIndex == index,
+                        ),
+                      );
+                    }),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                    width: 1,
+                  32.h,
+                  Text(
+                    'Допольнительная информация о поездке',
+                    style: AppTextStyles.f12w400.copyWith(
+                      color: AppColors.greyBrightColor,
+                    ),
                   ),
-                ),
-                fillColor: Colors.white,
-                filled: true,
+                  8.h,
+                  TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16),
+                      hintText: 'Я даю гарантию безопасную транспортировку.',
+                      hintStyle: AppTextStyles.f12w400
+                          .copyWith(color: AppColors.textColor),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.blackColor,
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.blackColor,
+                          width: 1,
+                        ),
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    maxLines: null,
+                    minLines: 3,
+                    keyboardType: TextInputType.multiline,
+                  ),
+                  32.h,
+                  BlocBuilder<DeliveryCubit, DeliveryState>(
+                    builder: (context, state) {
+                      if (state is DeliveryLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return ElevatedButtonWidget(
+                          title: 'Создать поездку', onPressed: () async {});
+                    },
+                  ),
+                  32.h,
+                ],
               ),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-              maxLines: null,
-              minLines: 3,
-              keyboardType: TextInputType.multiline,
-            ),
-            32.h,
-            ElevatedButtonWidget(
-                title: 'Создать поездку',
-                onPressed: () async {
-                  showSubscriptionBottomSheet(context);
-                }),
-            32.h,
-          ],
+            );
+          },
         ),
       ),
     );
