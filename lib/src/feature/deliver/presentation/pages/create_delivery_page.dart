@@ -31,6 +31,18 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
     PackageOption(title: 'Сумка/Чемодан S', size: '55x40x20 см до 10кг'),
   ];
 
+  final TextEditingController fromWhereController = TextEditingController();
+  final TextEditingController toWhereController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    fromWhereController.dispose();
+    toWhereController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
