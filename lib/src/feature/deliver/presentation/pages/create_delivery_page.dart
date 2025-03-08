@@ -33,6 +33,8 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
 
   final TextEditingController fromWhereController = TextEditingController();
   final TextEditingController toWhereController = TextEditingController();
+  final TextEditingController dispatchController = TextEditingController();
+  final TextEditingController arriveController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
   @override
@@ -40,6 +42,8 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
     fromWhereController.dispose();
     toWhereController.dispose();
     descriptionController.dispose();
+    dispatchController.dispose();
+    arriveController.dispose();
     super.dispose();
   }
 
@@ -82,11 +86,19 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   16.h,
                   Row(
                     children: [
-                      const Expanded(
-                          child: TextFieldWidget(hintText: '24.01.2025')),
+                      Expanded(
+                        child: TextFieldWidget(
+                          controller: dispatchController,
+                          hintText: '24.01.2025',
+                        ),
+                      ),
                       8.w,
-                      const Expanded(
-                          child: TextFieldWidget(hintText: '28.01.2025')),
+                      Expanded(
+                        child: TextFieldWidget(
+                          controller: arriveController,
+                          hintText: '28.01.2025',
+                        ),
+                      ),
                     ],
                   ),
                   32.h,
