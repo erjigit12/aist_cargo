@@ -29,9 +29,12 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
   @override
   Future<Either> updateUserData(UserModel userModel) async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var id = storage.getInt('id');
+
     try {
       final response = await sl<DioClient>().put(
-        '${ApiConst.userUpdate}/${userModel.id}',
+        '${ApiConst.userUpdate}/$id',
         data: userModel.toMap(),
       );
 
