@@ -128,7 +128,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 .showSnackBar(snackBar);
                           } else {
                             final user = UserModel(
-                              // id: state.user.id,
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
                               email: emailController.text,
