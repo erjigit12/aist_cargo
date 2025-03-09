@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   @override
-  Future<Either> getUserData(int id) async {
+  Future<Either> getUserData() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var id = storage.getInt('id');
 

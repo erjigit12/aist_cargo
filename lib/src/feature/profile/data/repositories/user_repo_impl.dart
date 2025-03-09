@@ -10,8 +10,8 @@ class UserRepositoryImpl implements UserRepository {
   final RemoteUserDataSource remoteUserDataSource;
 
   @override
-  Future<Either> getUserData(int id) async {
-    Either result = await remoteUserDataSource.getUserData(id);
+  Future<Either> getUserData() async {
+    Either result = await remoteUserDataSource.getUserData();
     return result.fold((l) {
       return Left(l);
     }, (r) async {
