@@ -23,7 +23,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
       return Right(response);
     } on DioException catch (e) {
       throw Exception(
-          'Failed to get user data: ${e.response?.data ?? e.message}');
+          'Маалыматты алып келуудо ката кетти: ${e.response?.data ?? e.message}');
     }
   }
 
