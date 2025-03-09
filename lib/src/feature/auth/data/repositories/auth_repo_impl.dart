@@ -23,6 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
         SharedPreferences storage = await SharedPreferences.getInstance();
         storage.setString('accessToken', response['token']);
+        storage.setInt('id', response['id']);
         return Right(response);
       },
     );
@@ -40,6 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
         SharedPreferences storage = await SharedPreferences.getInstance();
         storage.setString('accessToken', response['token']);
+        storage.setInt('id', response['id']);
         return Right(response);
       },
     );

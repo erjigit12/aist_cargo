@@ -5,10 +5,14 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   @override
   Future<Either> getUserData(int id) async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var id = storage.getInt('id');
+
     try {
       final response = await sl<DioClient>().get(
         '${ApiConst.userProfile}/$id',
