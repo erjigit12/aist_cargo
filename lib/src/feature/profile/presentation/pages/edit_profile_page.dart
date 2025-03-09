@@ -134,7 +134,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               email: emailController.text,
                               phoneNumber: state.user.phoneNumber,
                               dateOfBirth: dateOfBirthController.text,
-                              image: state.user.image,
+                              image: '',
                             );
                             context.read<UserCubit>().updateUserData(user);
                             Navigator.pop(context);
