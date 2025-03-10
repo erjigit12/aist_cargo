@@ -21,6 +21,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
         ApiConst.createDelivery,
         options: Options(
           headers: {
+            'accept:': ' */*',
             'Authorization': 'Bearer $accessToken',
             'Content-Type': 'application/json',
           },
@@ -33,15 +34,15 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
           var jsonResponse = jsonDecode(response.data.toString());
           log('📩 Сервердин жообу (JSON): $jsonResponse');
         } catch (jsonError) {
-          log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.data}');
+          log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.statusCode}');
           throw Exception(
               "Server response is not a valid JSON: ${response.data}");
         }
       }
 
-      return Right(response);
+      return Right(response.data);
     } on DioException catch (e) {
-      log('❌ Сервер ката берди: ${e.response?.data ?? e.message}');
+      log('❌ Сервер ката берди: ${e.response ?? e.message}');
       throw Exception('Failed to create delivery: ${e.response}');
     } catch (e) {
       log('❌ Жалпы ката: $e');
