@@ -19,13 +19,13 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
 
       final response = await sl<DioClient>().post(
         ApiConst.createDelivery,
-        data: delivery.toJson(),
         options: Options(
           headers: {
             'Authorization': 'Bearer $accessToken',
             'Content-Type': 'application/json',
           },
         ),
+        data: delivery.toJson(),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
