@@ -20,7 +20,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       (l) => emit(DeliveryFailure(message: l)),
       (r) {
         if (r is CreateDeliveryModel) {
-          final responseData = r.toJson(); // JSON түрүнө айландырабыз
+          final responseData = r.toJson();
           log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
