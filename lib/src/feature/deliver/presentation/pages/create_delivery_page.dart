@@ -54,11 +54,12 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
       body: BlocListener<DeliveryCubit, DeliveryState>(
         listener: (context, state) {
           if (state is DeliverySuccess) {
-            Navigator.pushNamed(context, AppRoutes.placeOrder);
+            Navigator.pushNamed(context, AppRoutes.mySubscription);
           }
           if (state is DeliveryFailure) {
             var snackBar = SnackBar(content: Text(state.message));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            showSubscriptionBottomSheet(context);
           }
         },
         child: BlocBuilder<DeliveryCubit, DeliveryState>(
