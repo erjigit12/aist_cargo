@@ -17,7 +17,7 @@ class CreateDeliveryModel {
     this.truckSize,
     this.size,
     this.role,
-    this.isSubscribed,
+    this.success,
   });
 
   final String? fromWhere;
@@ -32,7 +32,7 @@ class CreateDeliveryModel {
   final String? truckSize;
   final String? size;
   final String? role;
-  final bool? isSubscribed;
+  final bool? success;
 
   Map<String, dynamic> toJson() => _$CreateDeliveryModelToJson(this);
 
