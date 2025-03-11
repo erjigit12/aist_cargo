@@ -59,7 +59,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
           if (state is DeliveryFailure) {
             var snackBar = SnackBar(content: Text(state.message));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            showSubscriptionBottomSheet(context);
+            if (state.message == "Подписка жок!") {
+              showSubscriptionBottomSheet(context);
+            }
           }
         },
         child: BlocBuilder<DeliveryCubit, DeliveryState>(
