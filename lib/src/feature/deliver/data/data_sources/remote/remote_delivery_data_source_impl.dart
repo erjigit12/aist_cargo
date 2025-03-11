@@ -21,7 +21,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
         ApiConst.createDelivery,
         options: Options(
           headers: {
-            'accept:': ' */*',
+            'accept': ' */*',
             'Authorization': 'Bearer $accessToken',
             'Content-Type': 'application/json',
           },
