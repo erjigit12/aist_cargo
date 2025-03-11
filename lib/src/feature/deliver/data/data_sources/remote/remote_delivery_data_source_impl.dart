@@ -31,7 +31,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         try {
-          var jsonResponse = jsonDecode(response.data.toString());
+          var jsonResponse = jsonEncode(response.data);
           log('📩 Сервердин жообу (JSON): $jsonResponse');
         } catch (jsonError) {
           log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.statusCode}');
@@ -40,7 +40,9 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
         }
       }
 
-      return Right(response.data);
+      final createdDelivery = CreateDeliveryModel.fromJson(response.data);
+
+      return Right(createdDelivery);
     } on DioException catch (e) {
       log('❌ Сервер ката берди: ${e.response ?? e.message}');
       throw Exception('Failed to create delivery: ${e.response}');

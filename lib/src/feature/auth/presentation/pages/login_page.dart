@@ -142,12 +142,12 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Пароль',
                     keyboardType: TextInputType.visiblePassword,
                     suffix: true,
-                    validator: (val) {
-                      if (val!.isValidPassword == false) {
-                        return "Enter a valid password";
-                      }
-                      return null;
-                    },
+                    // validator: (val) {
+                    //   if (val!.isValidPassword == false) {
+                    //     return "Enter a valid password";
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   8.h,
                   Row(
