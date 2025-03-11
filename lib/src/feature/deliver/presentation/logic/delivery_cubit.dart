@@ -14,21 +14,21 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     emit(DeliveryLoading());
 
     final result = await createDeliveryUsecase.call(delivery);
-    result.fold((l) => emit(DeliveryFailure(message: l)), (r) {
-      final responseData = r;
+    result.fold(
+      (l) => emit(DeliveryFailure(message: l)),
+      (r) {
+        if (r is Map<String, dynamic>) {
+          final responseData = r;
 
-      // `success` маанисин текшеребиз
-      if (responseData["success"] == true) {
-        emit(DeliverySuccess(deliveries: responseData));
-
-        // // Подпискасы бар болсо, жеткирүү ийгиликтүү бетине өтүү
-        // Navigator.pushNamed(context, '/successDeliveryPage');
-      } else {
-        emit(const DeliveryFailure(message: "Подписка жок!"));
-
-        // // Подпискасы жок болсо, подписка алуу бетине өтүү
-        // Navigator.pushNamed(context, '/subscribePage');
-      }
-    });
+          if (responseData["success"] == true) {
+            emit(DeliverySuccess(deliveries: responseData));
+          } else {
+            emit(const DeliveryFailure(message: "Подписка жок!"));
+          }
+        } else {
+          emit(const DeliveryFailure(message: "Күтүлбөгөн маалымат форматы!"));
+        }
+      },
+    );
   }
 }

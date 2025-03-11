@@ -14,7 +14,7 @@ final class DeliveryLoading extends DeliveryState {}
 final class DeliverySuccess extends DeliveryState {
   const DeliverySuccess({required this.deliveries});
 
-  final CreateDeliveryModel deliveries;
+  final Map<String, dynamic> deliveries;
 }
 
 final class DeliveryFailure extends DeliveryState {
