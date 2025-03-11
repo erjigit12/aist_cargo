@@ -35,6 +35,12 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     try {
       final response = await sl<DioClient>().put(
         '${ApiConst.userUpdate}/$id',
+        options: Options(
+          headers: {
+            'accept': ' */*',
+            'Content-Type': 'application/json',
+          },
+        ),
         data: userModel.toMap(),
       );
 
