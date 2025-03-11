@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -17,16 +19,15 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     result.fold(
       (l) => emit(DeliveryFailure(message: l)),
       (r) {
-        if (r is Map<String, dynamic>) {
-          final responseData = r;
+        if (r is CreateDeliveryModel) {
+          final responseData = r.toJson(); // JSON түрүнө айландырабыз
+          log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
             emit(DeliverySuccess(deliveries: responseData));
           } else {
             emit(const DeliveryFailure(message: "Подписка жок!"));
           }
-        } else {
-          emit(const DeliveryFailure(message: "Күтүлбөгөн маалымат форматы!"));
         }
       },
     );
