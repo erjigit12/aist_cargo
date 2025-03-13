@@ -12,20 +12,6 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     required this.createDeliveryUsecase,
   }) : super(DeliveryInitial());
 
-  /// **Вылет датасын жаңыртуу**
-  void updateDispatchDate(String date) {
-    if (state is DeliveryUpdated) {
-      emit((state as DeliveryUpdated).copyWith(dispatchDate: date));
-    }
-  }
-
-  /// **Прибытие датасын жаңыртуу**
-  void updateArrivalDate(String date) {
-    if (state is DeliveryUpdated) {
-      emit((state as DeliveryUpdated).copyWith(arrivalDate: date));
-    }
-  }
-
   void createDeliveries(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
@@ -39,15 +25,15 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
           if (responseData["success"] == true) {
             emit(
-              DeliverySuccess(
-                deliveries: responseData,
-                dispatchDate: r.dispatchDate ?? '',
-                arrivalDate: r.arrivalDate ?? '',
-              ),
+              DeliverySuccess(deliveries: responseData),
             );
           } else {
+            log("⚠️ Подписка жок, DeliveryFailure чыгарылды");
             emit(const DeliveryFailure(message: "Подписка жок!"));
           }
+        } else {
+          log("⚠️ Белгисиз жооп форматы!");
+          emit(const DeliveryFailure(message: "Белгисиз жооп форматы!"));
         }
       },
     );
