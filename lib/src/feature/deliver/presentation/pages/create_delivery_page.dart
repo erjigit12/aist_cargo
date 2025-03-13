@@ -20,8 +20,7 @@ class CreateDeliveryPage extends StatefulWidget {
 }
 
 class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
-  Future<void> _selectDate(
-      BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDate(BuildContext context, bool isDispatch) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -29,10 +28,14 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      setState(() {
-        controller.text =
-            "${picked.day.toString().padLeft(2, '0')}.${picked.month.toString().padLeft(2, '0')}.${picked.year}";
-      });
+      String formattedDate =
+          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+
+      if (isDispatch) {
+        context.read<DeliveryCubit>().updateDispatchDate(formattedDate);
+      } else {
+        context.read<DeliveryCubit>().updateArrivalDate(formattedDate);
+      }
     }
   }
 
@@ -107,10 +110,11 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     children: [
                       Expanded(
                         child: TextFieldWidget(
-                          onTap: () => _selectDate(context, dispatchController),
-                          controller: dispatchController,
+                          onTap: () => _selectDate(context, true),
                           readOnly: true,
-                          hintText: 'Дата вылета',
+                          hintText: state.dispatchDate.isEmpty
+                              ? 'Дата вылета'
+                              : state.dispatchDate,
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_takeoff)
                               : const Icon(Icons.calendar_today),
@@ -119,10 +123,11 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       8.w,
                       Expanded(
                         child: TextFieldWidget(
-                          onTap: () => _selectDate(context, arriveController),
-                          controller: arriveController,
+                          onTap: () => _selectDate(context, false),
                           readOnly: true,
-                          hintText: 'Дата прибытия',
+                          hintText: state.arrivalDate.isEmpty
+                              ? 'Дата прибытия'
+                              : state.arrivalDate,
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_land)
                               : const Icon(Icons.calendar_month),

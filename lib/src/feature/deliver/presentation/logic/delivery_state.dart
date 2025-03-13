@@ -25,3 +25,26 @@ final class DeliveryFailure extends DeliveryState {
   @override
   List<Object> get props => [message];
 }
+
+final class DeliveryUpdated extends DeliveryState {
+  final String dispatchDate;
+  final String arrivalDate;
+
+  const DeliveryUpdated({
+    this.dispatchDate = '',
+    this.arrivalDate = '',
+  });
+
+  @override
+  List<Object> get props => [dispatchDate, arrivalDate];
+
+  DeliveryUpdated copyWith({
+    String? dispatchDate,
+    String? arrivalDate,
+  }) {
+    return DeliveryUpdated(
+      dispatchDate: dispatchDate ?? this.dispatchDate,
+      arrivalDate: arrivalDate ?? this.arrivalDate,
+    );
+  }
+}
