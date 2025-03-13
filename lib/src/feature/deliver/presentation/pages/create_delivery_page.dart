@@ -93,7 +93,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                         child: TextFieldWidget(
                           controller: dispatchController,
                           hintText: '24.01.2025',
-                          prefixIcon: const Icon(Icons.calendar_today),
+                          prefixIcon: widget.appBar == 'Самолет'
+                              ? const Icon(Icons.flight_takeoff)
+                              : const Icon(Icons.calendar_today),
                         ),
                       ),
                       8.w,
@@ -101,7 +103,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                         child: TextFieldWidget(
                           controller: arriveController,
                           hintText: '28.01.2025',
-                          prefixIcon: const Icon(Icons.calendar_month),
+                          prefixIcon: widget.appBar == 'Самолет'
+                              ? const Icon(Icons.flight_land)
+                              : const Icon(Icons.calendar_month),
                         ),
                       ),
                     ],
