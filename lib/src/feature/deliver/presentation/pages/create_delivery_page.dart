@@ -88,7 +88,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
             if (state is DeliveryLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (state is DeliveryUpdated) {
+            if (state is DeliverySuccess) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ListView(
@@ -229,7 +229,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                 ),
               );
             }
-            return Container();
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

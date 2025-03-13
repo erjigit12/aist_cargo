@@ -12,9 +12,15 @@ final class DeliveryInitial extends DeliveryState {}
 final class DeliveryLoading extends DeliveryState {}
 
 final class DeliverySuccess extends DeliveryState {
-  const DeliverySuccess({required this.deliveries});
+  const DeliverySuccess({
+    required this.deliveries,
+    required this.dispatchDate,
+    required this.arrivalDate,
+  });
 
   final Map<String, dynamic> deliveries;
+  final String dispatchDate;
+  final String arrivalDate;
 }
 
 final class DeliveryFailure extends DeliveryState {

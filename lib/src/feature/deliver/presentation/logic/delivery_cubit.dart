@@ -38,7 +38,13 @@ class DeliveryCubit extends Cubit<DeliveryState> {
           log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
-            emit(DeliverySuccess(deliveries: responseData));
+            emit(
+              DeliverySuccess(
+                deliveries: responseData,
+                dispatchDate: r.dispatchDate ?? '',
+                arrivalDate: r.arrivalDate ?? '',
+              ),
+            );
           } else {
             emit(const DeliveryFailure(message: "Подписка жок!"));
           }
