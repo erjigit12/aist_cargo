@@ -20,6 +20,19 @@ class CreateDeliveryPage extends StatefulWidget {
 }
 
 class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    // if (picked != null) {
+    //   // ignore: use_build_context_synchronously
+    //   context.read<PackageSelectionCubit>().updateDate(picked, isDeparture);
+    // }
+  }
+
   int selectedCardIndex = -1;
   int selectedSubscriptionIndex = 0;
 

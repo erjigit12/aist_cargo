@@ -8,15 +8,18 @@ class TextFieldWidget extends StatelessWidget {
     required this.hintText,
     this.controller,
     this.prefixIcon,
+    this.onTap,
   });
 
   final String hintText;
   final TextEditingController? controller;
   final Widget? prefixIcon;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
       controller: controller,
       decoration: InputDecoration(
         prefixIcon: prefixIcon ?? const Icon(Icons.location_on),
