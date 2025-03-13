@@ -88,143 +88,148 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
             if (state is DeliveryLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const Text('Откуда, куда и когда вы едете?',
-                      style: AppTextStyles.f12w600),
-                  16.h,
-                  TextFieldWidget(
-                    controller: fromWhereController,
-                    hintText: 'Москва',
-                  ),
-                  16.h,
-                  TextFieldWidget(
-                    controller: toWhereController,
-                    hintText: 'Ош',
-                  ),
-                  16.h,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFieldWidget(
-                          onTap: () => _selectDate(context, true),
-                          readOnly: true,
-                          hintText: state.dispatchDate.isEmpty
-                              ? 'Дата вылета'
-                              : state.dispatchDate,
-                          prefixIcon: widget.appBar == 'Самолет'
-                              ? const Icon(Icons.flight_takeoff)
-                              : const Icon(Icons.calendar_today),
-                        ),
-                      ),
-                      8.w,
-                      Expanded(
-                        child: TextFieldWidget(
-                          onTap: () => _selectDate(context, false),
-                          readOnly: true,
-                          hintText: state.arrivalDate.isEmpty
-                              ? 'Дата прибытия'
-                              : state.arrivalDate,
-                          prefixIcon: widget.appBar == 'Самолет'
-                              ? const Icon(Icons.flight_land)
-                              : const Icon(Icons.calendar_month),
-                        ),
-                      ),
-                    ],
-                  ),
-                  32.h,
-                  const Text('Какие посылки вы готовы доставить?',
-                      style: AppTextStyles.f12w600),
-                  const SizedBox(height: 16),
-                  Column(
-                    children: List.generate(packageOptions.length, (index) {
-                      final package = packageOptions[index];
-                      return GestureDetector(
-                        onTap: () => setState(() => selectedCardIndex = index),
-                        child: _buildProductCard(
-                          title: package.title,
-                          subtitle: package.size,
-                          isSelected: selectedCardIndex == index,
-                        ),
-                      );
-                    }),
-                  ),
-                  32.h,
-                  Text(
-                    'Допольнительная информация о поездке',
-                    style: AppTextStyles.f12w400.copyWith(
-                      color: AppColors.greyBrightColor,
+            if (state is DeliveryUpdated) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const Text('Откуда, куда и когда вы едете?',
+                        style: AppTextStyles.f12w600),
+                    16.h,
+                    TextFieldWidget(
+                      controller: fromWhereController,
+                      hintText: 'Москва',
                     ),
-                  ),
-                  8.h,
-                  TextFormField(
-                    controller: descriptionController,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(16),
-                      hintText: 'Я даю гарантию безопасную транспортировку.',
-                      hintStyle: AppTextStyles.f12w400
-                          .copyWith(color: AppColors.textColor),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: AppColors.blackColor,
-                          width: 1,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: AppColors.blackColor,
-                          width: 1,
-                        ),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
+                    16.h,
+                    TextFieldWidget(
+                      controller: toWhereController,
+                      hintText: 'Ош',
                     ),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
+                    16.h,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFieldWidget(
+                            onTap: () => _selectDate(context, true),
+                            readOnly: true,
+                            hintText: state.dispatchDate.isEmpty
+                                ? 'Дата вылета'
+                                : state.dispatchDate,
+                            prefixIcon: widget.appBar == 'Самолет'
+                                ? const Icon(Icons.flight_takeoff)
+                                : const Icon(Icons.calendar_today),
+                          ),
+                        ),
+                        8.w,
+                        Expanded(
+                          child: TextFieldWidget(
+                            onTap: () => _selectDate(context, false),
+                            readOnly: true,
+                            hintText: state.arrivalDate.isEmpty
+                                ? 'Дата прибытия'
+                                : state.arrivalDate,
+                            prefixIcon: widget.appBar == 'Самолет'
+                                ? const Icon(Icons.flight_land)
+                                : const Icon(Icons.calendar_month),
+                          ),
+                        ),
+                      ],
                     ),
-                    maxLines: null,
-                    minLines: 3,
-                    keyboardType: TextInputType.multiline,
-                  ),
-                  32.h,
-                  BlocBuilder<DeliveryCubit, DeliveryState>(
-                    builder: (context, state) {
-                      if (state is DeliveryLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return ElevatedButtonWidget(
-                        title: 'Создать поездку',
-                        onPressed: () async {
-                          context
-                              .read<DeliveryCubit>()
-                              .createDeliveries(CreateDeliveryModel(
-                                fromWhere: fromWhereController.text,
-                                toWhere: toWhereController.text,
-                                dispatchDate: dispatchController.text,
-                                arrivalDate: arriveController.text,
-                                description: descriptionController.text,
-                                fullName: 'Asan Sulaimanov',
-                                transportNumber: "AC202F",
-                                transportType: "AIRPLANE",
-                                packageType: "LUGGAGE",
-                                truckSize: "SMALL",
-                                size: "S",
-                                role: "DELIVERY",
-                              ));
-                        },
-                      );
-                    },
-                  ),
-                  32.h,
-                ],
-              ),
-            );
+                    32.h,
+                    const Text('Какие посылки вы готовы доставить?',
+                        style: AppTextStyles.f12w600),
+                    const SizedBox(height: 16),
+                    Column(
+                      children: List.generate(packageOptions.length, (index) {
+                        final package = packageOptions[index];
+                        return GestureDetector(
+                          onTap: () =>
+                              setState(() => selectedCardIndex = index),
+                          child: _buildProductCard(
+                            title: package.title,
+                            subtitle: package.size,
+                            isSelected: selectedCardIndex == index,
+                          ),
+                        );
+                      }),
+                    ),
+                    32.h,
+                    Text(
+                      'Допольнительная информация о поездке',
+                      style: AppTextStyles.f12w400.copyWith(
+                        color: AppColors.greyBrightColor,
+                      ),
+                    ),
+                    8.h,
+                    TextFormField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(16),
+                        hintText: 'Я даю гарантию безопасную транспортировку.',
+                        hintStyle: AppTextStyles.f12w400
+                            .copyWith(color: AppColors.textColor),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: AppColors.blackColor,
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: AppColors.blackColor,
+                            width: 1,
+                          ),
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                      maxLines: null,
+                      minLines: 3,
+                      keyboardType: TextInputType.multiline,
+                    ),
+                    32.h,
+                    BlocBuilder<DeliveryCubit, DeliveryState>(
+                      builder: (context, state) {
+                        if (state is DeliveryLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return ElevatedButtonWidget(
+                          title: 'Создать поездку',
+                          onPressed: () async {
+                            context
+                                .read<DeliveryCubit>()
+                                .createDeliveries(CreateDeliveryModel(
+                                  fromWhere: fromWhereController.text,
+                                  toWhere: toWhereController.text,
+                                  dispatchDate: dispatchController.text,
+                                  arrivalDate: arriveController.text,
+                                  description: descriptionController.text,
+                                  fullName: 'Asan Sulaimanov',
+                                  transportNumber: "AC202F",
+                                  transportType: "AIRPLANE",
+                                  packageType: "LUGGAGE",
+                                  truckSize: "SMALL",
+                                  size: "S",
+                                  role: "DELIVERY",
+                                ));
+                          },
+                        );
+                      },
+                    ),
+                    32.h,
+                  ],
+                ),
+              );
+            }
+            return Container();
           },
         ),
       ),
