@@ -104,13 +104,6 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       ),
                     ],
                   ),
-                  _buildDateSelectionRow(
-                    context,
-                    'assets/icons/mdi_airplane-takeoff.png',
-                    'assets/icons/date_to.png',
-                    'assets/icons/mdi_airplane-takeon.png',
-                    'assets/icons/date_ok.png',
-                  ),
                   32.h,
                   const Text('Какие посылки вы готовы доставить?',
                       style: AppTextStyles.f12w600),
@@ -337,47 +330,6 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
           },
         );
       },
-    );
-  }
-
-  Widget _buildDateSelectionRow(BuildContext context, String imageUrl1,
-      String imageUrl2, String imageUrl3, String imageUrl4) {
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton.icon(
-            onPressed: () {},
-            icon: Image.asset('assets/images/airplane_on.png'),
-            label: const Text(
-              'Дата отправки',
-              style: TextStyle(fontSize: 12, color: AppColors.greyColor),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.whiteColor,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: ElevatedButton.icon(
-            onPressed: () {},
-            icon: Image.asset('assets/images/airplane_off.png'),
-            label: const Text(
-              'Дата прибытия',
-              style: TextStyle(fontSize: 12, color: AppColors.greyColor),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.whiteColor,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
