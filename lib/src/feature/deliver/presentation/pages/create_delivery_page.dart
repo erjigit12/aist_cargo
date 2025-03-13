@@ -20,17 +20,20 @@ class CreateDeliveryPage extends StatefulWidget {
 }
 
 class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
-    // if (picked != null) {
-    //   // ignore: use_build_context_synchronously
-    //   context.read<PackageSelectionCubit>().updateDate(picked, isDeparture);
-    // }
+    if (picked != null) {
+      setState(() {
+        controller.text =
+            "${picked.day.toString().padLeft(2, '0')}.${picked.month.toString().padLeft(2, '0')}.${picked.year}";
+      });
+    }
   }
 
   int selectedCardIndex = -1;
@@ -104,10 +107,10 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     children: [
                       Expanded(
                         child: TextFieldWidget(
-                          onTap: () => _selectDate(context),
+                          onTap: () => _selectDate(context, dispatchController),
                           controller: dispatchController,
                           readOnly: true,
-                          hintText: '24.01.2025',
+                          hintText: 'Дата вылета',
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_takeoff)
                               : const Icon(Icons.calendar_today),
@@ -116,10 +119,10 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       8.w,
                       Expanded(
                         child: TextFieldWidget(
-                          onTap: () => _selectDate(context),
+                          onTap: () => _selectDate(context, arriveController),
                           controller: arriveController,
                           readOnly: true,
-                          hintText: '28.01.2025',
+                          hintText: 'Дата прибытия',
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_land)
                               : const Icon(Icons.calendar_month),
