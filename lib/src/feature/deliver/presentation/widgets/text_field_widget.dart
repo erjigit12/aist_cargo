@@ -9,18 +9,21 @@ class TextFieldWidget extends StatelessWidget {
     this.controller,
     this.prefixIcon,
     this.onTap,
+    this.readOnly,
   });
 
   final String hintText;
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final void Function()? onTap;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: onTap,
       controller: controller,
+      readOnly: readOnly ?? false,
       decoration: InputDecoration(
         prefixIcon: prefixIcon ?? const Icon(Icons.location_on),
         hintText: hintText,

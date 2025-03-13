@@ -104,7 +104,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     children: [
                       Expanded(
                         child: TextFieldWidget(
+                          onTap: () => _selectDate(context),
                           controller: dispatchController,
+                          readOnly: true,
                           hintText: '24.01.2025',
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_takeoff)
@@ -114,7 +116,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                       8.w,
                       Expanded(
                         child: TextFieldWidget(
+                          onTap: () => _selectDate(context),
                           controller: arriveController,
+                          readOnly: true,
                           hintText: '28.01.2025',
                           prefixIcon: widget.appBar == 'Самолет'
                               ? const Icon(Icons.flight_land)
