@@ -32,6 +32,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<DeliveryCubit>(),
         ),
+        BlocProvider(
+          create: (context) => di.sl<SendCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
