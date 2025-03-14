@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'send_model.g.dart';
+
+@JsonSerializable()
 class SendModel {
   final String? firstName;
   final String? lastName;
@@ -22,4 +27,9 @@ class SendModel {
     this.size,
     this.subsDuration,
   });
+
+  Map<String, dynamic> toMap() => _$SendModelToJson(this);
+
+  factory SendModel.fromMap(Map<String, dynamic> json) =>
+      _$SendModelFromJson(json);
 }
