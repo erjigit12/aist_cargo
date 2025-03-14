@@ -37,6 +37,10 @@ Future<void> init() async {
     () => DeliveryCubit(createDeliveryUsecase: sl.call()),
   );
 
+  sl.registerFactory<SendCubit>(
+    () => SendCubit(createSendUsecase: sl.call()),
+  );
+
   /// Use Cases
   sl.registerLazySingleton<SignupUsecase>(
     () => SignupUsecase(authRepository: sl.call()),
@@ -70,6 +74,10 @@ Future<void> init() async {
     () => CreateDeliveryUsecase(repository: sl.call()),
   );
 
+  sl.registerLazySingleton<CreateSendUsecase>(
+    () => CreateSendUsecase(repository: sl.call()),
+  );
+
   /// Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -82,6 +90,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DeliveryRepository>(
     () => DeliveryRepositoryImpl(remoteDeliveryDataSource: sl.call()),
+  );
+
+  sl.registerLazySingleton<SendRepository>(
+    () => SendRepositoryImpl(remoteSendDataSource: sl.call()),
   );
 
   /// Data Sources
@@ -100,6 +112,9 @@ Future<void> init() async {
   sl.registerLazySingleton<RemoteDeliveryDataSource>(
     () => RemoteDeliveryDataSourceImpl(),
   );
+
+  sl.registerLazySingleton<RemoteSendDataSource>(
+      () => RemoteSendDataSourceImpl());
 
   /// Network
   sl.registerSingleton<DioClient>(DioClient());
