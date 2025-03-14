@@ -30,6 +30,6 @@ class SendModel {
 
   Map<String, dynamic> toJson() => _$SendModelToJson(this);
 
-  factory SendModel.fromMap(Map<String, dynamic> json) =>
+  factory SendModel.fromJson(Map<String, dynamic> json) =>
       _$SendModelFromJson(json);
 }

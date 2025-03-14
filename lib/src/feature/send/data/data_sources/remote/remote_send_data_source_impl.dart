@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:aist_cargo/injection_container.dart';
@@ -27,7 +28,21 @@ class RemoteSendDataSourceImpl implements RemoteSendDataSource {
         ),
         data: sendModel.toJson(),
       );
-      return Right(response.data);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        try {
+          var jsonResponse = jsonEncode(response.data);
+          log('📩 Сервердин жообу (JSON): $jsonResponse');
+        } catch (jsonError) {
+          log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.statusCode}');
+          throw Exception(
+              "Server response is not a valid JSON: ${response.data}");
+        }
+      }
+
+      final createSend = SendModel.fromJson(response.data);
+
+      return Right(createSend);
     } on DioException catch (e) {
       log('❌ Сервер ката берди: ${e.response ?? e.message}');
       throw Exception('Failed to create delivery: ${e.response}');
