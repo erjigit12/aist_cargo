@@ -28,7 +28,7 @@ class SendModel {
     this.subsDuration,
   });
 
-  Map<String, dynamic> toMap() => _$SendModelToJson(this);
+  Map<String, dynamic> toJson() => _$SendModelToJson(this);
 
   factory SendModel.fromMap(Map<String, dynamic> json) =>
       _$SendModelFromJson(json);
