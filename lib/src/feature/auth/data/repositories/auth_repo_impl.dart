@@ -57,6 +57,9 @@ class AuthRepositoryImpl implements AuthRepository {
       (r) async {
         Map<String, dynamic> response = r;
 
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.setInt('id', response['id']);
+
         return Right(response);
       },
     );
