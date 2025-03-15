@@ -73,19 +73,37 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: widget.appBar),
-      body: BlocListener<DeliveryCubit, DeliveryState>(
-        listener: (context, state) {
-          if (state is DeliverySuccess) {
-            Navigator.pushNamed(context, AppRoutes.placeOrder);
-          }
-          if (state is DeliveryFailure) {
-            var snackBar = SnackBar(content: Text(state.message));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            if (state.message == "Подписка жок!") {
-              showSubscriptionBottomSheet(context);
-            }
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<DeliveryCubit, DeliveryState>(
+            listener: (context, state) {
+              if (state is DeliverySuccess) {
+                Navigator.pushNamed(context, AppRoutes.placeOrder);
+              }
+              if (state is DeliveryFailure) {
+                var snackBar = SnackBar(content: Text(state.message));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                if (state.message == "Подписка жок!") {
+                  showSubscriptionBottomSheet(context);
+                }
+              }
+            },
+          ),
+          BlocListener<SendCubit, SendState>(
+            listener: (context, state) {
+              if (state is SendSuccess) {
+                Navigator.pushNamed(context, AppRoutes.placeOrder);
+              }
+              if (state is SendFailure) {
+                var snackBar = SnackBar(content: Text(state.message));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                if (state.message == "Подписка жок!") {
+                  showSubscriptionBottomSheet(context);
+                }
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<DeliveryCubit, DeliveryState>(
           builder: (context, state) {
             if (state is DeliveryLoading) {
@@ -226,7 +244,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                         )
                       : BlocBuilder<SendCubit, SendState>(
                           builder: (context, state) {
-                            if (state is DeliveryLoading) {
+                            if (state is SendLoading) {
                               return const Center(
                                   child: CircularProgressIndicator());
                             }
