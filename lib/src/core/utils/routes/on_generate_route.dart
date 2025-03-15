@@ -28,8 +28,10 @@ class RouteGenerator {
 
       case AppRoutes.createDelivery:
         return CupertinoPageRoute(
-            builder: (_) =>
-                CreateDeliveryPage(appBar: settings.arguments as String));
+            builder: (_) => CreateDeliveryPage(
+                  appBar: settings.arguments as String,
+                  deliverOrSend: settings.arguments as bool,
+                ));
 
       case AppRoutes.addCard:
         return CupertinoPageRoute(builder: (_) => const AddCardPage());
