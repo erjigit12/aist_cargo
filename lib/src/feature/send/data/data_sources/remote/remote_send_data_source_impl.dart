@@ -13,11 +13,13 @@ class RemoteSendDataSourceImpl implements RemoteSendDataSource {
     try {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var accessToken = storage.getString('accessToken');
+      var id = storage.getInt('id');
 
       log("✅ Access Token: $accessToken");
+      log("✅ ID: $id");
 
       final response = await sl<DioClient>().post(
-        ApiConst.createSendings,
+        '${ApiConst.createSendings}/$id',
         options: Options(
           headers: {
             'accept': ' */*',
