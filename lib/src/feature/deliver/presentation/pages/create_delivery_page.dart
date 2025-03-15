@@ -12,8 +12,14 @@ class PackageOption {
 }
 
 class CreateDeliveryPage extends StatefulWidget {
+  const CreateDeliveryPage({
+    super.key,
+    required this.appBar,
+    required this.deliverOrSend,
+  });
+
   final String appBar;
-  const CreateDeliveryPage({super.key, required this.appBar});
+  final bool deliverOrSend;
 
   @override
   State<CreateDeliveryPage> createState() => _CreateDeliveryPageState();
