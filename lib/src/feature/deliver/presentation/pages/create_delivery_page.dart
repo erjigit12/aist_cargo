@@ -194,34 +194,63 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                     keyboardType: TextInputType.multiline,
                   ),
                   32.h,
-                  BlocBuilder<DeliveryCubit, DeliveryState>(
-                    builder: (context, state) {
-                      if (state is DeliveryLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return ElevatedButtonWidget(
-                        title: 'Создать поездку',
-                        onPressed: () async {
-                          context
-                              .read<DeliveryCubit>()
-                              .createDeliveries(CreateDeliveryModel(
-                                fromWhere: fromWhereController.text,
-                                toWhere: toWhereController.text,
-                                dispatchDate: dispatchController.text,
-                                arrivalDate: arriveController.text,
-                                description: descriptionController.text,
-                                fullName: 'Asan Sulaimanov',
-                                transportNumber: "AC202F",
-                                transportType: "AIRPLANE",
-                                packageType: "LUGGAGE",
-                                truckSize: "SMALL",
-                                size: "S",
-                                role: "DELIVERY",
-                              ));
-                        },
-                      );
-                    },
-                  ),
+                  widget.deliverOrSend == true
+                      ? BlocBuilder<DeliveryCubit, DeliveryState>(
+                          builder: (context, state) {
+                            if (state is DeliveryLoading) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                            return ElevatedButtonWidget(
+                              title: 'Создать поездку',
+                              onPressed: () async {
+                                context
+                                    .read<DeliveryCubit>()
+                                    .createDeliveries(CreateDeliveryModel(
+                                      fromWhere: fromWhereController.text,
+                                      toWhere: toWhereController.text,
+                                      dispatchDate: dispatchController.text,
+                                      arrivalDate: arriveController.text,
+                                      description: descriptionController.text,
+                                      fullName: 'Asan Sulaimanov',
+                                      transportNumber: "AC202F",
+                                      transportType: "AIRPLANE",
+                                      packageType: "LUGGAGE",
+                                      truckSize: "SMALL",
+                                      size: "S",
+                                      role: "DELIVERY",
+                                    ));
+                              },
+                            );
+                          },
+                        )
+                      : BlocBuilder<SendCubit, SendState>(
+                          builder: (context, state) {
+                            if (state is DeliveryLoading) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                            return ElevatedButtonWidget(
+                              title: 'Создать поездку',
+                              onPressed: () async {
+                                context.read<SendCubit>().createSend(
+                                      SendModel(
+                                        fromWhere: fromWhereController.text,
+                                        toWhere: toWhereController.text,
+                                        dispatchDate: dispatchController.text,
+                                        arrivalDate: arriveController.text,
+                                        description: descriptionController.text,
+                                        firstName: 'Marat',
+                                        lastName: 'Kubatov',
+                                        packageType: 'LUGGAGE',
+                                        size: 'S',
+                                        subsDuration: 'ONE_MONTH',
+                                      ),
+                                    );
+                              },
+                            );
+                          },
+                        ),
                   32.h,
                 ],
               ),
