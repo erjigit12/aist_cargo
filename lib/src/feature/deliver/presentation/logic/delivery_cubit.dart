@@ -8,8 +8,11 @@ part 'delivery_state.dart';
 
 class DeliveryCubit extends Cubit<DeliveryState> {
   final CreateDeliveryUsecase createDeliveryUsecase;
+  final CreateSubscriptionUsecase createSubscriptionUsecase;
+
   DeliveryCubit({
     required this.createDeliveryUsecase,
+    required this.createSubscriptionUsecase,
   }) : super(DeliveryInitial());
 
   void createDeliveries(CreateDeliveryModel delivery) async {
@@ -35,6 +38,19 @@ class DeliveryCubit extends Cubit<DeliveryState> {
           log("⚠️ Белгисиз жооп форматы!");
           emit(const DeliveryFailure(message: "Белгисиз жооп форматы!"));
         }
+      },
+    );
+  }
+
+  void createSubscription(String duration, String transportType) async {
+    emit(DeliveryLoading());
+
+    final result =
+        await createSubscriptionUsecase.call(duration, transportType);
+    result.fold(
+      (l) => emit(DeliveryFailure(message: l)),
+      (r) {
+        emit(DeliverySuccess(deliveries: r));
       },
     );
   }
