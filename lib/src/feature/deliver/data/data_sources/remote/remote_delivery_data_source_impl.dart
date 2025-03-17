@@ -54,7 +54,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
 
   @override
   Future<Either> createSubscription(
-      CreateSubscriptionModel subscription) async {
+      String duration, String transportType) async {
     try {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var accessToken = storage.getString('accessToken');
@@ -70,7 +70,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
             'Content-Type': 'application/json',
           },
         ),
-        data: subscription.toJson(),
+        data: {"duration": duration, "transportType": transportType},
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {

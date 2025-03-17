@@ -6,6 +6,6 @@ class CreateSubscriptionUsecase {
 
   final DeliveryRepository repository;
 
-  Future<Either> call(CreateSubscriptionModel subscription) async =>
-      await repository.createSubscription(subscription);
+  Future<Either> call(String duration, String transportType) async =>
+      await repository.createSubscription(duration, transportType);
 }

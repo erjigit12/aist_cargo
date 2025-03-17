@@ -21,7 +21,8 @@ class DeliveryRepositoryImpl implements DeliveryRepository {
 
   @override
   Future<Either> createSubscription(
-      CreateSubscriptionModel subscription) async {
-    return await remoteDeliveryDataSource.createSubscription(subscription);
+      String duration, String transportType) async {
+    return await remoteDeliveryDataSource.createSubscription(
+        duration, transportType);
   }
 }
