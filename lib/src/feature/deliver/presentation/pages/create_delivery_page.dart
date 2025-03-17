@@ -326,6 +326,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setModalState) {
               int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
+
               return FractionallySizedBox(
                 heightFactor: 0.7,
                 child: Padding(
@@ -414,9 +415,16 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                         onPressed: () async {
                           // Navigator.pushNamed(context, AppRoutes.addCard);
 
-                          context
-                              .read<DeliveryCubit>()
-                              .createSubscription('ONE_MONTH', 'AIRPLANE');
+                          context.read<DeliveryCubit>().createSubscription(
+                                localSelectedSubscriptionIndex == 1
+                                    ? 'ONE_MONTH'
+                                    : localSelectedSubscriptionIndex == 2
+                                        ? 'THREE_MONTH'
+                                        : localSelectedSubscriptionIndex == 3
+                                            ? 'SIX_MONTH'
+                                            : '',
+                                'AIRPLANE',
+                              );
                         },
                       ),
                     ],
