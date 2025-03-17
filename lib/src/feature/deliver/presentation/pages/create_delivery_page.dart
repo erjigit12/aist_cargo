@@ -302,7 +302,9 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
     );
   }
 
-  void showSubscriptionBottomSheet(BuildContext context) {
+  void showSubscriptionBottomSheet(
+    BuildContext context,
+  ) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -310,103 +312,119 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
       ),
       isScrollControlled: true,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
-            return FractionallySizedBox(
-              heightFactor: 0.7,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    30.h,
-                    Text(
-                      'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.f14w400
-                          .copyWith(color: AppColors.textColor),
-                    ),
-                    24.h,
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SubscriptionButton(
-                            text: 'Подключить за 99Р на 1 месяц',
-                            color: AppColors.subscribeYellowColor,
-                            index: 1,
-                            currentIndex: localSelectedSubscriptionIndex,
-                            onSelect: (index) {
-                              setModalState(() {
-                                localSelectedSubscriptionIndex = index;
-                              });
-                              setState(() {
-                                selectedSubscriptionIndex = index;
-                              });
-                            },
-                          ),
-                          8.h,
-                          SubscriptionButton(
-                            text: 'Подключить за 999Р на 3 месяца',
-                            color: AppColors.subscribeBlueColor,
-                            index: 2,
-                            currentIndex: localSelectedSubscriptionIndex,
-                            onSelect: (index) {
-                              setModalState(() {
-                                localSelectedSubscriptionIndex = index;
-                              });
-                              setState(() {
-                                selectedSubscriptionIndex = index;
-                              });
-                            },
-                          ),
-                          8.h,
-                          SubscriptionButton(
-                            text: 'Подключить за 9990Р на 6 месяца',
-                            color: AppColors.subscribeRedColor,
-                            index: 3,
-                            currentIndex: localSelectedSubscriptionIndex,
-                            onSelect: (index) {
-                              setModalState(() {
-                                localSelectedSubscriptionIndex = index;
-                              });
-                              setState(() {
-                                selectedSubscriptionIndex = index;
-                              });
-                            },
-                          ),
-                          8.h,
-                          SubscriptionButton(
-                            text: 'Подключить за 99900Р на 12 месяца',
-                            color: AppColors.subscribeGreenColor,
-                            index: 4,
-                            currentIndex: localSelectedSubscriptionIndex,
-                            onSelect: (index) {
-                              setModalState(() {
-                                localSelectedSubscriptionIndex = index;
-                              });
-                              setState(() {
-                                selectedSubscriptionIndex = index;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    24.h,
-                    ElevatedButtonWidget(
-                      title: 'Подключить',
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.addCard);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            );
+        return BlocListener<DeliveryCubit, DeliveryState>(
+          listener: (context, state) {
+            if (state is DeliverySuccess) {
+              Navigator.pushNamed(context, AppRoutes.placeOrder);
+            }
+            if (state is DeliveryFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Подписка кылууда ката кетти'),
+              ));
+            }
           },
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setModalState) {
+              int localSelectedSubscriptionIndex = selectedSubscriptionIndex;
+              return FractionallySizedBox(
+                heightFactor: 0.7,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      30.h,
+                      Text(
+                        'Чтобы открыть следующую страницу, необходимо подписаться на один из тарифов.',
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.f14w400
+                            .copyWith(color: AppColors.textColor),
+                      ),
+                      24.h,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SubscriptionButton(
+                              text: 'Подключить за 99Р на 1 месяц',
+                              color: AppColors.subscribeYellowColor,
+                              index: 1,
+                              currentIndex: localSelectedSubscriptionIndex,
+                              onSelect: (index) {
+                                setModalState(() {
+                                  localSelectedSubscriptionIndex = index;
+                                });
+                                setState(() {
+                                  selectedSubscriptionIndex = index;
+                                });
+                              },
+                            ),
+                            8.h,
+                            SubscriptionButton(
+                              text: 'Подключить за 999Р на 3 месяца',
+                              color: AppColors.subscribeBlueColor,
+                              index: 2,
+                              currentIndex: localSelectedSubscriptionIndex,
+                              onSelect: (index) {
+                                setModalState(() {
+                                  localSelectedSubscriptionIndex = index;
+                                });
+                                setState(() {
+                                  selectedSubscriptionIndex = index;
+                                });
+                              },
+                            ),
+                            8.h,
+                            SubscriptionButton(
+                              text: 'Подключить за 9990Р на 6 месяца',
+                              color: AppColors.subscribeRedColor,
+                              index: 3,
+                              currentIndex: localSelectedSubscriptionIndex,
+                              onSelect: (index) {
+                                setModalState(() {
+                                  localSelectedSubscriptionIndex = index;
+                                });
+                                setState(() {
+                                  selectedSubscriptionIndex = index;
+                                });
+                              },
+                            ),
+                            8.h,
+                            SubscriptionButton(
+                              text: 'Подключить за 99900Р на 12 месяца',
+                              color: AppColors.subscribeGreenColor,
+                              index: 4,
+                              currentIndex: localSelectedSubscriptionIndex,
+                              onSelect: (index) {
+                                setModalState(() {
+                                  localSelectedSubscriptionIndex = index;
+                                });
+                                setState(() {
+                                  selectedSubscriptionIndex = index;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      24.h,
+                      ElevatedButtonWidget(
+                        title: 'Подключить',
+                        onPressed: () async {
+                          // Navigator.pushNamed(context, AppRoutes.addCard);
+
+                          context
+                              .read<DeliveryCubit>()
+                              .createSubscription('ONE_MONTH', 'AIRPLANE');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
         );
       },
     );
