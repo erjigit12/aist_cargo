@@ -3,4 +3,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class DeliveryRepository {
   Future<Either> createDelivery(CreateDeliveryModel delivery);
+
+  Future<Either> createSubscription(CreateSubscriptionModel subscription);
 }
