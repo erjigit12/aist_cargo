@@ -10,6 +10,7 @@ class ApiConst {
   static const userUpdate = '$domain/api/users/update';
   static const createDelivery = '$domain/api/deliveryApi/create/Delivery';
   static const createSendings = '$domain/api/sendings/create';
+  static const createSubscription = '$domain/api/subscriptions';
   // static const googleSignIn = '$domain/api/auth/withGoogle';
   // static const announcement = '$domain/api/announcements/getAll';
   // static const userUpdateProfile = '$domain/api/users/updateProfile';
