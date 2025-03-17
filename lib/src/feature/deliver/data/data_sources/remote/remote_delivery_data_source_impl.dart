@@ -51,4 +51,10 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
       throw Exception('Unexpected error: $e');
     }
   }
+
+  @override
+  Future<Either> createSubscription(CreateSubscriptionModel subscription) {
+    // TODO: implement createSubscription
+    throw UnimplementedError();
+  }
 }
