@@ -53,8 +53,41 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
   }
 
   @override
-  Future<Either> createSubscription(CreateSubscriptionModel subscription) {
-    // TODO: implement createSubscription
-    throw UnimplementedError();
+  Future<Either> createSubscription(
+      CreateSubscriptionModel subscription) async {
+    try {
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var accessToken = storage.getString('accessToken');
+
+      log("✅ Access Token: $accessToken");
+
+      final response = await sl<DioClient>().post(
+        ApiConst.createSubscription,
+        options: Options(
+          headers: {
+            'accept': ' */*',
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: subscription.toJson(),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        try {
+          var jsonResponse = jsonEncode(response.data);
+          log('📩 Сервердин жообу (JSON): $jsonResponse');
+        } catch (jsonError) {
+          log('🚨 Сервердин жообун JSON кылып окуй алган жокмун: ${response.statusCode}');
+          throw Exception(
+              "Server response is not a valid JSON: ${response.data}");
+        }
+      }
+
+      return Right(response.data);
+    } on DioException catch (e) {
+      log('❌ Сервер ката берди: ${e.response ?? e.message}');
+      throw Exception('Failed to create subscription: ${e.response}');
+    }
   }
 }
