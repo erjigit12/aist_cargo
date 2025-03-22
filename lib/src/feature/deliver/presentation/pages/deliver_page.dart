@@ -82,13 +82,13 @@ class _DeliverPageState extends State<DeliverPage> {
                       );
                     },
                     child: buildRotatedContainer(
-                        size: width * 0.22,
-                        color: selectedIndex == index
-                            ? option.color
-                            : option.color,
-                        icon: option.iconPath,
-                        label: option.title,
-                        index: index),
+                      size: width * 0.22,
+                      color:
+                          selectedIndex == index ? option.color : option.color,
+                      icon: option.iconPath,
+                      label: option.title,
+                      index: index,
+                    ),
                   ),
                 );
               }),
