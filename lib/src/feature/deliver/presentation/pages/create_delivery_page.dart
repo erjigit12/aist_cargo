@@ -264,7 +264,12 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                                               descriptionController.text,
                                           fullName: fullName,
                                           transportNumber: "AC202F",
-                                          transportType: "AIRPLANE",
+                                          transportType: widget.appBar ==
+                                                  'Самолет'
+                                              ? "AIRPLANE"
+                                              : widget.appBar == 'Автомобиль'
+                                                  ? "CAR"
+                                                  : "TRUCK",
                                           packageType: "LUGGAGE",
                                           truckSize: "SMALL",
                                           size:
