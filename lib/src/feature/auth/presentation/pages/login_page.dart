@@ -18,20 +18,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: BlocListener<CredentialCubit, CredentialState>(
-        listener: (context, state) {
-          if (state is CredentialSuccess) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.main, (route) => false);
-          }
-          if (state is CredentialFailure) {
-            var snackBar = SnackBar(content: Text(state.errorMessage));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-        },
-        child: _bodyWidget(context),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocListener<CredentialCubit, CredentialState>(
+          listener: (context, state) {
+            if (state is CredentialSuccess) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AppRoutes.main, (route) => false);
+            }
+            if (state is CredentialFailure) {
+              var snackBar = SnackBar(content: Text(state.errorMessage));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          child: _bodyWidget(context),
+        ),
       ),
     );
   }
