@@ -68,7 +68,9 @@ class _DeliverPageState extends State<DeliverPage> {
                   right: index == 3 ? width * 0.22 : null,
                   child: GestureDetector(
                     onTap: () {
-                      setState(() => selectedIndex = index);
+                      setState(
+                        () => selectedIndex = index,
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(
