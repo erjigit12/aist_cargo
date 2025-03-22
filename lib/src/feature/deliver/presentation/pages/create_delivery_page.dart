@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
@@ -7,8 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PackageOption {
   final String title;
   final String size;
+  final String type;
 
-  PackageOption({required this.title, required this.size});
+  PackageOption({required this.title, required this.size, required this.type});
 }
 
 class CreateDeliveryPage extends StatefulWidget {
@@ -46,11 +49,13 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
   int selectedSubscriptionIndex = 0;
 
   final List<PackageOption> packageOptions = [
-    PackageOption(title: 'Документ/Конверт', size: 'A4 30x21 см до 0.5кг'),
-    PackageOption(title: 'Коробка S', size: '55x40x20 см до 10кг'),
-    PackageOption(title: 'Коробка M', size: '65x40x25 см до 15кг'),
-    PackageOption(title: 'Коробка L', size: '55x40x20 см до 10кг'),
-    PackageOption(title: 'Сумка/Чемодан S', size: '55x40x20 см до 10кг'),
+    PackageOption(
+        title: 'Документ/Конверт', type: 'S', size: 'A4 30x21 см до 0.5кг'),
+    PackageOption(title: 'Коробка S', type: 'S', size: '55x40x20 см до 10кг'),
+    PackageOption(title: 'Коробка M', type: 'M', size: '65x40x25 см до 15кг'),
+    PackageOption(title: 'Коробка L', type: 'L', size: '55x40x20 см до 10кг'),
+    PackageOption(
+        title: 'Сумка/Чемодан S', type: 'S', size: '55x40x20 см до 10кг'),
   ];
 
   final TextEditingController fromWhereController = TextEditingController();
@@ -220,26 +225,55 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                                   child: CircularProgressIndicator());
                             }
                             return ElevatedButtonWidget(
-                              title: 'Создать поездку',
-                              onPressed: () async {
-                                context
-                                    .read<DeliveryCubit>()
-                                    .createDeliveries(CreateDeliveryModel(
-                                      fromWhere: fromWhereController.text,
-                                      toWhere: toWhereController.text,
-                                      dispatchDate: dispatchController.text,
-                                      arrivalDate: arriveController.text,
-                                      description: descriptionController.text,
-                                      fullName: 'Asan Sulaimanov',
-                                      transportNumber: "AC202F",
-                                      transportType: "AIRPLANE",
-                                      packageType: "LUGGAGE",
-                                      truckSize: "SMALL",
-                                      size: "S",
-                                      role: "DELIVERY",
-                                    ));
-                              },
-                            );
+                                title: 'Создать поездку',
+                                onPressed: () async {
+                                  final userCubit = context.read<UserCubit>();
+
+                                  if (userCubit.state is! UserSuccess) {
+                                    userCubit.getUserData();
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 500));
+                                  }
+
+                                  final userState =
+                                      context.read<UserCubit>().state;
+
+                                  if (userState is! UserSuccess) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Колдонуучу маалыматы жүктөлө элек!'),
+                                      ),
+                                    );
+                                    return;
+                                  }
+
+                                  final user = (userState).user;
+                                  String fullName =
+                                      '${user.firstName} ${user.lastName}';
+
+                                  context
+                                      .read<DeliveryCubit>()
+                                      .createDeliveries(
+                                        CreateDeliveryModel(
+                                          fromWhere: fromWhereController.text,
+                                          toWhere: toWhereController.text,
+                                          dispatchDate: dispatchController.text,
+                                          arrivalDate: arriveController.text,
+                                          description:
+                                              descriptionController.text,
+                                          fullName: fullName,
+                                          transportNumber: "AC202F",
+                                          transportType: "AIRPLANE",
+                                          packageType: "LUGGAGE",
+                                          truckSize: "SMALL",
+                                          size:
+                                              packageOptions[selectedCardIndex]
+                                                  .type,
+                                          role: "DELIVERY",
+                                        ),
+                                      );
+                                });
                           },
                         )
                       : BlocBuilder<SendCubit, SendState>(
