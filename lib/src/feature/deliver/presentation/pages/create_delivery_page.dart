@@ -295,7 +295,8 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                                         firstName: 'Marat',
                                         lastName: 'Kubatov',
                                         packageType: 'LUGGAGE',
-                                        size: 'S',
+                                        size: packageOptions[selectedCardIndex]
+                                            .type,
                                         subsDuration: 'ONE_MONTH',
                                       ),
                                     );
