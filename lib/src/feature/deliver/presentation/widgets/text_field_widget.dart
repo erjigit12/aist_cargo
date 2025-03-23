@@ -10,6 +10,7 @@ class TextFieldWidget extends StatelessWidget {
     this.prefixIcon,
     this.onTap,
     this.readOnly,
+    this.onChanged,
   });
 
   final String hintText;
@@ -17,10 +18,12 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? prefixIcon;
   final void Function()? onTap;
   final bool? readOnly;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       onTap: onTap,
       controller: controller,
       readOnly: readOnly ?? false,
