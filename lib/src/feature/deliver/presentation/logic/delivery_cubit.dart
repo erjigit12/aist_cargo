@@ -15,6 +15,12 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     required this.createSubscriptionUsecase,
   }) : super(DeliveryInitial());
 
+  String fromWhere = '';
+  String toWhere = '';
+  String dispatchDate = '';
+  String arrivalDate = '';
+  String description = '';
+
   void createDeliveries(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
@@ -53,5 +59,20 @@ class DeliveryCubit extends Cubit<DeliveryState> {
         emit(DeliverySuccess(deliveries: r));
       },
     );
+  }
+
+  void updateDeliveryInfo({
+    required String fromWhere,
+    required String toWhere,
+    required String dispatchDate,
+    required String arrivalDate,
+    required String description,
+  }) {
+    this.fromWhere = fromWhere;
+    this.toWhere = toWhere;
+    this.dispatchDate = dispatchDate;
+    this.arrivalDate = arrivalDate;
+    this.description = description;
+    emit(DeliveryUpdated());
   }
 }

@@ -25,3 +25,5 @@ final class DeliveryFailure extends DeliveryState {
   @override
   List<Object> get props => [message];
 }
+
+class DeliveryUpdated extends DeliveryState {}

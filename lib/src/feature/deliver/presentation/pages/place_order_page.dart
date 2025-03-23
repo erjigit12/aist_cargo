@@ -1,5 +1,7 @@
 import 'package:aist_cargo/src/core/core.dart';
+import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlaceOrderPage extends StatefulWidget {
   const PlaceOrderPage({super.key});
@@ -13,6 +15,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final deliveryCubit = context.read<DeliveryCubit>();
+
     return Scaffold(
       appBar: const CustomAppBar(title: 'Создать поездку'),
       body: Padding(
@@ -30,24 +34,24 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
               hintText: '+996 774 29 81 79',
             ),
             20.h,
-            const TextFieldWithTitle(
+            TextFieldWithTitle(
               title: 'Откуда',
-              hintText: 'Москва',
+              hintText: deliveryCubit.fromWhere,
             ),
             20.h,
-            const TextFieldWithTitle(
+            TextFieldWithTitle(
               title: 'Куда',
-              hintText: 'Ош',
+              hintText: deliveryCubit.toWhere,
             ),
             20.h,
-            const TextFieldWithTitle(
+            TextFieldWithTitle(
               title: 'Дата вылета',
-              hintText: '24.01.2025',
+              hintText: deliveryCubit.dispatchDate,
             ),
             20.h,
-            const TextFieldWithTitle(
+            TextFieldWithTitle(
               title: 'Дата прилета',
-              hintText: '28.01.2025',
+              hintText: deliveryCubit.arrivalDate,
             ),
             8.h,
             const Text(
@@ -84,6 +88,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
             ),
             8.h,
             TextFormField(
+              initialValue: deliveryCubit.description,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(16),
                 hintText: 'Я даю гарантию безопасную транспортировку.',

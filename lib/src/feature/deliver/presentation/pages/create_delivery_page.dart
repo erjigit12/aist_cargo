@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
@@ -366,6 +368,16 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                                                   .type,
                                           role: "DELIVERY",
                                         ),
+                                      );
+
+                                  context
+                                      .read<DeliveryCubit>()
+                                      .updateDeliveryInfo(
+                                        fromWhere: fromWhereController.text,
+                                        toWhere: toWhereController.text,
+                                        dispatchDate: dispatchController.text,
+                                        arrivalDate: arriveController.text,
+                                        description: descriptionController.text,
                                       );
                                 });
                           },
