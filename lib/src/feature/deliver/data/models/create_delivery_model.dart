@@ -10,13 +10,13 @@ class CreateDeliveryModel {
     this.description,
     this.dispatchDate,
     this.arrivalDate,
-    this.fullName,
-    this.transportNumber,
-    this.transportType,
-    this.packageType,
-    this.truckSize,
+    // this.fullName,
+    // this.transportNumber,
+    // this.transportType,
+    // this.packageType,
+    // this.truckSize,
     this.size,
-    this.role,
+    // this.role,
     this.success,
   });
 
@@ -25,13 +25,13 @@ class CreateDeliveryModel {
   final String? description;
   final String? dispatchDate;
   final String? arrivalDate;
-  final String? fullName;
-  final String? transportNumber;
-  final String? transportType;
-  final String? packageType;
-  final String? truckSize;
+  // final String? fullName;
+  // final String? transportNumber;
+  // final String? transportType;
+  // final String? packageType;
+  // final String? truckSize;
   final String? size;
-  final String? role;
+  // final String? role;
   final bool? success;
 
   Map<String, dynamic> toJson() => _$CreateDeliveryModelToJson(this);

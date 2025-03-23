@@ -21,7 +21,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   String arrivalDate = '';
   String description = '';
 
-  void createDeliveries(CreateDeliveryModel delivery) async {
+  void isSubscribed(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
     final result = await isSubscribedUsecase.call(delivery);

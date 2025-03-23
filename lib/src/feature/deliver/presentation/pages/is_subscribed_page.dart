@@ -318,34 +318,32 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                             return ElevatedButtonWidget(
                                 title: 'Создать поездку',
                                 onPressed: () async {
-                                  final userCubit = context.read<UserCubit>();
+                                  // final userCubit = context.read<UserCubit>();
 
-                                  if (userCubit.state is! UserSuccess) {
-                                    userCubit.getUserData();
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 500));
-                                  }
+                                  // if (userCubit.state is! UserSuccess) {
+                                  //   userCubit.getUserData();
+                                  //   await Future.delayed(
+                                  //       const Duration(milliseconds: 500));
+                                  // }
 
-                                  final userState =
-                                      context.read<UserCubit>().state;
+                                  // final userState =
+                                  //     context.read<UserCubit>().state;
 
-                                  if (userState is! UserSuccess) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Колдонуучу маалыматы жүктөлө элек!'),
-                                      ),
-                                    );
-                                    return;
-                                  }
+                                  // if (userState is! UserSuccess) {
+                                  //   ScaffoldMessenger.of(context).showSnackBar(
+                                  //     const SnackBar(
+                                  //       content: Text(
+                                  //           'Колдонуучу маалыматы жүктөлө элек!'),
+                                  //     ),
+                                  //   );
+                                  //   return;
+                                  // }
 
-                                  final user = (userState).user;
-                                  String fullName =
-                                      '${user.firstName} ${user.lastName}';
+                                  // final user = (userState).user;
+                                  // String fullName =
+                                  //     '${user.firstName} ${user.lastName}';
 
-                                  context
-                                      .read<DeliveryCubit>()
-                                      .createDeliveries(
+                                  context.read<DeliveryCubit>().isSubscribed(
                                         CreateDeliveryModel(
                                           fromWhere: fromWhereController.text,
                                           toWhere: toWhereController.text,
@@ -353,20 +351,20 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                                           arrivalDate: arriveController.text,
                                           description:
                                               descriptionController.text,
-                                          fullName: fullName,
-                                          transportNumber: "AC202F",
-                                          transportType: widget.appBar ==
-                                                  'Самолет'
-                                              ? "AIRPLANE"
-                                              : widget.appBar == 'Автомобиль'
-                                                  ? "CAR"
-                                                  : "TRUCK",
-                                          packageType: "LUGGAGE",
-                                          truckSize: "SMALL",
+                                          // fullName: fullName,
+                                          // transportNumber: "AC202F",
+                                          // transportType: widget.appBar ==
+                                          //         'Самолет'
+                                          //     ? "AIRPLANE"
+                                          //     : widget.appBar == 'Автомобиль'
+                                          //         ? "CAR"
+                                          //         : "TRUCK",
+                                          // packageType: "LUGGAGE",
+                                          // truckSize: "SMALL",
                                           size:
                                               packageOptions[selectedCardIndex]
                                                   .type,
-                                          role: "DELIVERY",
+                                          // role: "DELIVERY",
                                         ),
                                       );
 
