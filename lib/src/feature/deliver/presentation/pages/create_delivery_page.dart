@@ -231,7 +231,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   ),
                   32.h,
                   Text(
-                    'Допольнительная информация о поездке',
+                    'Допольнительная информация о поездке!',
                     style: AppTextStyles.f12w400.copyWith(
                       color: AppColors.greyBrightColor,
                     ),
