@@ -38,6 +38,7 @@ class _DeliverPageState extends State<DeliverPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
