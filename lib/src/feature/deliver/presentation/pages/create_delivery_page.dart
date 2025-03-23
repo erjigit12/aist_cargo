@@ -147,7 +147,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   16.h,
                   TextFieldWidget(
                     controller: toWhereController,
-                    hintText: 'Ош',
+                    hintText: 'Куда',
                     onChanged: (value) {
                       setState(() {
                         query = value;
