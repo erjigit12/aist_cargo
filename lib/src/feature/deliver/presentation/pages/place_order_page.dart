@@ -19,115 +19,144 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Создать поездку'),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          children: [
-            30.h,
-            const TextFieldWithTitle(
-              title: 'ФИО',
-              hintText: 'Иванов Иван',
-            ),
-            20.h,
-            const TextFieldWithTitle(
-              title: 'Номер телефона',
-              hintText: '+996 774 29 81 79',
-            ),
-            20.h,
-            TextFieldWithTitle(
-              title: 'Откуда',
-              hintText: deliveryCubit.fromWhere,
-            ),
-            20.h,
-            TextFieldWithTitle(
-              title: 'Куда',
-              hintText: deliveryCubit.toWhere,
-            ),
-            20.h,
-            TextFieldWithTitle(
-              title: 'Дата вылета',
-              hintText: deliveryCubit.dispatchDate,
-            ),
-            20.h,
-            TextFieldWithTitle(
-              title: 'Дата прилета',
-              hintText: deliveryCubit.arrivalDate,
-            ),
-            8.h,
-            const Text(
-              'Какие посылки вы готовы доставить?',
-              style: AppTextStyles.f12w600,
-            ),
-            16.h,
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedCardIndex = index;
-                    });
-                  },
-                  child: _buildProductCard(
-                    image: 'assets/images/boxx3.png',
-                    title: 'Коробка M',
-                    subtitle: '55х40x20 см до 10кг',
-                    isSelected: selectedCardIndex == index,
-                  ),
-                );
-              },
-            ),
-            32.h,
-            Text(
-              'Допольнительная информация о поездке',
-              style: AppTextStyles.f12w400.copyWith(
-                color: AppColors.greyBrightColor,
+      body: BlocListener<DeliveryCubit, DeliveryState>(
+        listener: (context, state) {
+          if (state is DeliveryFailure) {
+            var snackBar = SnackBar(content: Text(state.message));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+          if (state is DeliverySuccess) {
+            showSubscriptionBottomSheet(context);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ListView(
+            children: [
+              30.h,
+              const TextFieldWithTitle(
+                title: 'ФИО',
+                hintText: 'Иванов Иван',
               ),
-            ),
-            8.h,
-            TextFormField(
-              initialValue: deliveryCubit.description,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(16),
-                hintText: 'Я даю гарантию безопасную транспортировку.',
-                hintStyle:
-                    AppTextStyles.f12w400.copyWith(color: AppColors.textColor),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                    width: 1,
-                  ),
+              20.h,
+              const TextFieldWithTitle(
+                title: 'Номер телефона',
+                hintText: '+996 774 29 81 79',
+              ),
+              20.h,
+              TextFieldWithTitle(
+                title: 'Откуда',
+                hintText: deliveryCubit.fromWhere,
+              ),
+              20.h,
+              TextFieldWithTitle(
+                title: 'Куда',
+                hintText: deliveryCubit.toWhere,
+              ),
+              20.h,
+              TextFieldWithTitle(
+                title: 'Дата вылета',
+                hintText: deliveryCubit.dispatchDate,
+              ),
+              20.h,
+              TextFieldWithTitle(
+                title: 'Дата прилета',
+                hintText: deliveryCubit.arrivalDate,
+              ),
+              8.h,
+              const Text(
+                'Какие посылки вы готовы доставить?',
+                style: AppTextStyles.f12w600,
+              ),
+              16.h,
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCardIndex = index;
+                      });
+                    },
+                    child: _buildProductCard(
+                      image: 'assets/images/boxx3.png',
+                      title: 'Коробка M',
+                      subtitle: '55х40x20 см до 10кг',
+                      isSelected: selectedCardIndex == index,
+                    ),
+                  );
+                },
+              ),
+              32.h,
+              Text(
+                'Допольнительная информация о поездке',
+                style: AppTextStyles.f12w400.copyWith(
+                  color: AppColors.greyBrightColor,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.blackColor,
-                    width: 1,
+              ),
+              8.h,
+              TextFormField(
+                initialValue: deliveryCubit.description,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(16),
+                  hintText: 'Я даю гарантию безопасную транспортировку.',
+                  hintStyle: AppTextStyles.f12w400
+                      .copyWith(color: AppColors.textColor),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: AppColors.blackColor,
+                      width: 1,
+                    ),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: AppColors.blackColor,
+                      width: 1,
+                    ),
+                  ),
+                  fillColor: Colors.white,
+                  filled: true,
                 ),
-                fillColor: Colors.white,
-                filled: true,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+                maxLines: null,
+                minLines: 3,
+                keyboardType: TextInputType.multiline,
               ),
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
+              31.h,
+              BlocBuilder<DeliveryCubit, DeliveryState>(
+                builder: (context, state) {
+                  if (state is DeliveryLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ElevatedButtonWidget(
+                    title: 'Оформить',
+                    onPressed: () async {
+                      // showSubscriptionBottomSheet(context);
+                      context
+                          .read<DeliveryCubit>()
+                          .createDelivery(CreateDeliveryModel(
+                            userName: '',
+                            fromWhere: '',
+                            toWhere: '',
+                            dispatchDate: '',
+                            arrivalDate: '',
+                            size: '',
+                            transportNumber: 'AWC231F',
+                          ));
+                    },
+                  );
+                },
               ),
-              maxLines: null,
-              minLines: 3,
-              keyboardType: TextInputType.multiline,
-            ),
-            31.h,
-            ElevatedButtonWidget(
-              title: 'Оформить',
-              onPressed: () async {
-                showSubscriptionBottomSheet(context);
-              },
-            ),
-            32.h,
-          ],
+              32.h,
+            ],
+          ),
         ),
       ),
     );
