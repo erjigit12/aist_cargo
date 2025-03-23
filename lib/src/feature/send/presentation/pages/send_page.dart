@@ -76,7 +76,7 @@ class _SendPageState extends State<SendPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CreateDeliveryPage(
+                            builder: (context) => IsSubscribedPage(
                               appBar: option.title,
                               deliverOrSend: false,
                             ),

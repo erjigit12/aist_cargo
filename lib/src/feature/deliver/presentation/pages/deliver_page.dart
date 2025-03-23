@@ -78,7 +78,7 @@ class _DeliverPageState extends State<DeliverPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CreateDeliveryPage(
+                            builder: (context) => IsSubscribedPage(
                               appBar: option.title,
                               deliverOrSend: true,
                             ),

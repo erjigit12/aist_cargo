@@ -14,8 +14,8 @@ class PackageOption {
   PackageOption({required this.title, required this.size, required this.type});
 }
 
-class CreateDeliveryPage extends StatefulWidget {
-  const CreateDeliveryPage({
+class IsSubscribedPage extends StatefulWidget {
+  const IsSubscribedPage({
     super.key,
     required this.appBar,
     required this.deliverOrSend,
@@ -25,10 +25,10 @@ class CreateDeliveryPage extends StatefulWidget {
   final bool deliverOrSend;
 
   @override
-  State<CreateDeliveryPage> createState() => _CreateDeliveryPageState();
+  State<IsSubscribedPage> createState() => _IsSubscribedPageState();
 }
 
-class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
+class _IsSubscribedPageState extends State<IsSubscribedPage> {
   Future<void> _selectDate(
       BuildContext context, TextEditingController controller) async {
     final DateTime? picked = await showDatePicker(
