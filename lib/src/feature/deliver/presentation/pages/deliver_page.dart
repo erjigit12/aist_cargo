@@ -37,64 +37,69 @@ class _DeliverPageState extends State<DeliverPage> {
     final width = size.width;
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Image(image: AssetImage('assets/images/logo_aist_cargo.png')),
-          16.h,
-          const Image(image: AssetImage('assets/images/aistcargo.png')),
-          50.h,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Разместите информацию о Ваших поездках, чтобы помочь другим людям с доставкой посылок ',
-              style: AppTextStyles.f10w400.copyWith(color: AppColors.textColor),
-              textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            100.h,
+            const Image(image: AssetImage('assets/images/logo_aist_cargo.png')),
+            16.h,
+            const Image(image: AssetImage('assets/images/aistcargo.png')),
+            50.h,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Разместите информацию о Ваших поездках, чтобы помочь другим людям с доставкой посылок ',
+                style:
+                    AppTextStyles.f10w400.copyWith(color: AppColors.textColor),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: width,
-            height: width,
-            child: Stack(
-              alignment: Alignment.center,
-              children: List.generate(deliveryOptions.length, (index) {
-                final option = deliveryOptions[index];
+            SizedBox(
+              width: width,
+              height: width,
+              child: Stack(
+                alignment: Alignment.center,
+                children: List.generate(deliveryOptions.length, (index) {
+                  final option = deliveryOptions[index];
 
-                return Positioned(
-                  top: index == 0 ? width * 0.22 : null,
-                  bottom: index == 1 ? width * 0.22 : null,
-                  left: index == 2 ? width * 0.22 : null,
-                  right: index == 3 ? width * 0.22 : null,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(
-                        () => selectedIndex = index,
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CreateDeliveryPage(
-                            appBar: option.title,
-                            deliverOrSend: true,
+                  return Positioned(
+                    top: index == 0 ? width * 0.22 : null,
+                    bottom: index == 1 ? width * 0.22 : null,
+                    left: index == 2 ? width * 0.22 : null,
+                    right: index == 3 ? width * 0.22 : null,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(
+                          () => selectedIndex = index,
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateDeliveryPage(
+                              appBar: option.title,
+                              deliverOrSend: true,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: buildRotatedContainer(
-                      size: width * 0.22,
-                      color:
-                          selectedIndex == index ? option.color : option.color,
-                      icon: option.iconPath,
-                      label: option.title,
-                      index: index,
+                        );
+                      },
+                      child: buildRotatedContainer(
+                        size: width * 0.22,
+                        color: selectedIndex == index
+                            ? option.color
+                            : option.color,
+                        icon: option.iconPath,
+                        label: option.title,
+                        index: index,
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
