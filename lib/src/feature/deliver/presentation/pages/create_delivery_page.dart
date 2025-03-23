@@ -141,7 +141,7 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   16.h,
                   TextFieldWidget(
                     controller: fromWhereController,
-                    hintText: 'Москва',
+                    hintText: 'Откуда',
                     onChanged: (value) {},
                   ),
                   16.h,
