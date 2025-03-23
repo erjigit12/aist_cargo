@@ -142,12 +142,12 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                       context
                           .read<DeliveryCubit>()
                           .createDelivery(CreateDeliveryModel(
-                            userName: '',
-                            fromWhere: '',
-                            toWhere: '',
-                            dispatchDate: '',
-                            arrivalDate: '',
-                            size: '',
+                            userName: 'Манас Манасович',
+                            fromWhere: 'Алматы',
+                            toWhere: 'Ыссык-Куль',
+                            dispatchDate: '2025-03-23',
+                            arrivalDate: '2025-03-28',
+                            size: 'M',
                             transportNumber: 'AWC231F',
                           ));
                     },
