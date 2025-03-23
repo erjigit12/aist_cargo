@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
@@ -78,8 +76,10 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
     'Новый Уренгой',
   ];
 
-  String query = '';
-  List<String> filteredCities = [];
+  String fromQuery = '';
+  String toQuery = '';
+  List<String> fromFilteredCities = [];
+  List<String> toFilteredCities = [];
 
   @override
   void dispose() {
@@ -142,42 +142,78 @@ class _CreateDeliveryPageState extends State<CreateDeliveryPage> {
                   TextFieldWidget(
                     controller: fromWhereController,
                     hintText: 'Откуда',
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      setState(() {
+                        fromQuery = value;
+                        fromFilteredCities = value.isEmpty
+                            ? [] // Эгерде текст жок болсо, бош тизме
+                            : cities
+                                .where((city) => city
+                                    .toLowerCase()
+                                    .startsWith(fromQuery.toLowerCase()))
+                                .toList();
+                      });
+                    },
                   ),
+                  if (fromQuery.isNotEmpty && fromFilteredCities.isNotEmpty)
+                    Container(
+                      height: fromFilteredCities.length * 50.0,
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListView.builder(
+                        itemCount: fromFilteredCities.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(fromFilteredCities[index]),
+                            onTap: () {
+                              setState(() {
+                                fromWhereController.text =
+                                    fromFilteredCities[index];
+                                fromQuery = fromFilteredCities[index];
+                                fromFilteredCities = [];
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
                   16.h,
                   TextFieldWidget(
                     controller: toWhereController,
                     hintText: 'Куда',
                     onChanged: (value) {
                       setState(() {
-                        query = value;
-                        filteredCities = value.isEmpty
+                        toQuery = value;
+                        toFilteredCities = value.isEmpty
                             ? [] // Эгерде текст жок болсо, бош тизме
                             : cities
                                 .where((city) => city
                                     .toLowerCase()
-                                    .startsWith(query.toLowerCase()))
+                                    .startsWith(toQuery.toLowerCase()))
                                 .toList();
                       });
                     },
                   ),
-                  if (query.isNotEmpty && filteredCities.isNotEmpty)
+                  if (toQuery.isNotEmpty && toFilteredCities.isNotEmpty)
                     Container(
-                      height: filteredCities.length * 50.0,
+                      height: toFilteredCities.length * 50.0,
                       decoration: BoxDecoration(
                         color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ListView.builder(
-                        itemCount: filteredCities.length,
+                        itemCount: toFilteredCities.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text(filteredCities[index]),
+                            title: Text(toFilteredCities[index]),
                             onTap: () {
                               setState(() {
-                                toWhereController.text = filteredCities[index];
-                                query = filteredCities[index];
-                                filteredCities = [];
+                                toWhereController.text =
+                                    toFilteredCities[index];
+                                toQuery = toFilteredCities[index];
+                                toFilteredCities = [];
                               });
                             },
                           );
