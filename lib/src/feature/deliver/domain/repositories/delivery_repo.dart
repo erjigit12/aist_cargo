@@ -2,7 +2,7 @@ import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class DeliveryRepository {
-  Future<Either> createDelivery(CreateDeliveryModel delivery);
+  Future<Either> isSubscribed(CreateDeliveryModel delivery);
 
   Future<Either> createSubscription(String duration, String transportType);
 }

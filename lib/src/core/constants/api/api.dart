@@ -8,7 +8,8 @@ class ApiConst {
   static const verifyCode = '$domain/api/auth/verify';
   static const userProfile = '$domain/api/users/get';
   static const userUpdate = '$domain/api/users/update';
-  static const createDelivery = '$domain/api/deliveryApi/create/Delivery';
+  static const isSubscription = '$domain/api/deliveryApi/deliveriesTrue';
+  static const createDelivery = '$domain/api/deliveryApi/create';
   static const createSendings = '$domain/api/sendings/create';
   static const createSubscription = '$domain/api/subscriptions';
   // static const googleSignIn = '$domain/api/auth/withGoogle';

@@ -7,11 +7,11 @@ import 'package:equatable/equatable.dart';
 part 'delivery_state.dart';
 
 class DeliveryCubit extends Cubit<DeliveryState> {
-  final CreateDeliveryUsecase createDeliveryUsecase;
+  final IsSubscribedUsecase isSubscribedUsecase;
   final CreateSubscriptionUsecase createSubscriptionUsecase;
 
   DeliveryCubit({
-    required this.createDeliveryUsecase,
+    required this.isSubscribedUsecase,
     required this.createSubscriptionUsecase,
   }) : super(DeliveryInitial());
 
@@ -24,7 +24,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   void createDeliveries(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
-    final result = await createDeliveryUsecase.call(delivery);
+    final result = await isSubscribedUsecase.call(delivery);
     result.fold(
       (l) => emit(DeliveryFailure(message: l)),
       (r) {

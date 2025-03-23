@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
   @override
-  Future<Either> createDelivery(CreateDeliveryModel delivery) async {
+  Future<Either> isSubscribed(CreateDeliveryModel delivery) async {
     try {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var accessToken = storage.getString('accessToken');
@@ -18,7 +18,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
       log("✅ Access Token: $accessToken");
 
       final response = await sl<DioClient>().post(
-        ApiConst.createDelivery,
+        ApiConst.isSubscription,
         options: Options(
           headers: {
             'accept': ' */*',

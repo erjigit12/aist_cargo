@@ -35,7 +35,7 @@ Future<void> init() async {
 
   sl.registerFactory<DeliveryCubit>(
     () => DeliveryCubit(
-      createDeliveryUsecase: sl.call(),
+      isSubscribedUsecase: sl.call(),
       createSubscriptionUsecase: sl.call(),
     ),
   );
@@ -73,8 +73,8 @@ Future<void> init() async {
     () => UpdateUserDataUsecase(repository: sl.call()),
   );
 
-  sl.registerLazySingleton<CreateDeliveryUsecase>(
-    () => CreateDeliveryUsecase(repository: sl.call()),
+  sl.registerLazySingleton<IsSubscribedUsecase>(
+    () => IsSubscribedUsecase(repository: sl.call()),
   );
 
   sl.registerLazySingleton<CreateSendUsecase>(
