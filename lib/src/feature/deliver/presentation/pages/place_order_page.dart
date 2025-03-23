@@ -63,6 +63,11 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                 title: 'Дата прилета',
                 hintText: deliveryCubit.arrivalDate,
               ),
+              20.h,
+              TextFieldWithTitle(
+                title: 'Дата прилета',
+                hintText: deliveryCubit.boxType.toString(),
+              ),
               8.h,
               const Text(
                 'Какие посылки вы готовы доставить?',
