@@ -10,8 +10,8 @@ class CreateDeliveryModel {
     this.description,
     this.dispatchDate,
     this.arrivalDate,
-    // this.fullName,
-    // this.transportNumber,
+    this.userName,
+    this.transportNumber,
     // this.transportType,
     // this.packageType,
     // this.truckSize,
@@ -25,8 +25,8 @@ class CreateDeliveryModel {
   final String? description;
   final String? dispatchDate;
   final String? arrivalDate;
-  // final String? fullName;
-  // final String? transportNumber;
+  final String? userName;
+  final String? transportNumber;
   // final String? transportType;
   // final String? packageType;
   // final String? truckSize;

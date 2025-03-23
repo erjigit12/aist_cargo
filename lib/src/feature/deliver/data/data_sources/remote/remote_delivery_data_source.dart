@@ -4,5 +4,7 @@ import 'package:dartz/dartz.dart';
 abstract class RemoteDeliveryDataSource {
   Future<Either> isSubscribed(CreateDeliveryModel delivery);
 
+  Future<Either> createDelivery(CreateDeliveryModel delivery);
+
   Future<Either> createSubscription(String duration, String transportType);
 }

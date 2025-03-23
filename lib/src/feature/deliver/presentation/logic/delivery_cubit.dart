@@ -61,6 +61,16 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     );
   }
 
+  void createDelivery(CreateDeliveryModel delivery) async {
+    emit(DeliveryLoading());
+
+    final result = await isSubscribedUsecase.call(delivery);
+    result.fold(
+      (l) => emit(DeliveryFailure(message: l)),
+      (r) => emit(DeliverySuccess(deliveries: r)),
+    );
+  }
+
   void updateDeliveryInfo({
     required String fromWhere,
     required String toWhere,

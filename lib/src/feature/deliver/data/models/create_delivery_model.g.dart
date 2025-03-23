@@ -13,6 +13,8 @@ CreateDeliveryModel _$CreateDeliveryModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       dispatchDate: json['dispatchDate'] as String?,
       arrivalDate: json['arrivalDate'] as String?,
+      userName: json['userName'] as String?,
+      transportNumber: json['transportNumber'] as String?,
       size: json['size'] as String?,
       success: json['success'] as bool?,
     );
@@ -25,6 +27,8 @@ Map<String, dynamic> _$CreateDeliveryModelToJson(
       'description': instance.description,
       'dispatchDate': instance.dispatchDate,
       'arrivalDate': instance.arrivalDate,
+      'userName': instance.userName,
+      'transportNumber': instance.transportNumber,
       'size': instance.size,
       'success': instance.success,
     };

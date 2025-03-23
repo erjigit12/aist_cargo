@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/deliver/domain/usecases/create_delivery_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
@@ -101,6 +102,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SendRepository>(
     () => SendRepositoryImpl(remoteSendDataSource: sl.call()),
+  );
+
+  sl.registerLazySingleton<CreateDeliveryUsecase>(
+    () => CreateDeliveryUsecase(repository: sl.call()),
   );
 
   /// Data Sources
