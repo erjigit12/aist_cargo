@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'app_routes.dart';
@@ -41,7 +43,15 @@ class RouteGenerator {
             builder: (_) => const SenderSubscriptionPage());
 
       case AppRoutes.placeOrder:
-        return CupertinoPageRoute(builder: (_) => const PlaceOrderPage());
+        if (settings.arguments is List<PackageOption>) {
+          final packageOptions = settings.arguments as List<PackageOption>;
+          return CupertinoPageRoute(
+            builder: (_) => PlaceOrderPage(packageOptions: packageOptions),
+          );
+        } else {
+          log("⚠️ Аргумент туура эмес!");
+          return errorRoute();
+        }
 
       case AppRoutes.editProfile:
         return CupertinoPageRoute(builder: (_) => const EditProfilePage());

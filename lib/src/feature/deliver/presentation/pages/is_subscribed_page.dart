@@ -102,7 +102,8 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
           BlocListener<DeliveryCubit, DeliveryState>(
             listener: (context, state) {
               if (state is DeliverySuccess) {
-                Navigator.pushNamed(context, AppRoutes.placeOrder);
+                Navigator.pushNamed(context, AppRoutes.placeOrder,
+                    arguments: packageOptions);
               }
               if (state is DeliveryFailure) {
                 var snackBar = SnackBar(content: Text(state.message));

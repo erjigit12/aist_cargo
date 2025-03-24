@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlaceOrderPage extends StatefulWidget {
-  const PlaceOrderPage({super.key});
+  const PlaceOrderPage({super.key, required this.packageOptions});
+
+  final List<PackageOption> packageOptions;
 
   @override
   State<PlaceOrderPage> createState() => _PlaceOrderPageState();
 }
 
 class _PlaceOrderPageState extends State<PlaceOrderPage> {
-  int selectedCardIndex = -1;
+  // int selectedCardIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -74,25 +76,20 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                 style: AppTextStyles.f12w600,
               ),
               16.h,
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 7,
-                itemBuilder: (context, index) {
+              Column(
+                children: List.generate(widget.packageOptions.length, (index) {
+                  final package = widget.packageOptions[index];
                   return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCardIndex = index;
-                      });
-                    },
+                    onTap: () => setState(() => deliveryCubit.boxType = index),
                     child: _buildProductCard(
-                      image: 'assets/images/boxx3.png',
-                      title: 'Коробка M',
-                      subtitle: '55х40x20 см до 10кг',
-                      isSelected: selectedCardIndex == index,
+                      type: package.type,
+                      title: package.title,
+                      subtitle: package.size,
+                      isSelected: deliveryCubit.boxType == index,
+                      // image: 'assets/images/truck_lx3.png',
                     ),
                   );
-                },
+                }),
               ),
               32.h,
               Text(
@@ -152,7 +149,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                             toWhere: 'Ыссык-Куль',
                             dispatchDate: '2025-03-23',
                             arrivalDate: '2025-03-28',
-                            size: 'M',
+                            size: widget
+                                .packageOptions[deliveryCubit.boxType].type,
                             transportNumber: 'AWC231F',
                           ));
                     },
@@ -168,10 +166,10 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   }
 
   Widget _buildProductCard({
-    required String image,
     required String title,
     required String subtitle,
     required bool isSelected,
+    required String type,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -180,59 +178,84 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isSelected ? Colors.orange : Colors.transparent,
-          width: 2,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
+            color: isSelected ? Colors.orange : Colors.transparent, width: 2),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              image,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyles.f12w600
-                      .copyWith(color: AppColors.textColor),
-                ),
-                5.h,
-                Text(
-                  subtitle,
-                  style: AppTextStyles.f10w400
-                      .copyWith(color: AppColors.textColor),
-                ),
-              ],
-            ),
-          ),
-          if (isSelected)
-            const Icon(
-              Icons.check_circle,
-              color: AppColors.buttonColor,
-              size: 26,
-            ),
-        ],
+      child: ListTile(
+        title: Text(title, style: AppTextStyles.f12w600),
+        subtitle: Text(subtitle, style: AppTextStyles.f10w400),
+        trailing: isSelected
+            ? const Icon(Icons.check_circle, color: Colors.orange)
+            : null,
       ),
     );
   }
+
+  // Widget _buildProductCard({
+  //   required String image,
+  //   required String title,
+  //   required String subtitle,
+  //   required bool isSelected,
+  // }) {
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 16),
+  //     padding: const EdgeInsets.all(16),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(24),
+  //       border: Border.all(
+  //         color: isSelected ? Colors.orange : Colors.transparent,
+  //         width: 2,
+  //       ),
+  //       boxShadow: const [
+  //         BoxShadow(
+  //           color: Colors.black12,
+  //           blurRadius: 6,
+  //           offset: Offset(0, 3),
+  //         ),
+  //       ],
+  //     ),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         ClipRRect(
+  //           borderRadius: BorderRadius.circular(50),
+  //           child: Image.asset(
+  //             image,
+  //             width: 50,
+  //             height: 50,
+  //             fit: BoxFit.cover,
+  //           ),
+  //         ),
+  //         const SizedBox(width: 16),
+  //         Expanded(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 title,
+  //                 style: AppTextStyles.f12w600
+  //                     .copyWith(color: AppColors.textColor),
+  //               ),
+  //               5.h,
+  //               Text(
+  //                 subtitle,
+  //                 style: AppTextStyles.f10w400
+  //                     .copyWith(color: AppColors.textColor),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         if (isSelected)
+  //           const Icon(
+  //             Icons.check_circle,
+  //             color: AppColors.buttonColor,
+  //             size: 26,
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   void showSubscriptionBottomSheet(BuildContext context) {
     showModalBottomSheet(
