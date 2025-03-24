@@ -76,6 +76,8 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
     'Нижний Новгород',
     'Новокузнецк',
     'Новый Уренгой',
+    'Челябинск',
+    'Красноярск',
   ];
 
   String fromQuery = '';
