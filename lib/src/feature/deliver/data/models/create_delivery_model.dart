@@ -18,6 +18,7 @@ class CreateDeliveryModel {
     this.size,
     // this.role,
     this.success,
+    this.random,
   });
 
   final String? fromWhere;
@@ -33,6 +34,7 @@ class CreateDeliveryModel {
   final String? size;
   // final String? role;
   final bool? success;
+  final int? random;
 
   Map<String, dynamic> toJson() => _$CreateDeliveryModelToJson(this);
 

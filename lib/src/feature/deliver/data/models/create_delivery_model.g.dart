@@ -17,6 +17,7 @@ CreateDeliveryModel _$CreateDeliveryModelFromJson(Map<String, dynamic> json) =>
       transportNumber: json['transportNumber'] as String?,
       size: json['size'] as String?,
       success: json['success'] as bool?,
+      random: (json['random'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CreateDeliveryModelToJson(
@@ -31,4 +32,5 @@ Map<String, dynamic> _$CreateDeliveryModelToJson(
       'transportNumber': instance.transportNumber,
       'size': instance.size,
       'success': instance.success,
+      'random': instance.random,
     };

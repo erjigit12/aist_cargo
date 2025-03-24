@@ -77,7 +77,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
             emit(
               DeliverySuccess(
                 deliveries: responseData,
-                orderNumber: responseData['random'],
+                orderNumber: responseData["random"],
               ),
             );
           } else {
