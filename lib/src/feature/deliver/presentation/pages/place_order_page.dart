@@ -28,7 +28,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
           if (state is DeliverySuccess) {
-            final orderNumber = state.orderNumber;
+            final orderNumber = state.deliveries["random"];
             showSubscriptionBottomSheet(
               context,
               orderNumber ?? 0,

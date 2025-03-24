@@ -101,6 +101,9 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
         listeners: [
           BlocListener<DeliveryCubit, DeliveryState>(
             listener: (context, state) {
+              if (state is DeliveryLoading) {
+                const Center(child: CircularProgressIndicator());
+              }
               if (state is DeliverySuccess) {
                 Navigator.pushNamed(context, AppRoutes.placeOrder,
                     arguments: packageOptions);
