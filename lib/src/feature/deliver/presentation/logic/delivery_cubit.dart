@@ -75,7 +75,10 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
           if (responseData["success"] == true) {
             emit(
-              DeliverySuccess(deliveries: responseData),
+              DeliverySuccess(
+                deliveries: responseData,
+                orderNumber: responseData['random'],
+              ),
             );
           } else {
             log("⚠️ Подписка жок, DeliveryFailure чыгарылды");

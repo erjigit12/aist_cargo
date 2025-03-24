@@ -28,7 +28,11 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
           if (state is DeliverySuccess) {
-            showSubscriptionBottomSheet(context);
+            final orderNumber = state.orderNumber;
+            showSubscriptionBottomSheet(
+              context,
+              orderNumber ?? 0,
+            );
           }
         },
         child: Padding(
@@ -257,7 +261,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   //   );
   // }
 
-  void showSubscriptionBottomSheet(BuildContext context) {
+  void showSubscriptionBottomSheet(BuildContext context, int orderNumber) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -296,7 +300,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                 color: AppColors.greyBrightColor),
                           ),
                           child: Text(
-                            '№12345',
+                            '$orderNumber',
                             style: AppTextStyles.f20w500.copyWith(
                               color: AppColors.blackColor,
                             ),
