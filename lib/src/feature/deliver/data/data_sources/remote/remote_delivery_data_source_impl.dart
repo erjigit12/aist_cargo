@@ -122,7 +122,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
         }
       }
 
-      final createdDelivery = CreateDeliveryModel.fromJson(response.data);
+      final createdDelivery = .fromJson(response.data);
 
       return Right(createdDelivery);
     } on DioException catch (e) {

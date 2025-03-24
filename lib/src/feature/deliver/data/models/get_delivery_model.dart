@@ -3,14 +3,14 @@ import 'package:json_annotation/json_annotation.dart';
 part 'get_delivery_model.g.dart';
 
 @JsonSerializable()
-class CreateDeliveryModel {
+class GetDeliveryModel {
   final String message;
   final bool success;
   final int id;
   final int userId;
   final int random;
 
-  CreateDeliveryModel({
+  GetDeliveryModel({
     required this.message,
     required this.success,
     required this.id,
@@ -18,8 +18,8 @@ class CreateDeliveryModel {
     required this.random,
   });
 
-  Map<String, dynamic> toJson() => _$CreateDeliveryModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetDeliveryModelToJson(this);
 
-  factory CreateDeliveryModel.fromJson(Map<String, dynamic> json) =>
-      _$CreateDeliveryModelFromJson(json);
+  factory GetDeliveryModel.fromJson(Map<String, dynamic> json) =>
+      _$GetDeliveryModelFromJson(json);
 }
