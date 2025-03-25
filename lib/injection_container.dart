@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  /// Bloc
+  //! Bloc
   sl.registerFactory<MainCubit>(() => MainCubit());
 
   sl.registerFactory<OtpBloc>(() => OtpBloc());
@@ -38,6 +38,7 @@ Future<void> init() async {
     () => DeliveryCubit(
       isSubscribedUsecase: sl.call(),
       createSubscriptionUsecase: sl.call(),
+      createDeliveryUsecase: sl.call(),
     ),
   );
 
@@ -45,7 +46,7 @@ Future<void> init() async {
     () => SendCubit(createSendUsecase: sl.call()),
   );
 
-  /// Use Cases
+  //! Use Cases
   sl.registerLazySingleton<SignupUsecase>(
     () => SignupUsecase(authRepository: sl.call()),
   );
@@ -86,7 +87,11 @@ Future<void> init() async {
     () => CreateSubscriptionUsecase(repository: sl.call()),
   );
 
-  /// Repositories
+  sl.registerLazySingleton<CreateDeliveryUsecase>(
+    () => CreateDeliveryUsecase(repository: sl.call()),
+  );
+
+  //! Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
         remoteAuthDataSource: sl.call(), localAuthDataSource: sl.call()),
@@ -104,11 +109,7 @@ Future<void> init() async {
     () => SendRepositoryImpl(remoteSendDataSource: sl.call()),
   );
 
-  sl.registerLazySingleton<CreateDeliveryUsecase>(
-    () => CreateDeliveryUsecase(repository: sl.call()),
-  );
-
-  /// Data Sources
+  //! Data Sources
   sl.registerLazySingleton<RemoteAuthDataSource>(
     () => RemoteAuthDataSourceImpl(dio: sl.call()),
   );
@@ -128,10 +129,10 @@ Future<void> init() async {
   sl.registerLazySingleton<RemoteSendDataSource>(
       () => RemoteSendDataSourceImpl());
 
-  /// Network
+  //! Network
   sl.registerSingleton<DioClient>(DioClient());
 
-  /// External
+  //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   final dio = Dio();
 
