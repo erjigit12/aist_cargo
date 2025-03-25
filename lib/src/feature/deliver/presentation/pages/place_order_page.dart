@@ -29,7 +29,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
           }
           if (state is DeliverySuccess) {
             final orderNumber = state.deliveries["random"];
-            showSubscriptionBottomSheet(
+            _showSubscriptionBottomSheet(
               context,
               orderNumber ?? 0,
             );
@@ -261,7 +261,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   //   );
   // }
 
-  void showSubscriptionBottomSheet(BuildContext context, int orderNumber) {
+  void _showSubscriptionBottomSheet(BuildContext context, int orderNumber) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(

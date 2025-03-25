@@ -111,7 +111,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 var snackBar = SnackBar(content: Text(state.message));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 if (state.message == "Подписка жок!") {
-                  showSubscriptionBottomSheet(context);
+                  _showSubscriptionBottomSheet(context);
                 }
               }
             },
@@ -125,7 +125,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 var snackBar = SnackBar(content: Text(state.message));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 if (state.message == "Подписка жок!") {
-                  showSubscriptionBottomSheet(context);
+                  _showSubscriptionBottomSheet(context);
                 }
               }
             },
@@ -412,7 +412,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
     );
   }
 
-  void showSubscriptionBottomSheet(
+  void _showSubscriptionBottomSheet(
     BuildContext context,
   ) {
     showModalBottomSheet(
