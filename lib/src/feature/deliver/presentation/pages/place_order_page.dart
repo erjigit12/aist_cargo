@@ -46,6 +46,22 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
     super.dispose();
   }
 
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      String formattedDate =
+          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+
+      controller.text = formattedDate;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final deliveryCubit = context.read<DeliveryCubit>();
@@ -90,26 +106,33 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
               ),
               20.h,
               TextFieldWithTitle(
+                onTap: () => _selectDate(context, _dispatchDateController),
+                backgroundColor: Colors.transparent,
                 controller: _dispatchDateController,
                 title: 'Дата вылета',
-                hintText: deliveryCubit.dispatchDate,
+                hintText: '',
+                isRead: true,
                 onChanged: (value) {
                   context.read<DeliveryCubit>().dispatchDate = value;
                 },
               ),
               20.h,
               TextFieldWithTitle(
+                onTap: () => _selectDate(context, _arrivalDateController),
+                backgroundColor: Colors.transparent,
                 controller: _arrivalDateController,
                 title: 'Дата прилета',
-                hintText: deliveryCubit.arrivalDate,
+                hintText: '',
+                isRead: true,
                 onChanged: (value) {
                   context.read<DeliveryCubit>().arrivalDate = value;
                 },
               ),
               20.h,
               const TextFieldWithTitle(
+                backgroundColor: Colors.transparent,
                 title: 'ФИО',
-                hintText: 'ФИО',
+                hintText: 'Нап: Асан Асанов',
               ),
               // 20.h,
               // const TextFieldWithTitle(

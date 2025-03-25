@@ -13,6 +13,8 @@ class TextFormFieldWidget extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.onChanged,
+    this.onTap,
+    this.isRead,
   });
 
   final String? hintText;
@@ -22,6 +24,8 @@ class TextFormFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
+  final bool? isRead;
 
   @override
   _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
@@ -33,6 +37,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: widget.isRead ?? false,
+      onTap: widget.onTap,
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       obscureText: widget.suffix == true ? _obscureText : false,

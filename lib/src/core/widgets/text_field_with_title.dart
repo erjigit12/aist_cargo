@@ -12,6 +12,8 @@ class TextFieldWithTitle extends StatelessWidget {
     this.controller,
     this.validator,
     this.onChanged,
+    this.onTap,
+    this.isRead,
   });
 
   final String title;
@@ -22,6 +24,8 @@ class TextFieldWithTitle extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
+  final bool? isRead;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,8 @@ class TextFieldWithTitle extends StatelessWidget {
         Text(title, style: AppTextStyles.f15w400),
         8.h,
         TextFormFieldWidget(
+          isRead: isRead,
+          onTap: onTap,
           onChanged: onChanged,
           controller: controller,
           validator: validator,
