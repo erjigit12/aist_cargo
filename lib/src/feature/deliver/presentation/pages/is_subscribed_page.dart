@@ -310,10 +310,9 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                   ? BlocBuilder<DeliveryCubit, DeliveryState>(
                       builder: (context, state) {
                         if (state is DeliveryLoading) {
-                          return const Center(
-                              child: CircularProgressIndicator(
-                            color: AppColors.blackColor,
-                          ));
+                          return const Material(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
                         }
                         return ElevatedButtonWidget(
                             title: 'Создать поездку',
@@ -351,9 +350,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                       builder: (context, state) {
                         if (state is SendLoading) {
                           return const Center(
-                              child: CircularProgressIndicator(
-                            color: AppColors.blackColor,
-                          ));
+                              child: CircularProgressIndicator());
                         }
                         return ElevatedButtonWidget(
                           title: 'Создать поездку',

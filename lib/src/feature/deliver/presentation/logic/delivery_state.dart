@@ -19,6 +19,9 @@ final class DeliverySuccess extends DeliveryState {
 
   final Map<String, dynamic> deliveries;
   final int? orderNumber;
+
+  @override
+  List<Object> get props => [deliveries, orderNumber ?? 0];
 }
 
 final class DeliveryFailure extends DeliveryState {

@@ -30,18 +30,18 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
     final result = await isSubscribedUsecase.call(delivery);
     result.fold(
-      (l) => emit(DeliveryFailure(message: l)),
+      (l) {
+        emit(DeliveryFailure(message: l));
+      },
       (r) {
         if (r is CreateDeliveryModel) {
           final responseData = r.toJson();
-          log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
             emit(
               DeliverySuccess(deliveries: responseData),
             );
           } else {
-            log("⚠️ Подписка жок, DeliveryFailure чыгарылды");
             emit(const DeliveryFailure(message: "Подписка жок!"));
           }
         } else {
@@ -107,6 +107,5 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     this.arrivalDate = arrivalDate;
     this.description = description;
     this.boxType = boxType;
-    emit(DeliveryUpdated());
   }
 }
