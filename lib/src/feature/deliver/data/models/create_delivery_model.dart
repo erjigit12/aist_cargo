@@ -12,11 +12,7 @@ class CreateDeliveryModel {
     this.arrivalDate,
     this.userName,
     this.transportNumber,
-    // this.transportType,
-    // this.packageType,
-    // this.truckSize,
     this.size,
-    // this.role,
     this.success,
     this.random,
   });
@@ -28,11 +24,8 @@ class CreateDeliveryModel {
   final String? arrivalDate;
   final String? userName;
   final String? transportNumber;
-  // final String? transportType;
-  // final String? packageType;
-  // final String? truckSize;
   final String? size;
-  // final String? role;
+
   final bool? success;
   final int? random;
 

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aist_cargo/src/feature/deliver/domain/usecases/create_delivery_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -8,10 +9,12 @@ part 'delivery_state.dart';
 
 class DeliveryCubit extends Cubit<DeliveryState> {
   final IsSubscribedUsecase isSubscribedUsecase;
+  final CreateDeliveryUsecase createDeliveryUsecase;
   final CreateSubscriptionUsecase createSubscriptionUsecase;
 
   DeliveryCubit({
     required this.isSubscribedUsecase,
+    required this.createDeliveryUsecase,
     required this.createSubscriptionUsecase,
   }) : super(DeliveryInitial());
 
@@ -65,7 +68,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   void createDelivery(CreateDeliveryModel delivery) async {
     emit(DeliveryLoading());
 
-    final result = await isSubscribedUsecase.call(delivery);
+    final result = await createDeliveryUsecase.call(delivery);
     result.fold(
       (l) => emit(DeliveryFailure(message: l)),
       (r) {
@@ -73,8 +76,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
           final responseData = r.toJson();
           log("🚀 Айландырылган JSON: $responseData");
 
-          if (responseData["success"] == true &&
-              responseData["random"] != null) {
+          if (responseData["success"] == true) {
             emit(
               DeliverySuccess(
                 deliveries: responseData,
