@@ -84,8 +84,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
               ),
             );
           } else {
-            log("⚠️ Подписка жок, DeliveryFailure чыгарылды");
-            emit(const DeliveryFailure(message: "Подписка жок!"));
+            emit(const DeliveryFailure(message: "Доставка не создана"));
           }
         } else {
           log("⚠️ Белгисиз жооп форматы!");
