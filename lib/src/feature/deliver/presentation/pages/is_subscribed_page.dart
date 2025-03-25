@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Модель для посылки
 class PackageOption {
   final String title;
   final String size;
@@ -64,21 +63,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
   final TextEditingController arriveController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
-  final List<String> cities = [
-    'Москва',
-    'Ош',
-    'Бишкек',
-    'Алматы',
-    'Санкт-Петербург',
-    'Новосибирск',
-    'Екатеринбург',
-    'Казань',
-    'Нижний Новгород',
-    'Новокузнецк',
-    'Новый Уренгой',
-    'Челябинск',
-    'Красноярск',
-  ];
+  final List<String> cities = CitiesData.cities;
 
   String fromQuery = '';
   String toQuery = '';
@@ -140,19 +125,13 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
               const Text('Откуда, куда и когда вы едете?',
                   style: AppTextStyles.f12w600),
               16.h,
-              TextFieldWidget(
-                controller: fromWhereController,
-                hintText: 'Откуда',
-                onChanged: (value) {
+              CityAutocomplete(
+                title: 'Откуда',
+                initialValue: fromWhereController.text,
+                onSelected: (city) {
+                  fromWhereController.text = city;
                   setState(() {
-                    fromQuery = value;
-                    fromFilteredCities = value.isEmpty
-                        ? [] // Эгерде текст жок болсо, бош тизме
-                        : cities
-                            .where((city) => city
-                                .toLowerCase()
-                                .startsWith(fromQuery.toLowerCase()))
-                            .toList();
+                    fromQuery = city;
                   });
                 },
               ),
@@ -181,19 +160,13 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                   ),
                 ),
               16.h,
-              TextFieldWidget(
-                controller: toWhereController,
-                hintText: 'Куда',
-                onChanged: (value) {
+              CityAutocomplete(
+                title: 'Куда',
+                initialValue: toWhereController.text,
+                onSelected: (city) {
+                  toWhereController.text = city;
                   setState(() {
-                    toQuery = value;
-                    toFilteredCities = value.isEmpty
-                        ? [] // Эгерде текст жок болсо, бош тизме
-                        : cities
-                            .where((city) => city
-                                .toLowerCase()
-                                .startsWith(toQuery.toLowerCase()))
-                            .toList();
+                    toQuery = city;
                   });
                 },
               ),

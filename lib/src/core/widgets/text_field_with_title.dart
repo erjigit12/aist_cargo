@@ -11,6 +11,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.keyboardType,
     this.controller,
     this.validator,
+    this.onChanged,
   });
 
   final String title;
@@ -20,6 +21,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class TextFieldWithTitle extends StatelessWidget {
         Text(title, style: AppTextStyles.f15w400),
         8.h,
         TextFormFieldWidget(
+          onChanged: onChanged,
           controller: controller,
           validator: validator,
           hintText: hintText,

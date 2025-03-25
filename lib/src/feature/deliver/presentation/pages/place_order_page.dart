@@ -13,7 +13,38 @@ class PlaceOrderPage extends StatefulWidget {
 }
 
 class _PlaceOrderPageState extends State<PlaceOrderPage> {
-  // int selectedCardIndex = -1;
+  late final TextEditingController _fullNameController;
+  // late final TextEditingController _phoneController;
+  late final TextEditingController _fromWhereController;
+  late final TextEditingController _toWhereController;
+  late final TextEditingController _dispatchDateController;
+  late final TextEditingController _arrivalDateController;
+  late final TextEditingController _descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<DeliveryCubit>();
+    _fullNameController = TextEditingController();
+    // _phoneController = TextEditingController();
+    _fromWhereController = TextEditingController(text: cubit.fromWhere);
+    _toWhereController = TextEditingController(text: cubit.toWhere);
+    _dispatchDateController = TextEditingController(text: cubit.dispatchDate);
+    _arrivalDateController = TextEditingController(text: cubit.arrivalDate);
+    _descriptionController = TextEditingController(text: cubit.description);
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    // _phoneController.dispose();
+    _fromWhereController.dispose();
+    _toWhereController.dispose();
+    _dispatchDateController.dispose();
+    _arrivalDateController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +71,52 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
           child: ListView(
             children: [
               30.h,
-              const TextFieldWithTitle(
-                title: 'ФИО',
-                hintText: 'Иванов Иван',
-              ),
-              20.h,
-              const TextFieldWithTitle(
-                title: 'Номер телефона',
-                hintText: '+996 774 29 81 79',
-              ),
-              20.h,
-              TextFieldWithTitle(
+              CityAutocomplete(
                 title: 'Откуда',
-                hintText: deliveryCubit.fromWhere,
+                initialValue: _fromWhereController.text,
+                onSelected: (city) {
+                  _fromWhereController.text = city;
+                  context.read<DeliveryCubit>().fromWhere = city;
+                },
               ),
               20.h,
-              TextFieldWithTitle(
+              CityAutocomplete(
                 title: 'Куда',
-                hintText: deliveryCubit.toWhere,
+                initialValue: _toWhereController.text,
+                onSelected: (city) {
+                  _toWhereController.text = city;
+                  context.read<DeliveryCubit>().toWhere = city;
+                },
               ),
               20.h,
               TextFieldWithTitle(
+                controller: _dispatchDateController,
                 title: 'Дата вылета',
                 hintText: deliveryCubit.dispatchDate,
+                onChanged: (value) {
+                  context.read<DeliveryCubit>().dispatchDate = value;
+                },
               ),
               20.h,
               TextFieldWithTitle(
+                controller: _arrivalDateController,
                 title: 'Дата прилета',
                 hintText: deliveryCubit.arrivalDate,
+                onChanged: (value) {
+                  context.read<DeliveryCubit>().arrivalDate = value;
+                },
               ),
               20.h,
-              TextFieldWithTitle(
-                title: 'Дата прилета',
-                hintText: deliveryCubit.boxType.toString(),
+              const TextFieldWithTitle(
+                title: 'ФИО',
+                hintText: 'ФИО',
               ),
-              8.h,
+              // 20.h,
+              // const TextFieldWithTitle(
+              //   title: 'Номер телефона',
+              //   hintText: 'Номер телефона',
+              // ),
+              20.h,
               const Text(
                 'Какие посылки вы готовы доставить?',
                 style: AppTextStyles.f12w600,
@@ -148,11 +190,11 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                       context
                           .read<DeliveryCubit>()
                           .createDelivery(CreateDeliveryModel(
-                            userName: 'Манас Манасович',
-                            fromWhere: 'Алматы',
-                            toWhere: 'Ыссык-Куль',
-                            dispatchDate: '2025-03-23',
-                            arrivalDate: '2025-03-28',
+                            userName: _fullNameController.text,
+                            fromWhere: _fromWhereController.text,
+                            toWhere: _toWhereController.text,
+                            dispatchDate: _dispatchDateController.text,
+                            arrivalDate: _arrivalDateController.text,
                             size: widget
                                 .packageOptions[deliveryCubit.boxType].type,
                             transportNumber: 'AWC231F',
@@ -193,73 +235,6 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
       ),
     );
   }
-
-  // Widget _buildProductCard({
-  //   required String image,
-  //   required String title,
-  //   required String subtitle,
-  //   required bool isSelected,
-  // }) {
-  //   return Container(
-  //     margin: const EdgeInsets.only(bottom: 16),
-  //     padding: const EdgeInsets.all(16),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(24),
-  //       border: Border.all(
-  //         color: isSelected ? Colors.orange : Colors.transparent,
-  //         width: 2,
-  //       ),
-  //       boxShadow: const [
-  //         BoxShadow(
-  //           color: Colors.black12,
-  //           blurRadius: 6,
-  //           offset: Offset(0, 3),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Row(
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         ClipRRect(
-  //           borderRadius: BorderRadius.circular(50),
-  //           child: Image.asset(
-  //             image,
-  //             width: 50,
-  //             height: 50,
-  //             fit: BoxFit.cover,
-  //           ),
-  //         ),
-  //         const SizedBox(width: 16),
-  //         Expanded(
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               Text(
-  //                 title,
-  //                 style: AppTextStyles.f12w600
-  //                     .copyWith(color: AppColors.textColor),
-  //               ),
-  //               5.h,
-  //               Text(
-  //                 subtitle,
-  //                 style: AppTextStyles.f10w400
-  //                     .copyWith(color: AppColors.textColor),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         if (isSelected)
-  //           const Icon(
-  //             Icons.check_circle,
-  //             color: AppColors.buttonColor,
-  //             size: 26,
-  //           ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   void _showSubscriptionBottomSheet(BuildContext context, int orderNumber) {
     showModalBottomSheet(
