@@ -119,7 +119,8 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
           BlocListener<SendCubit, SendState>(
             listener: (context, state) {
               if (state is SendSuccess) {
-                Navigator.pushNamed(context, AppRoutes.placeOrder);
+                Navigator.pushNamed(context, AppRoutes.placeOrder,
+                    arguments: packageOptions);
               }
               if (state is SendFailure) {
                 var snackBar = SnackBar(content: Text(state.message));
@@ -324,19 +325,14 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                                       dispatchDate: dispatchController.text,
                                       arrivalDate: arriveController.text,
                                       description: descriptionController.text,
-                                      // fullName: fullName,
-                                      // transportNumber: "AC202F",
+                                      size: packageOptions[selectedCardIndex]
+                                          .type,
                                       // transportType: widget.appBar ==
                                       //         'Самолет'
                                       //     ? "AIRPLANE"
                                       //     : widget.appBar == 'Автомобиль'
                                       //         ? "CAR"
                                       //         : "TRUCK",
-                                      // packageType: "LUGGAGE",
-                                      // truckSize: "SMALL",
-                                      size: packageOptions[selectedCardIndex]
-                                          .type,
-                                      // role: "DELIVERY",
                                     ),
                                   );
 

@@ -29,7 +29,7 @@ class DeliveryRepositoryImpl implements DeliveryRepository {
   @override
   Future<Either<String, CreateDeliveryModel>> createDelivery(
       CreateDeliveryModel delivery) async {
-    Either result = await remoteDeliveryDataSource.isSubscribed(delivery);
+    Either result = await remoteDeliveryDataSource.createDelivery(delivery);
     return result.fold(
       (l) {
         return Left(l);

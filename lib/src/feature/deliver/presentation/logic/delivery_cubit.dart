@@ -74,13 +74,12 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       (r) {
         if (r is CreateDeliveryModel) {
           final responseData = r.toJson();
-          log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
             emit(
               DeliverySuccess(
                 deliveries: responseData,
-                // orderNumber: responseData["random"],
+                orderNumber: r.random ?? 0,
               ),
             );
           } else {
