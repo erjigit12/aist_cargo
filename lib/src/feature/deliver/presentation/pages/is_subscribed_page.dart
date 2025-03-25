@@ -111,7 +111,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 var snackBar = SnackBar(content: Text(state.message));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 if (state.message == "Подписка жок!") {
-                  _showSubscriptionBottomSheet(context);
+                  _showSubscriptionBottomSheet(context, packageOptions);
                 }
               }
             },
@@ -125,7 +125,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 var snackBar = SnackBar(content: Text(state.message));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 if (state.message == "Подписка жок!") {
-                  _showSubscriptionBottomSheet(context);
+                  _showSubscriptionBottomSheet(context, packageOptions);
                 }
               }
             },
@@ -389,10 +389,11 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
     );
   }
 
-  Widget _buildProductCard(
-      {required String title,
-      required String subtitle,
-      required bool isSelected}) {
+  Widget _buildProductCard({
+    required String title,
+    required String subtitle,
+    required bool isSelected,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -414,6 +415,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
 
   void _showSubscriptionBottomSheet(
     BuildContext context,
+    List<PackageOption> packageOptions,
   ) {
     showModalBottomSheet(
       context: context,
@@ -428,7 +430,8 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
               const Center(child: CircularProgressIndicator());
             }
             if (state is DeliverySuccess) {
-              Navigator.pushNamed(context, AppRoutes.placeOrder);
+              Navigator.pushNamed(context, AppRoutes.placeOrder,
+                  arguments: packageOptions);
             }
             if (state is DeliveryFailure) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
