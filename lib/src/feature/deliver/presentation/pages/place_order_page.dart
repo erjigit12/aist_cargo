@@ -167,7 +167,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   style: AppTextStyles.f12w600,
                 ),
                 16.h,
-                if (_packageError != null) // Добавляем отображение ошибки здесь
+                if (_packageError != null)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: Text(

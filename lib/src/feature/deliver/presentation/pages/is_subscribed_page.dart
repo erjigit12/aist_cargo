@@ -246,7 +246,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 const Text('Какие посылки вы готовы доставить?',
                     style: AppTextStyles.f12w600),
                 const SizedBox(height: 16),
-                if (_packageError != null) // Добавляем отображение ошибки здесь
+                if (_packageError != null)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: Text(
