@@ -14,6 +14,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.isRead,
+    this.errorText,
   });
 
   final String title;
@@ -26,6 +27,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final void Function(String)? onChanged;
   final void Function()? onTap;
   final bool? isRead;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class TextFieldWithTitle extends StatelessWidget {
         Text(title, style: AppTextStyles.f15w400),
         8.h,
         TextFormFieldWidget(
+          errorText: errorText,
           isRead: isRead,
           onTap: onTap,
           onChanged: onChanged,

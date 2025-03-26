@@ -15,6 +15,7 @@ class TextFormFieldWidget extends StatefulWidget {
     this.onChanged,
     this.onTap,
     this.isRead,
+    this.errorText,
   });
 
   final String? hintText;
@@ -26,6 +27,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function()? onTap;
   final bool? isRead;
+  final String? errorText;
 
   @override
   _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
@@ -45,6 +47,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
       validator: widget.validator,
       onChanged: widget.onChanged,
       decoration: InputDecoration(
+        errorText: widget.errorText,
         hintText: widget.hintText,
         hintStyle: const TextStyle(color: AppColors.hintTextColor),
         fillColor: widget.backroundColor,
