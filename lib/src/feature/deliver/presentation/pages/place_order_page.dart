@@ -30,6 +30,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   String? _dispatchDateError;
   String? _arrivalDateError;
   String? _packageError;
+  String? _fullNameError;
 
   @override
   void initState() {
@@ -148,10 +149,12 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   errorText: _arrivalDateError,
                 ),
                 20.h,
-                const TextFieldWithTitle(
+                TextFieldWithTitle(
+                  controller: _fullNameController,
                   backgroundColor: Colors.transparent,
                   title: 'ФИО',
                   hintText: 'Нап: Асан Асанов',
+                  errorText: _fullNameError,
                 ),
                 // 20.h,
                 // const TextFieldWithTitle(
@@ -251,6 +254,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                           _packageError =
                               FormValidators.validatePackageSelection(
                                   deliveryCubit.boxType);
+                          _fullNameError = FormValidators.validatefullName(
+                              _fullNameController.text);
                         });
 
                         if (_formKey.currentState!.validate() &&
@@ -258,7 +263,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                             _fromWhereError == null &&
                             _toWhereError == null &&
                             _dispatchDateError == null &&
-                            _arrivalDateError == null) {
+                            _arrivalDateError == null &&
+                            _fullNameError == null) {
                           context
                               .read<DeliveryCubit>()
                               .createDelivery(CreateDeliveryModel(

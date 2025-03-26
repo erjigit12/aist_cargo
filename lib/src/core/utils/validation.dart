@@ -20,6 +20,13 @@ class FormValidators {
     return null;
   }
 
+  static String? validatefullName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Пожалуйста, введите ФИО';
+    }
+    return null;
+  }
+
   static String? validateDate(String? value) {
     if (value == null || value.isEmpty) {
       return 'Пожалуйста, выберите дату';
