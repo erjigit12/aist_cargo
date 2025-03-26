@@ -16,6 +16,8 @@ class CitiesData {
     'Новый Уренгой',
     'Челябинск',
     'Красноярск',
+    'Пермь',
+    'Самара',
   ];
 
   static List<String> filterCities(List<String> cities, String query) {
