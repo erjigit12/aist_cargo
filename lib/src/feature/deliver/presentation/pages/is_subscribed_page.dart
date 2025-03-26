@@ -122,8 +122,10 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              const Text('Откуда, куда и когда вы едете?',
-                  style: AppTextStyles.f12w600),
+              const Text(
+                'Откуда, куда и когда вы едете?',
+                style: AppTextStyles.f12w600,
+              ),
               16.h,
               CityAutocomplete(
                 title: 'Откуда',
