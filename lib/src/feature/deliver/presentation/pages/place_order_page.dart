@@ -187,7 +187,6 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                         title: package.title,
                         subtitle: package.size,
                         isSelected: deliveryCubit.boxType == index,
-                        // image: 'assets/images/truck_lx3.png',
                       ),
                     );
                   }),
