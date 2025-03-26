@@ -18,6 +18,13 @@ class CitiesData {
     'Красноярск',
     'Пермь',
     'Самара',
+    'Уфа',
+    'Краснодар',
+    'Ростов-на-Дону',
+    'Томск',
+    'Владивосток',
+    'Волгоград',
+    'Саратов',
   ];
 
   static List<String> filterCities(List<String> cities, String query) {
