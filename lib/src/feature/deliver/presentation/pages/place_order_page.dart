@@ -94,6 +94,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
         },
         child: Form(
           key: _formKey,
+          autovalidateMode: _isFormValidated
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ListView(
@@ -235,18 +238,40 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                     return ElevatedButtonWidget(
                       title: 'Оформить',
                       onPressed: () async {
-                        context
-                            .read<DeliveryCubit>()
-                            .createDelivery(CreateDeliveryModel(
-                              userName: _fullNameController.text,
-                              fromWhere: _fromWhereController.text,
-                              toWhere: _toWhereController.text,
-                              dispatchDate: _dispatchDateController.text,
-                              arrivalDate: _arrivalDateController.text,
-                              size: widget
-                                  .packageOptions[deliveryCubit.boxType].type,
-                              transportNumber: 'AWC231F',
-                            ));
+                        setState(() {
+                          _isFormValidated = true;
+                          _fromWhereError = FormValidators.validateCity(
+                              _fromWhereController.text);
+                          _toWhereError = FormValidators.validateCity(
+                              _toWhereController.text);
+                          _dispatchDateError = FormValidators.validateDate(
+                              _dispatchDateController.text);
+                          _arrivalDateError = FormValidators.validateDate(
+                              _arrivalDateController.text);
+                          _packageError =
+                              FormValidators.validatePackageSelection(
+                                  deliveryCubit.boxType);
+                        });
+
+                        if (_formKey.currentState!.validate() &&
+                            _packageError == null &&
+                            _fromWhereError == null &&
+                            _toWhereError == null &&
+                            _dispatchDateError == null &&
+                            _arrivalDateError == null) {
+                          context
+                              .read<DeliveryCubit>()
+                              .createDelivery(CreateDeliveryModel(
+                                userName: _fullNameController.text,
+                                fromWhere: _fromWhereController.text,
+                                toWhere: _toWhereController.text,
+                                dispatchDate: _dispatchDateController.text,
+                                arrivalDate: _arrivalDateController.text,
+                                size: widget
+                                    .packageOptions[deliveryCubit.boxType].type,
+                                transportNumber: 'AWC231F',
+                              ));
+                        }
                       },
                     );
                   },
