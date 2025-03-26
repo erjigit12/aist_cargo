@@ -11,6 +11,7 @@ class TextFieldWidget extends StatelessWidget {
     this.onTap,
     this.readOnly,
     this.onChanged,
+    this.errorText,
   });
 
   final String hintText;
@@ -19,6 +20,7 @@ class TextFieldWidget extends StatelessWidget {
   final void Function()? onTap;
   final bool? readOnly;
   final void Function(String)? onChanged;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TextFieldWidget extends StatelessWidget {
       controller: controller,
       readOnly: readOnly ?? false,
       decoration: InputDecoration(
+        errorText: errorText,
         prefixIcon: prefixIcon ?? const Icon(Icons.location_on),
         hintText: hintText,
         hintStyle:

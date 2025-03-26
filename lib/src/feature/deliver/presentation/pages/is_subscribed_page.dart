@@ -151,6 +151,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                       fromQuery = city;
                     });
                   },
+                  errorText: _fromWhereError,
                 ),
                 if (fromQuery.isNotEmpty && fromFilteredCities.isNotEmpty)
                   Container(
@@ -186,6 +187,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                       toQuery = city;
                     });
                   },
+                  errorText: _toWhereError,
                 ),
                 if (toQuery.isNotEmpty && toFilteredCities.isNotEmpty)
                   Container(
@@ -222,6 +224,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                         prefixIcon: widget.appBar == 'Самолет'
                             ? const Icon(Icons.flight_takeoff)
                             : const Icon(Icons.calendar_today),
+                        errorText: _dispatchDateError,
                       ),
                     ),
                     8.w,
@@ -234,6 +237,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                         prefixIcon: widget.appBar == 'Самолет'
                             ? const Icon(Icons.flight_land)
                             : const Icon(Icons.calendar_month),
+                        errorText: _arrivalDateError,
                       ),
                     ),
                   ],
@@ -243,17 +247,26 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                     style: AppTextStyles.f12w600),
                 const SizedBox(height: 16),
                 Column(
-                  children: List.generate(packageOptions.length, (index) {
-                    final package = packageOptions[index];
-                    return GestureDetector(
-                      onTap: () => setState(() => selectedCardIndex = index),
-                      child: _buildProductCard(
-                        title: package.title,
-                        subtitle: package.size,
-                        isSelected: selectedCardIndex == index,
-                      ),
-                    );
-                  }),
+                  children:
+                      //        if (_packageError != null)
+                      // Text(
+                      //   _packageError!,
+                      //   style: TextStyle(color: Colors.red),
+                      // ),
+                      List.generate(
+                    packageOptions.length,
+                    (index) {
+                      final package = packageOptions[index];
+                      return GestureDetector(
+                        onTap: () => setState(() => selectedCardIndex = index),
+                        child: _buildProductCard(
+                          title: package.title,
+                          subtitle: package.size,
+                          isSelected: selectedCardIndex == index,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 32.h,
                 Text(
@@ -307,34 +320,60 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                           return ElevatedButtonWidget(
                               title: 'Создать поездку',
                               onPressed: () async {
-                                context.read<DeliveryCubit>().isSubscribed(
-                                      CreateDeliveryModel(
+                                setState(() {
+                                  _isFormValidated = true;
+                                  _fromWhereError = FormValidators.validateCity(
+                                      fromWhereController.text);
+                                  _toWhereError = FormValidators.validateCity(
+                                      toWhereController.text);
+                                  _dispatchDateError =
+                                      FormValidators.validateDate(
+                                          dispatchController.text);
+                                  _arrivalDateError =
+                                      FormValidators.validateDate(
+                                          arriveController.text);
+                                  _packageError =
+                                      FormValidators.validatePackageSelection(
+                                          selectedCardIndex);
+                                });
+
+                                if (_formKey.currentState!.validate() &&
+                                    _packageError == null &&
+                                    _fromWhereError == null &&
+                                    _toWhereError == null &&
+                                    _dispatchDateError == null &&
+                                    _arrivalDateError == null) {
+                                  context.read<DeliveryCubit>().isSubscribed(
+                                        CreateDeliveryModel(
+                                          fromWhere: fromWhereController.text,
+                                          toWhere: toWhereController.text,
+                                          dispatchDate: dispatchController.text,
+                                          arrivalDate: arriveController.text,
+                                          description:
+                                              descriptionController.text,
+                                          size:
+                                              packageOptions[selectedCardIndex]
+                                                  .type,
+                                          // transportType: widget.appBar ==
+                                          //         'Самолет'
+                                          //     ? "AIRPLANE"
+                                          //     : widget.appBar == 'Автомобиль'
+                                          //         ? "CAR"
+                                          //         : "TRUCK",
+                                        ),
+                                      );
+
+                                  context
+                                      .read<DeliveryCubit>()
+                                      .updateDeliveryInfo(
                                         fromWhere: fromWhereController.text,
                                         toWhere: toWhereController.text,
                                         dispatchDate: dispatchController.text,
                                         arrivalDate: arriveController.text,
                                         description: descriptionController.text,
-                                        size: packageOptions[selectedCardIndex]
-                                            .type,
-                                        // transportType: widget.appBar ==
-                                        //         'Самолет'
-                                        //     ? "AIRPLANE"
-                                        //     : widget.appBar == 'Автомобиль'
-                                        //         ? "CAR"
-                                        //         : "TRUCK",
-                                      ),
-                                    );
-
-                                context
-                                    .read<DeliveryCubit>()
-                                    .updateDeliveryInfo(
-                                      fromWhere: fromWhereController.text,
-                                      toWhere: toWhereController.text,
-                                      dispatchDate: dispatchController.text,
-                                      arrivalDate: arriveController.text,
-                                      description: descriptionController.text,
-                                      boxType: selectedCardIndex,
-                                    );
+                                        boxType: selectedCardIndex,
+                                      );
+                                }
                               });
                         },
                       )
