@@ -70,7 +70,6 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
   List<String> fromFilteredCities = [];
   List<String> toFilteredCities = [];
 
-  // Добавляем GlobalKey для формы
   final _formKey = GlobalKey<FormState>();
 
   // Добавляем флаги валидации
@@ -129,6 +128,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
           ),
         ],
         child: Form(
+          key: _formKey,
           autovalidateMode: _isFormValidated
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
@@ -246,6 +246,14 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                 const Text('Какие посылки вы готовы доставить?',
                     style: AppTextStyles.f12w600),
                 const SizedBox(height: 16),
+                if (_packageError != null) // Добавляем отображение ошибки здесь
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      _packageError!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                 Column(
                   children:
                       //        if (_packageError != null)
