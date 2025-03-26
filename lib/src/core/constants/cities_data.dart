@@ -40,12 +40,14 @@ class CityAutocomplete extends StatelessWidget {
   final String title;
   final String? initialValue;
   final ValueChanged<String> onSelected;
+  final String? errorText;
 
   const CityAutocomplete({
     super.key,
     required this.title,
     this.initialValue,
     required this.onSelected,
+    this.errorText,
   });
 
   @override
@@ -83,6 +85,7 @@ class CityAutocomplete extends StatelessWidget {
               focusNode: focusNode,
               decoration: InputDecoration(
                 hintText: 'Введите город',
+                errorText: errorText,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

@@ -70,6 +70,17 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
   List<String> fromFilteredCities = [];
   List<String> toFilteredCities = [];
 
+  // Добавляем GlobalKey для формы
+  final _formKey = GlobalKey<FormState>();
+
+  // Добавляем флаги валидации
+  bool _isFormValidated = false;
+  String? _fromWhereError;
+  String? _toWhereError;
+  String? _dispatchDateError;
+  String? _arrivalDateError;
+  String? _packageError;
+
   @override
   void dispose() {
     fromWhereController.dispose();
@@ -117,240 +128,247 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
             },
           ),
         ],
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const Text(
-                'Откуда, куда и когда вы едете?',
-                style: AppTextStyles.f12w600,
-              ),
-              16.h,
-              CityAutocomplete(
-                title: 'Откуда',
-                initialValue: fromWhereController.text,
-                onSelected: (city) {
-                  fromWhereController.text = city;
-                  setState(() {
-                    fromQuery = city;
-                  });
-                },
-              ),
-              if (fromQuery.isNotEmpty && fromFilteredCities.isNotEmpty)
-                Container(
-                  height: fromFilteredCities.length * 50.0,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListView.builder(
-                    itemCount: fromFilteredCities.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(fromFilteredCities[index]),
-                        onTap: () {
-                          setState(() {
-                            fromWhereController.text =
-                                fromFilteredCities[index];
-                            fromQuery = fromFilteredCities[index];
-                            fromFilteredCities = [];
-                          });
-                        },
-                      );
-                    },
-                  ),
+        child: Form(
+          autovalidateMode: _isFormValidated
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const Text(
+                  'Откуда, куда и когда вы едете?',
+                  style: AppTextStyles.f12w600,
                 ),
-              16.h,
-              CityAutocomplete(
-                title: 'Куда',
-                initialValue: toWhereController.text,
-                onSelected: (city) {
-                  toWhereController.text = city;
-                  setState(() {
-                    toQuery = city;
-                  });
-                },
-              ),
-              if (toQuery.isNotEmpty && toFilteredCities.isNotEmpty)
-                Container(
-                  height: toFilteredCities.length * 50.0,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListView.builder(
-                    itemCount: toFilteredCities.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(toFilteredCities[index]),
-                        onTap: () {
-                          setState(() {
-                            toWhereController.text = toFilteredCities[index];
-                            toQuery = toFilteredCities[index];
-                            toFilteredCities = [];
-                          });
-                        },
-                      );
-                    },
-                  ),
+                16.h,
+                CityAutocomplete(
+                  title: 'Откуда',
+                  initialValue: fromWhereController.text,
+                  onSelected: (city) {
+                    fromWhereController.text = city;
+                    setState(() {
+                      fromQuery = city;
+                    });
+                  },
                 ),
-              16.h,
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFieldWidget(
-                      onTap: () => _selectDate(context, dispatchController),
-                      controller: dispatchController,
-                      readOnly: true,
-                      hintText: 'Дата вылета',
-                      prefixIcon: widget.appBar == 'Самолет'
-                          ? const Icon(Icons.flight_takeoff)
-                          : const Icon(Icons.calendar_today),
+                if (fromQuery.isNotEmpty && fromFilteredCities.isNotEmpty)
+                  Container(
+                    height: fromFilteredCities.length * 50.0,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListView.builder(
+                      itemCount: fromFilteredCities.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(fromFilteredCities[index]),
+                          onTap: () {
+                            setState(() {
+                              fromWhereController.text =
+                                  fromFilteredCities[index];
+                              fromQuery = fromFilteredCities[index];
+                              fromFilteredCities = [];
+                            });
+                          },
+                        );
+                      },
                     ),
                   ),
-                  8.w,
-                  Expanded(
-                    child: TextFieldWidget(
-                      onTap: () => _selectDate(context, arriveController),
-                      controller: arriveController,
-                      readOnly: true,
-                      hintText: 'Дата прибытия',
-                      prefixIcon: widget.appBar == 'Самолет'
-                          ? const Icon(Icons.flight_land)
-                          : const Icon(Icons.calendar_month),
+                16.h,
+                CityAutocomplete(
+                  title: 'Куда',
+                  initialValue: toWhereController.text,
+                  onSelected: (city) {
+                    toWhereController.text = city;
+                    setState(() {
+                      toQuery = city;
+                    });
+                  },
+                ),
+                if (toQuery.isNotEmpty && toFilteredCities.isNotEmpty)
+                  Container(
+                    height: toFilteredCities.length * 50.0,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListView.builder(
+                      itemCount: toFilteredCities.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(toFilteredCities[index]),
+                          onTap: () {
+                            setState(() {
+                              toWhereController.text = toFilteredCities[index];
+                              toQuery = toFilteredCities[index];
+                              toFilteredCities = [];
+                            });
+                          },
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-              32.h,
-              const Text('Какие посылки вы готовы доставить?',
-                  style: AppTextStyles.f12w600),
-              const SizedBox(height: 16),
-              Column(
-                children: List.generate(packageOptions.length, (index) {
-                  final package = packageOptions[index];
-                  return GestureDetector(
-                    onTap: () => setState(() => selectedCardIndex = index),
-                    child: _buildProductCard(
-                      title: package.title,
-                      subtitle: package.size,
-                      isSelected: selectedCardIndex == index,
+                16.h,
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFieldWidget(
+                        onTap: () => _selectDate(context, dispatchController),
+                        controller: dispatchController,
+                        readOnly: true,
+                        hintText: 'Дата вылета',
+                        prefixIcon: widget.appBar == 'Самолет'
+                            ? const Icon(Icons.flight_takeoff)
+                            : const Icon(Icons.calendar_today),
+                      ),
                     ),
-                  );
-                }),
-              ),
-              32.h,
-              Text(
-                'Допольнительная информация о поездке!',
-                style: AppTextStyles.f12w400.copyWith(
-                  color: AppColors.greyBrightColor,
+                    8.w,
+                    Expanded(
+                      child: TextFieldWidget(
+                        onTap: () => _selectDate(context, arriveController),
+                        controller: arriveController,
+                        readOnly: true,
+                        hintText: 'Дата прибытия',
+                        prefixIcon: widget.appBar == 'Самолет'
+                            ? const Icon(Icons.flight_land)
+                            : const Icon(Icons.calendar_month),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              8.h,
-              TextFormField(
-                controller: descriptionController,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(16),
-                  hintText: 'Я даю гарантию безопасную транспортировку.',
-                  hintStyle: AppTextStyles.f12w400
-                      .copyWith(color: AppColors.textColor),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      color: AppColors.blackColor,
-                      width: 1,
-                    ),
+                32.h,
+                const Text('Какие посылки вы готовы доставить?',
+                    style: AppTextStyles.f12w600),
+                const SizedBox(height: 16),
+                Column(
+                  children: List.generate(packageOptions.length, (index) {
+                    final package = packageOptions[index];
+                    return GestureDetector(
+                      onTap: () => setState(() => selectedCardIndex = index),
+                      child: _buildProductCard(
+                        title: package.title,
+                        subtitle: package.size,
+                        isSelected: selectedCardIndex == index,
+                      ),
+                    );
+                  }),
+                ),
+                32.h,
+                Text(
+                  'Допольнительная информация о поездке!',
+                  style: AppTextStyles.f12w400.copyWith(
+                    color: AppColors.greyBrightColor,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      color: AppColors.blackColor,
-                      width: 1,
+                ),
+                8.h,
+                TextFormField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(16),
+                    hintText: 'Я даю гарантию безопасную транспортировку.',
+                    hintStyle: AppTextStyles.f12w400
+                        .copyWith(color: AppColors.textColor),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: AppColors.blackColor,
+                        width: 1,
+                      ),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: AppColors.blackColor,
+                        width: 1,
+                      ),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
                   ),
-                  fillColor: Colors.white,
-                  filled: true,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                  maxLines: null,
+                  minLines: 3,
+                  keyboardType: TextInputType.multiline,
                 ),
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-                maxLines: null,
-                minLines: 3,
-                keyboardType: TextInputType.multiline,
-              ),
-              32.h,
-              widget.deliverOrSend == true
-                  ? BlocBuilder<DeliveryCubit, DeliveryState>(
-                      builder: (context, state) {
-                        if (state is DeliveryLoading) {
-                          return const Material(
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        }
-                        return ElevatedButtonWidget(
-                            title: 'Создать поездку',
-                            onPressed: () async {
-                              context.read<DeliveryCubit>().isSubscribed(
-                                    CreateDeliveryModel(
+                32.h,
+                widget.deliverOrSend == true
+                    ? BlocBuilder<DeliveryCubit, DeliveryState>(
+                        builder: (context, state) {
+                          if (state is DeliveryLoading) {
+                            return const Material(
+                                child:
+                                    Center(child: CircularProgressIndicator()));
+                          }
+                          return ElevatedButtonWidget(
+                              title: 'Создать поездку',
+                              onPressed: () async {
+                                context.read<DeliveryCubit>().isSubscribed(
+                                      CreateDeliveryModel(
+                                        fromWhere: fromWhereController.text,
+                                        toWhere: toWhereController.text,
+                                        dispatchDate: dispatchController.text,
+                                        arrivalDate: arriveController.text,
+                                        description: descriptionController.text,
+                                        size: packageOptions[selectedCardIndex]
+                                            .type,
+                                        // transportType: widget.appBar ==
+                                        //         'Самолет'
+                                        //     ? "AIRPLANE"
+                                        //     : widget.appBar == 'Автомобиль'
+                                        //         ? "CAR"
+                                        //         : "TRUCK",
+                                      ),
+                                    );
+
+                                context
+                                    .read<DeliveryCubit>()
+                                    .updateDeliveryInfo(
                                       fromWhere: fromWhereController.text,
                                       toWhere: toWhereController.text,
                                       dispatchDate: dispatchController.text,
                                       arrivalDate: arriveController.text,
                                       description: descriptionController.text,
+                                      boxType: selectedCardIndex,
+                                    );
+                              });
+                        },
+                      )
+                    : BlocBuilder<SendCubit, SendState>(
+                        builder: (context, state) {
+                          if (state is SendLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          return ElevatedButtonWidget(
+                            title: 'Создать поездку',
+                            onPressed: () async {
+                              context.read<SendCubit>().createSend(
+                                    SendModel(
+                                      fromWhere: fromWhereController.text,
+                                      toWhere: toWhereController.text,
+                                      dispatchDate: dispatchController.text,
+                                      arrivalDate: arriveController.text,
+                                      description: descriptionController.text,
+                                      firstName: 'Marat',
+                                      lastName: 'Kubatov',
+                                      packageType: 'LUGGAGE',
                                       size: packageOptions[selectedCardIndex]
                                           .type,
-                                      // transportType: widget.appBar ==
-                                      //         'Самолет'
-                                      //     ? "AIRPLANE"
-                                      //     : widget.appBar == 'Автомобиль'
-                                      //         ? "CAR"
-                                      //         : "TRUCK",
+                                      subsDuration: 'ONE_MONTH',
                                     ),
                                   );
-
-                              context.read<DeliveryCubit>().updateDeliveryInfo(
-                                    fromWhere: fromWhereController.text,
-                                    toWhere: toWhereController.text,
-                                    dispatchDate: dispatchController.text,
-                                    arrivalDate: arriveController.text,
-                                    description: descriptionController.text,
-                                    boxType: selectedCardIndex,
-                                  );
-                            });
-                      },
-                    )
-                  : BlocBuilder<SendCubit, SendState>(
-                      builder: (context, state) {
-                        if (state is SendLoading) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                        return ElevatedButtonWidget(
-                          title: 'Создать поездку',
-                          onPressed: () async {
-                            context.read<SendCubit>().createSend(
-                                  SendModel(
-                                    fromWhere: fromWhereController.text,
-                                    toWhere: toWhereController.text,
-                                    dispatchDate: dispatchController.text,
-                                    arrivalDate: arriveController.text,
-                                    description: descriptionController.text,
-                                    firstName: 'Marat',
-                                    lastName: 'Kubatov',
-                                    packageType: 'LUGGAGE',
-                                    size:
-                                        packageOptions[selectedCardIndex].type,
-                                    subsDuration: 'ONE_MONTH',
-                                  ),
-                                );
-                          },
-                        );
-                      },
-                    ),
-              32.h,
-            ],
+                            },
+                          );
+                        },
+                      ),
+                32.h,
+              ],
+            ),
           ),
         ),
       ),
