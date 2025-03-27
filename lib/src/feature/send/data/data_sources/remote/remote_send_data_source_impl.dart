@@ -41,7 +41,7 @@ class RemoteSendDataSourceImpl implements RemoteSendDataSource {
         }
       }
 
-      final createSend = SendModel.fromJson(response.data);
+      final createSend = CreateDeliveryModel.fromJson(response.data);
 
       return Right(createSend);
     } on DioException catch (e) {
