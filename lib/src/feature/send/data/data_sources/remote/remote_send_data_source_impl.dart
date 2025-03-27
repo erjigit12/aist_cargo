@@ -19,7 +19,7 @@ class RemoteSendDataSourceImpl implements RemoteSendDataSource {
       log("✅ ID: $id");
 
       final response = await sl<DioClient>().post(
-        '${ApiConst.createSendings}/$id',
+        '${ApiConst.isSubscription}/sending/createTrue',
         options: Options(
           headers: {
             'accept': ' */*',

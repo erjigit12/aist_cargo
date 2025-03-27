@@ -18,7 +18,7 @@ class RemoteDeliveryDataSourceImpl implements RemoteDeliveryDataSource {
       log("✅ Access Token: $accessToken");
 
       final response = await sl<DioClient>().post(
-        ApiConst.isSubscription,
+        '${ApiConst.isSubscription}/deliveryApi/deliveriesTrue',
         options: Options(
           headers: {
             'accept': ' */*',
