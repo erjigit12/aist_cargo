@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 class RemoteSendDataSourceImpl implements RemoteSendDataSource {
   @override
-  Future<Either> createSend(CreateDeliveryModel sendModel) async {
+  Future<Either> isSubscribed(CreateDeliveryModel sendModel) async {
     try {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var accessToken = storage.getString('accessToken');
