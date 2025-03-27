@@ -6,6 +6,7 @@ class CreateSendUsecase {
 
   final SendRepository repository;
 
-  Future<Either> call(CreateDeliveryModel sendModel) async =>
-      await repository.isSubscribed(sendModel);
+  Future<Either<String, CreateDeliveryModel>> call(
+          CreateDeliveryModel sendModel) async =>
+      await repository.createSend(sendModel);
 }

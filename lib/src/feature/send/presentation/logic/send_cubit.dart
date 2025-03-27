@@ -8,7 +8,10 @@ part 'send_state.dart';
 
 class SendCubit extends Cubit<SendState> {
   final CreateSendUsecase createSendUsecase;
-  SendCubit({required this.createSendUsecase}) : super(SendInitial());
+  final IsSubscribedSendUsecase isSubscribedSendUsecase;
+  SendCubit(
+      {required this.createSendUsecase, required this.isSubscribedSendUsecase})
+      : super(SendInitial());
 
   String fromWhere = '';
   String toWhere = '';
@@ -20,7 +23,7 @@ class SendCubit extends Cubit<SendState> {
   void isSubscribed(CreateDeliveryModel delivery) async {
     emit(SendLoading());
 
-    final result = await createSendUsecase.call(delivery);
+    final result = await isSubscribedSendUsecase.call(delivery);
     result.fold(
       (l) {
         emit(SendFailure(message: l));
