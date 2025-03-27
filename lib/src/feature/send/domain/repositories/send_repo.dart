@@ -2,5 +2,5 @@ import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class SendRepository {
-  Future<Either> createSend(CreateDeliveryModel sendModel);
+  Future<Either> isSubscribed(CreateDeliveryModel sendModel);
 }
