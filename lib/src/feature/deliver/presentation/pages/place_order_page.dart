@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlaceOrderPage extends StatefulWidget {
-  const PlaceOrderPage({super.key, required this.packageOptions});
+  const PlaceOrderPage({
+    super.key,
+    required this.packageOptions,
+    required this.deliverOrSend,
+  });
 
   final List<PackageOption> packageOptions;
+  final bool deliverOrSend;
 
   @override
   State<PlaceOrderPage> createState() => _PlaceOrderPageState();

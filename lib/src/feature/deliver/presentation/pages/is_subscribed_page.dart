@@ -96,36 +96,37 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
       appBar: CustomAppBar(title: widget.appBar),
       body: MultiBlocListener(
         listeners: [
-          BlocListener<DeliveryCubit, DeliveryState>(
-            listener: (context, state) {
-              if (state is DeliverySuccess) {
-                Navigator.pushNamed(context, AppRoutes.placeOrder,
-                    arguments: packageOptions);
-              }
-              if (state is DeliveryFailure) {
-                var snackBar = SnackBar(content: Text(state.message));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                if (state.message == "Подписка жок!") {
-                  _showSubscriptionBottomSheet(context, packageOptions);
-                }
-              }
-            },
-          ),
-          BlocListener<SendCubit, SendState>(
-            listener: (context, state) {
-              if (state is SendSuccess) {
-                Navigator.pushNamed(context, AppRoutes.placeOrder,
-                    arguments: packageOptions);
-              }
-              if (state is SendFailure) {
-                var snackBar = SnackBar(content: Text(state.message));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                if (state.message == "Подписка жок!") {
-                  _showSubscriptionBottomSheet(context, packageOptions);
-                }
-              }
-            },
-          ),
+          widget.deliverOrSend == true
+              ? BlocListener<DeliveryCubit, DeliveryState>(
+                  listener: (context, state) {
+                    if (state is DeliverySuccess) {
+                      Navigator.pushNamed(context, AppRoutes.placeOrder,
+                          arguments: packageOptions);
+                    }
+                    if (state is DeliveryFailure) {
+                      var snackBar = SnackBar(content: Text(state.message));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      if (state.message == "Подписка жок!") {
+                        _showSubscriptionBottomSheet(context, packageOptions);
+                      }
+                    }
+                  },
+                )
+              : BlocListener<SendCubit, SendState>(
+                  listener: (context, state) {
+                    if (state is SendSuccess) {
+                      Navigator.pushNamed(context, AppRoutes.placeOrder,
+                          arguments: packageOptions);
+                    }
+                    if (state is SendFailure) {
+                      var snackBar = SnackBar(content: Text(state.message));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      if (state.message == "Подписка жок!") {
+                        _showSubscriptionBottomSheet(context, packageOptions);
+                      }
+                    }
+                  },
+                ),
         ],
         child: Form(
           key: _formKey,
