@@ -48,10 +48,10 @@ class SendCubit extends Cubit<SendState> {
     );
   }
 
-  void createSend(CreateDeliveryModel delivery) async {
+  void createSend(CreateDeliveryModel send) async {
     emit(SendLoading());
 
-    final result = await createSendUsecase.call(delivery);
+    final result = await createSendUsecase.call(send);
     result.fold(
       (l) => emit(SendFailure(message: l)),
       (r) {
