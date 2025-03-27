@@ -411,18 +411,14 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                                   _dispatchDateError == null &&
                                   _arrivalDateError == null) {
                                 context.read<SendCubit>().createSend(
-                                      SendModel(
+                                      CreateDeliveryModel(
                                         fromWhere: fromWhereController.text,
                                         toWhere: toWhereController.text,
                                         dispatchDate: dispatchController.text,
                                         arrivalDate: arriveController.text,
                                         description: descriptionController.text,
-                                        firstName: 'Marat',
-                                        lastName: 'Kubatov',
-                                        packageType: 'LUGGAGE',
                                         size: packageOptions[selectedCardIndex]
                                             .type,
-                                        subsDuration: 'ONE_MONTH',
                                         // transportType: widget.appBar ==
                                         //         'Самолет'
                                         //     ? "AIRPLANE"
