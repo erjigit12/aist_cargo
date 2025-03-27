@@ -10,7 +10,7 @@ class SendCubit extends Cubit<SendState> {
   final CreateSendUsecase createSendUsecase;
   SendCubit({required this.createSendUsecase}) : super(SendInitial());
 
-  void createSend(CreateDeliveryModel sendModel) async {
+  void isSubscribed(CreateDeliveryModel sendModel) async {
     emit(SendLoading());
 
     final result = await createSendUsecase.call(sendModel);

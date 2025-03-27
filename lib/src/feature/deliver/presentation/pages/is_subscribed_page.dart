@@ -410,7 +410,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                                   _toWhereError == null &&
                                   _dispatchDateError == null &&
                                   _arrivalDateError == null) {
-                                context.read<SendCubit>().createSend(
+                                context.read<SendCubit>().isSubscribed(
                                       CreateDeliveryModel(
                                         fromWhere: fromWhereController.text,
                                         toWhere: toWhereController.text,
