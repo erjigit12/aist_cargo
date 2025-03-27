@@ -9,9 +9,10 @@ part 'send_state.dart';
 class SendCubit extends Cubit<SendState> {
   final CreateSendUsecase createSendUsecase;
   final IsSubscribedSendUsecase isSubscribedSendUsecase;
-  SendCubit(
-      {required this.createSendUsecase, required this.isSubscribedSendUsecase})
-      : super(SendInitial());
+  SendCubit({
+    required this.createSendUsecase,
+    required this.isSubscribedSendUsecase,
+  }) : super(SendInitial());
 
   String fromWhere = '';
   String toWhere = '';
@@ -42,6 +43,29 @@ class SendCubit extends Cubit<SendState> {
         } else {
           log("⚠️ Белгисиз жооп форматы!");
           emit(const SendFailure(message: "Белгисиз жооп форматы!"));
+        }
+      },
+    );
+  }
+
+  void createSend(CreateDeliveryModel delivery) async {
+    emit(SendLoading());
+
+    final result = await createSendUsecase.call(delivery);
+    result.fold(
+      (l) => emit(SendFailure(message: l)),
+      (r) {
+        final responseData = r.toJson();
+
+        if (responseData["success"] == true) {
+          emit(
+            SendSuccess(
+              send: responseData,
+              orderNumber: r.random ?? 0,
+            ),
+          );
+        } else {
+          emit(const SendFailure(message: "Доставка не создана"));
         }
       },
     );
