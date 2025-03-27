@@ -388,21 +388,61 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                           return ElevatedButtonWidget(
                             title: 'Создать поездку',
                             onPressed: () async {
-                              context.read<SendCubit>().createSend(
-                                    SendModel(
+                              setState(() {
+                                _isFormValidated = true;
+                                _fromWhereError = FormValidators.validateCity(
+                                    fromWhereController.text);
+                                _toWhereError = FormValidators.validateCity(
+                                    toWhereController.text);
+                                _dispatchDateError =
+                                    FormValidators.validateDate(
+                                        dispatchController.text);
+                                _arrivalDateError = FormValidators.validateDate(
+                                    arriveController.text);
+                                _packageError =
+                                    FormValidators.validatePackageSelection(
+                                        selectedCardIndex);
+                              });
+
+                              if (_formKey.currentState!.validate() &&
+                                  _packageError == null &&
+                                  _fromWhereError == null &&
+                                  _toWhereError == null &&
+                                  _dispatchDateError == null &&
+                                  _arrivalDateError == null) {
+                                context.read<SendCubit>().createSend(
+                                      SendModel(
+                                        fromWhere: fromWhereController.text,
+                                        toWhere: toWhereController.text,
+                                        dispatchDate: dispatchController.text,
+                                        arrivalDate: arriveController.text,
+                                        description: descriptionController.text,
+                                        firstName: 'Marat',
+                                        lastName: 'Kubatov',
+                                        packageType: 'LUGGAGE',
+                                        size: packageOptions[selectedCardIndex]
+                                            .type,
+                                        subsDuration: 'ONE_MONTH',
+                                        // transportType: widget.appBar ==
+                                        //         'Самолет'
+                                        //     ? "AIRPLANE"
+                                        //     : widget.appBar == 'Автомобиль'
+                                        //         ? "CAR"
+                                        //         : "TRUCK",
+                                      ),
+                                    );
+
+                                context
+                                    .read<DeliveryCubit>()
+                                    .updateDeliveryInfo(
                                       fromWhere: fromWhereController.text,
                                       toWhere: toWhereController.text,
                                       dispatchDate: dispatchController.text,
                                       arrivalDate: arriveController.text,
                                       description: descriptionController.text,
-                                      firstName: 'Marat',
-                                      lastName: 'Kubatov',
-                                      packageType: 'LUGGAGE',
-                                      size: packageOptions[selectedCardIndex]
-                                          .type,
-                                      subsDuration: 'ONE_MONTH',
-                                    ),
-                                  );
+                                      boxType: selectedCardIndex,
+                                    );
+                              }
                             },
                           );
                         },
