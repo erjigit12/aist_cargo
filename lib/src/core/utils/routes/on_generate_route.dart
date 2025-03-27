@@ -46,7 +46,10 @@ class RouteGenerator {
         if (settings.arguments is List<PackageOption>) {
           final packageOptions = settings.arguments as List<PackageOption>;
           return CupertinoPageRoute(
-            builder: (_) => PlaceOrderPage(packageOptions: packageOptions),
+            builder: (_) => PlaceOrderPage(
+              packageOptions: packageOptions,
+              deliverOrSend: settings.arguments as bool,
+            ),
           );
         } else {
           log("⚠️ Аргумент туура эмес!");
