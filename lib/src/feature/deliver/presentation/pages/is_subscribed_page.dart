@@ -255,13 +255,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                     ),
                   ),
                 Column(
-                  children:
-                      //        if (_packageError != null)
-                      // Text(
-                      //   _packageError!,
-                      //   style: TextStyle(color: Colors.red),
-                      // ),
-                      List.generate(
+                  children: List.generate(
                     packageOptions.length,
                     (index) {
                       final package = packageOptions[index];
