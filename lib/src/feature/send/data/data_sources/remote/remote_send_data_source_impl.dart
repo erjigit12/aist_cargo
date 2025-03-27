@@ -52,4 +52,47 @@ class RemoteSendDataSourceImpl implements RemoteSendDataSource {
       throw Exception('Unexpected error: $e');
     }
   }
+
+  @override
+  Future<Either<String, CreateDeliveryModel>> createSend(
+      CreateDeliveryModel send) async {
+    try {
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var accessToken = storage.getString('accessToken');
+
+      log("✅ Access Token: $accessToken");
+
+      final response = await sl<DioClient>().post(
+        ApiConst.createSendings,
+        options: Options(
+          headers: {
+            'accept': '*/*',
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: send.toJson(),
+      );
+
+      log('📩 Сервердин жообу: ${response.data}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final responseData = response.data;
+        if (responseData is Map<String, dynamic>) {
+          final createdDelivery = CreateDeliveryModel.fromJson(responseData);
+          return Right(createdDelivery);
+        } else {
+          return const Left("Неверный формат ответа сервера");
+        }
+      } else {
+        return const Left("Ошибка сервера");
+      }
+    } on DioException catch (e) {
+      log('❌ Dio ката: ${e.response?.data ?? e.message}');
+      return Left(e.response?.data?['message'] ?? 'Ошибка сети');
+    } catch (e) {
+      log('❌ Жалпы ката: $e');
+      return Left('Неожиданная ошибка: $e');
+    }
+  }
 }

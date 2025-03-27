@@ -19,4 +19,18 @@ class SendRepositoryImpl implements SendRepository {
       },
     );
   }
+
+  @override
+  Future<Either<String, CreateDeliveryModel>> createSend(
+      CreateDeliveryModel send) async {
+    Either result = await remoteSendDataSource.createSend(send);
+    return result.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        return Right(r);
+      },
+    );
+  }
 }

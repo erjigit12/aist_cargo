@@ -254,8 +254,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                 8.h,
                 TextFormField(
                   initialValue: widget.deliverOrSend == true
-                      ? sendCubit.description
-                      : deliveryCubit.description,
+                      ? deliveryCubit.description
+                      : sendCubit.description,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(16),
                     hintText: 'Я даю гарантию безопасную транспортировку.',
@@ -337,7 +337,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                       size: widget
                                           .packageOptions[deliveryCubit.boxType]
                                           .type,
-                                      transportNumber: 'AWC345F',
+                                      transportNumber: 'AWC34F',
                                     ));
                               }
                             },
