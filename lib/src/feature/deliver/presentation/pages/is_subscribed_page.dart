@@ -103,7 +103,10 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                       Navigator.pushNamed(
                         context,
                         AppRoutes.placeOrder,
-                        arguments: [packageOptions, widget.deliverOrSend],
+                        arguments: {
+                          'packageOptions': packageOptions,
+                          'deliverOrSend': widget.deliverOrSend,
+                        },
                       );
                     }
                     if (state is DeliveryFailure) {

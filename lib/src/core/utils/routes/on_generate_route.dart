@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'app_routes.dart';
@@ -29,11 +27,13 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => const MainView());
 
       case AppRoutes.isSubscribed:
+        final args = settings.arguments as Map<String, dynamic>;
         return CupertinoPageRoute(
-            builder: (_) => IsSubscribedPage(
-                  appBar: settings.arguments as String,
-                  deliverOrSend: settings.arguments as bool,
-                ));
+          builder: (_) => IsSubscribedPage(
+            appBar: args['appBar'] as String,
+            deliverOrSend: args['deliverOrSend'] as bool,
+          ),
+        );
 
       case AppRoutes.addCard:
         return CupertinoPageRoute(builder: (_) => const AddCardPage());
@@ -43,18 +43,13 @@ class RouteGenerator {
             builder: (_) => const SenderSubscriptionPage());
 
       case AppRoutes.placeOrder:
-        if (settings.arguments is List<PackageOption>) {
-          final packageOptions = settings.arguments as List<PackageOption>;
-          return CupertinoPageRoute(
-            builder: (_) => PlaceOrderPage(
-              packageOptions: packageOptions,
-              deliverOrSend: settings.arguments as bool,
-            ),
-          );
-        } else {
-          log("⚠️ Аргумент туура эмес!");
-          return errorRoute();
-        }
+        final args = settings.arguments as Map<String, dynamic>;
+        return CupertinoPageRoute(
+          builder: (_) => PlaceOrderPage(
+            packageOptions: args['packageOptions'] as List<PackageOption>,
+            deliverOrSend: args['deliverOrSend'] as bool,
+          ),
+        );
 
       case AppRoutes.editProfile:
         return CupertinoPageRoute(builder: (_) => const EditProfilePage());
