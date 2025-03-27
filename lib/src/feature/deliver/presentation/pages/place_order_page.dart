@@ -79,20 +79,39 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Создать поездку'),
-      body: BlocListener<DeliveryCubit, DeliveryState>(
-        listener: (context, state) {
-          if (state is DeliveryFailure) {
-            var snackBar = SnackBar(content: Text(state.message));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-          if (state is DeliverySuccess) {
-            final orderNumber = state.deliveries["random"];
-            _showSubscriptionBottomSheet(
-              context,
-              orderNumber ?? 0,
-            );
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<DeliveryCubit, DeliveryState>(
+            listener: (context, state) {
+              if (state is DeliveryFailure) {
+                var snackBar = SnackBar(content: Text(state.message));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+              if (state is DeliverySuccess) {
+                final orderNumber = state.deliveries["random"];
+                _showSubscriptionBottomSheet(
+                  context,
+                  orderNumber ?? 0,
+                );
+              }
+            },
+          ),
+          BlocListener<SendCubit, SendState>(
+            listener: (context, state) {
+              if (state is SendFailure) {
+                var snackBar = SnackBar(content: Text(state.message));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+              if (state is SendSuccess) {
+                final orderNumber = state.send["random"];
+                _showSubscriptionBottomSheet(
+                  context,
+                  orderNumber ?? 0,
+                );
+              }
+            },
+          ),
+        ],
         child: Form(
           key: _formKey,
           autovalidateMode: _isFormValidated

@@ -17,23 +17,23 @@ class SendCubit extends Cubit<SendState> {
   String description = '';
   int boxType = 0;
 
-  void isSubscribed(CreateDeliveryModel sendModel) async {
+  void isSubscribed(CreateDeliveryModel delivery) async {
     emit(SendLoading());
 
-    final result = await createSendUsecase.call(sendModel);
-    return result.fold(
-      (l) => emit(SendFailure(message: l)),
+    final result = await createSendUsecase.call(delivery);
+    result.fold(
+      (l) {
+        emit(SendFailure(message: l));
+      },
       (r) {
         if (r is CreateDeliveryModel) {
           final responseData = r.toJson();
-          log("🚀 Айландырылган JSON: $responseData");
 
           if (responseData["success"] == true) {
             emit(
               SendSuccess(send: responseData),
             );
           } else {
-            log("⚠️ Подписка жок, SendFailure чыгарылды");
             emit(const SendFailure(message: "Подписка жок!"));
           }
         } else {
