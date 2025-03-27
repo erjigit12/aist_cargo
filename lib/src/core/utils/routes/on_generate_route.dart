@@ -28,7 +28,7 @@ class RouteGenerator {
       case AppRoutes.main:
         return CupertinoPageRoute(builder: (_) => const MainView());
 
-      case AppRoutes.createDelivery:
+      case AppRoutes.isSubscribed:
         return CupertinoPageRoute(
             builder: (_) => IsSubscribedPage(
                   appBar: settings.arguments as String,

@@ -86,36 +86,37 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
       appBar: const CustomAppBar(title: 'Создать поездку'),
       body: MultiBlocListener(
         listeners: [
-          BlocListener<DeliveryCubit, DeliveryState>(
-            listener: (context, state) {
-              if (state is DeliveryFailure) {
-                var snackBar = SnackBar(content: Text(state.message));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-              if (state is DeliverySuccess) {
-                final orderNumber = state.deliveries["random"];
-                _showSubscriptionBottomSheet(
-                  context,
-                  orderNumber ?? 0,
-                );
-              }
-            },
-          ),
-          BlocListener<SendCubit, SendState>(
-            listener: (context, state) {
-              if (state is SendFailure) {
-                var snackBar = SnackBar(content: Text(state.message));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-              if (state is SendSuccess) {
-                final orderNumber = state.send["random"];
-                _showSubscriptionBottomSheet(
-                  context,
-                  orderNumber ?? 0,
-                );
-              }
-            },
-          ),
+          widget.deliverOrSend == true
+              ? BlocListener<DeliveryCubit, DeliveryState>(
+                  listener: (context, state) {
+                    if (state is DeliveryFailure) {
+                      var snackBar = SnackBar(content: Text(state.message));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    if (state is DeliverySuccess) {
+                      final orderNumber = state.deliveries["random"];
+                      _showSubscriptionBottomSheet(
+                        context,
+                        orderNumber ?? 0,
+                      );
+                    }
+                  },
+                )
+              : BlocListener<SendCubit, SendState>(
+                  listener: (context, state) {
+                    if (state is SendFailure) {
+                      var snackBar = SnackBar(content: Text(state.message));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    if (state is SendSuccess) {
+                      final orderNumber = state.send["random"];
+                      _showSubscriptionBottomSheet(
+                        context,
+                        orderNumber ?? 0,
+                      );
+                    }
+                  },
+                ),
         ],
         child: Form(
           key: _formKey,
@@ -132,7 +133,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   initialValue: _fromWhereController.text,
                   onSelected: (city) {
                     _fromWhereController.text = city;
-                    context.read<DeliveryCubit>().fromWhere = city;
+                    widget.deliverOrSend == true
+                        ? context.read<DeliveryCubit>().fromWhere = city
+                        : context.read<SendCubit>().fromWhere = city;
                   },
                   errorText: _fromWhereError,
                 ),
@@ -142,7 +145,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   initialValue: _toWhereController.text,
                   onSelected: (city) {
                     _toWhereController.text = city;
-                    context.read<DeliveryCubit>().toWhere = city;
+                    widget.deliverOrSend == true
+                        ? context.read<DeliveryCubit>().toWhere = city
+                        : context.read<SendCubit>().toWhere = city;
                   },
                   errorText: _toWhereError,
                 ),
@@ -155,7 +160,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   hintText: '',
                   isRead: true,
                   onChanged: (value) {
-                    context.read<DeliveryCubit>().dispatchDate = value;
+                    widget.deliverOrSend == true
+                        ? context.read<DeliveryCubit>().dispatchDate = value
+                        : context.read<SendCubit>().dispatchDate = value;
                   },
                   errorText: _dispatchDateError,
                 ),
@@ -168,7 +175,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   hintText: '',
                   isRead: true,
                   onChanged: (value) {
-                    context.read<DeliveryCubit>().arrivalDate = value;
+                    widget.deliverOrSend == true
+                        ? context.read<DeliveryCubit>().arrivalDate = value
+                        : context.read<SendCubit>().arrivalDate = value;
                   },
                   errorText: _arrivalDateError,
                 ),

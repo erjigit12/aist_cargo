@@ -10,7 +10,7 @@ class AppRoutes {
   static const otpCode = 'otpCode';
 
   /* <---- Delivery -----> */
-  static const createDelivery = 'createDelivery';
+  static const isSubscribed = 'isSubscribed';
   static const addCard = 'addCardPage';
   static const senderSubscription = 'senderSubscription';
   static const placeOrder = 'placeOrder';

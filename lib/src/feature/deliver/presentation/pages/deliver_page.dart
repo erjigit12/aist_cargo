@@ -75,14 +75,13 @@ class _DeliverPageState extends State<DeliverPage> {
                         setState(
                           () => selectedIndex = index,
                         );
-                        Navigator.push(
+                        Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => IsSubscribedPage(
-                              appBar: option.title,
-                              deliverOrSend: true,
-                            ),
-                          ),
+                          AppRoutes.isSubscribed,
+                          arguments: {
+                            'appBar': option.title,
+                            'deliverOrSend': true,
+                          },
                         );
                       },
                       child: buildRotatedContainer(
