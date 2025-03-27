@@ -307,7 +307,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                 arrivalDate: _arrivalDateController.text,
                                 size: widget
                                     .packageOptions[deliveryCubit.boxType].type,
-                                transportNumber: 'AWC231F',
+                                transportNumber: 'AWC123F',
                               ));
                         }
                       },
