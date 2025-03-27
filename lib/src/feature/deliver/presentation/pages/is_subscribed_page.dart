@@ -428,9 +428,7 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
                                       ),
                                     );
 
-                                context
-                                    .read<DeliveryCubit>()
-                                    .updateDeliveryInfo(
+                                context.read<SendCubit>().updateSendInfo(
                                       fromWhere: fromWhereController.text,
                                       toWhere: toWhereController.text,
                                       dispatchDate: dispatchController.text,

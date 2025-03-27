@@ -10,6 +10,13 @@ class SendCubit extends Cubit<SendState> {
   final CreateSendUsecase createSendUsecase;
   SendCubit({required this.createSendUsecase}) : super(SendInitial());
 
+  String fromWhere = '';
+  String toWhere = '';
+  String dispatchDate = '';
+  String arrivalDate = '';
+  String description = '';
+  int boxType = 0;
+
   void isSubscribed(CreateDeliveryModel sendModel) async {
     emit(SendLoading());
 
@@ -35,5 +42,21 @@ class SendCubit extends Cubit<SendState> {
         }
       },
     );
+  }
+
+  void updateSendInfo({
+    required String fromWhere,
+    required String toWhere,
+    required String dispatchDate,
+    required String arrivalDate,
+    required String description,
+    required int boxType,
+  }) {
+    this.fromWhere = fromWhere;
+    this.toWhere = toWhere;
+    this.dispatchDate = dispatchDate;
+    this.arrivalDate = arrivalDate;
+    this.description = description;
+    this.boxType = boxType;
   }
 }
