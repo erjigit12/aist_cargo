@@ -382,8 +382,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                   _arrivalDateError == null &&
                                   _fullNameError == null) {
                                 context
-                                    .read<DeliveryCubit>()
-                                    .createDelivery(CreateDeliveryModel(
+                                    .read<SendCubit>()
+                                    .createSend(CreateDeliveryModel(
                                       userName: _fullNameController.text,
                                       fromWhere: _fromWhereController.text,
                                       toWhere: _toWhereController.text,

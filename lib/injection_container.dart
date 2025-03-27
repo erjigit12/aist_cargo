@@ -43,7 +43,10 @@ Future<void> init() async {
   );
 
   sl.registerFactory<SendCubit>(
-    () => SendCubit(createSendUsecase: sl.call()),
+    () => SendCubit(
+      createSendUsecase: sl.call(),
+      isSubscribedSendUsecase: sl.call(),
+    ),
   );
 
   //! Use Cases
@@ -77,6 +80,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<IsSubscribedUsecase>(
     () => IsSubscribedUsecase(repository: sl.call()),
+  );
+
+  sl.registerLazySingleton<IsSubscribedSendUsecase>(
+    () => IsSubscribedSendUsecase(repository: sl.call()),
   );
 
   sl.registerLazySingleton<CreateSendUsecase>(

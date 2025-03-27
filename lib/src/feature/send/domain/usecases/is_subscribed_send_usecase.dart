@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 class IsSubscribedSendUsecase {
   final SendRepository repository;
 
-  IsSubscribedSendUsecase(this.repository);
+  IsSubscribedSendUsecase({required this.repository});
 
   Future<Either> call(CreateDeliveryModel send) async =>
       await repository.isSubscribed(send);
