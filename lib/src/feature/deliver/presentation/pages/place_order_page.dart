@@ -40,14 +40,30 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<DeliveryCubit>();
+    final deliveryCubit = context.read<DeliveryCubit>();
+    final sendCubit = context.read<SendCubit>();
     _fullNameController = TextEditingController();
     // _phoneController = TextEditingController();
-    _fromWhereController = TextEditingController(text: cubit.fromWhere);
-    _toWhereController = TextEditingController(text: cubit.toWhere);
-    _dispatchDateController = TextEditingController(text: cubit.dispatchDate);
-    _arrivalDateController = TextEditingController(text: cubit.arrivalDate);
-    _descriptionController = TextEditingController(text: cubit.description);
+    _fromWhereController = TextEditingController(
+        text: widget.deliverOrSend == true
+            ? deliveryCubit.fromWhere
+            : sendCubit.fromWhere);
+    _toWhereController = TextEditingController(
+        text: widget.deliverOrSend == true
+            ? deliveryCubit.toWhere
+            : sendCubit.toWhere);
+    _dispatchDateController = TextEditingController(
+        text: widget.deliverOrSend == true
+            ? deliveryCubit.dispatchDate
+            : sendCubit.dispatchDate);
+    _arrivalDateController = TextEditingController(
+        text: widget.deliverOrSend == true
+            ? deliveryCubit.arrivalDate
+            : sendCubit.arrivalDate);
+    _descriptionController = TextEditingController(
+        text: widget.deliverOrSend == true
+            ? deliveryCubit.description
+            : sendCubit.description);
   }
 
   @override
@@ -81,6 +97,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   @override
   Widget build(BuildContext context) {
     final deliveryCubit = context.read<DeliveryCubit>();
+    final sendCubit = context.read<SendCubit>();
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Создать поездку'),
@@ -157,7 +174,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   backgroundColor: Colors.transparent,
                   controller: _dispatchDateController,
                   title: 'Дата вылета',
-                  hintText: '',
+                  hintText: 'Введите дату вылета',
                   isRead: true,
                   onChanged: (value) {
                     widget.deliverOrSend == true
@@ -172,7 +189,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   backgroundColor: Colors.transparent,
                   controller: _arrivalDateController,
                   title: 'Дата прилета',
-                  hintText: '',
+                  hintText: 'Введите дату прилета',
                   isRead: true,
                   onChanged: (value) {
                     widget.deliverOrSend == true
@@ -213,13 +230,16 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                       List.generate(widget.packageOptions.length, (index) {
                     final package = widget.packageOptions[index];
                     return GestureDetector(
-                      onTap: () =>
-                          setState(() => deliveryCubit.boxType = index),
+                      onTap: () => setState(() => widget.deliverOrSend == true
+                          ? sendCubit.boxType = index
+                          : deliveryCubit.boxType = index),
                       child: _buildProductCard(
                         type: package.type,
                         title: package.title,
                         subtitle: package.size,
-                        isSelected: deliveryCubit.boxType == index,
+                        isSelected: widget.deliverOrSend == true
+                            ? sendCubit.boxType == index
+                            : deliveryCubit.boxType == index,
                       ),
                     );
                   }),
@@ -233,7 +253,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                 ),
                 8.h,
                 TextFormField(
-                  initialValue: deliveryCubit.description,
+                  initialValue: widget.deliverOrSend == true
+                      ? sendCubit.description
+                      : deliveryCubit.description,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(16),
                     hintText: 'Я даю гарантию безопасную транспортировку.',
@@ -265,55 +287,119 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   keyboardType: TextInputType.multiline,
                 ),
                 31.h,
-                BlocBuilder<DeliveryCubit, DeliveryState>(
-                  builder: (context, state) {
-                    if (state is DeliveryLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return ElevatedButtonWidget(
-                      title: 'Оформить',
-                      onPressed: () async {
-                        setState(() {
-                          _isFormValidated = true;
-                          _fromWhereError = FormValidators.validateCity(
-                              _fromWhereController.text);
-                          _toWhereError = FormValidators.validateCity(
-                              _toWhereController.text);
-                          _dispatchDateError = FormValidators.validateDate(
-                              _dispatchDateController.text);
-                          _arrivalDateError = FormValidators.validateDate(
-                              _arrivalDateController.text);
-                          _packageError =
-                              FormValidators.validatePackageSelection(
-                                  deliveryCubit.boxType);
-                          _fullNameError = FormValidators.validatefullName(
-                              _fullNameController.text);
-                        });
+                widget.deliverOrSend == true
+                    ? BlocBuilder<DeliveryCubit, DeliveryState>(
+                        builder: (context, state) {
+                          if (state is DeliveryLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          return ElevatedButtonWidget(
+                            title: 'Оформить',
+                            onPressed: () async {
+                              setState(() {
+                                _isFormValidated = true;
+                                _fromWhereError = FormValidators.validateCity(
+                                    _fromWhereController.text);
+                                _toWhereError = FormValidators.validateCity(
+                                    _toWhereController.text);
+                                _dispatchDateError =
+                                    FormValidators.validateDate(
+                                        _dispatchDateController.text);
+                                _arrivalDateError = FormValidators.validateDate(
+                                    _arrivalDateController.text);
+                                _packageError =
+                                    FormValidators.validatePackageSelection(
+                                        widget.deliverOrSend == true
+                                            ? sendCubit.boxType
+                                            : deliveryCubit.boxType);
+                                _fullNameError =
+                                    FormValidators.validatefullName(
+                                        _fullNameController.text);
+                              });
 
-                        if (_formKey.currentState!.validate() &&
-                            _packageError == null &&
-                            _fromWhereError == null &&
-                            _toWhereError == null &&
-                            _dispatchDateError == null &&
-                            _arrivalDateError == null &&
-                            _fullNameError == null) {
-                          context
-                              .read<DeliveryCubit>()
-                              .createDelivery(CreateDeliveryModel(
-                                userName: _fullNameController.text,
-                                fromWhere: _fromWhereController.text,
-                                toWhere: _toWhereController.text,
-                                dispatchDate: _dispatchDateController.text,
-                                arrivalDate: _arrivalDateController.text,
-                                size: widget
-                                    .packageOptions[deliveryCubit.boxType].type,
-                                transportNumber: 'AWC123F',
-                              ));
-                        }
-                      },
-                    );
-                  },
-                ),
+                              if (_formKey.currentState!.validate() &&
+                                  _packageError == null &&
+                                  _fromWhereError == null &&
+                                  _toWhereError == null &&
+                                  _dispatchDateError == null &&
+                                  _arrivalDateError == null &&
+                                  _fullNameError == null) {
+                                context
+                                    .read<DeliveryCubit>()
+                                    .createDelivery(CreateDeliveryModel(
+                                      userName: _fullNameController.text,
+                                      fromWhere: _fromWhereController.text,
+                                      toWhere: _toWhereController.text,
+                                      dispatchDate:
+                                          _dispatchDateController.text,
+                                      arrivalDate: _arrivalDateController.text,
+                                      size: widget
+                                          .packageOptions[deliveryCubit.boxType]
+                                          .type,
+                                      transportNumber: 'AWC345F',
+                                    ));
+                              }
+                            },
+                          );
+                        },
+                      )
+                    : BlocBuilder<SendCubit, SendState>(
+                        builder: (context, state) {
+                          if (state is SendLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          return ElevatedButtonWidget(
+                            title: 'Оформить',
+                            onPressed: () async {
+                              setState(() {
+                                _isFormValidated = true;
+                                _fromWhereError = FormValidators.validateCity(
+                                    _fromWhereController.text);
+                                _toWhereError = FormValidators.validateCity(
+                                    _toWhereController.text);
+                                _dispatchDateError =
+                                    FormValidators.validateDate(
+                                        _dispatchDateController.text);
+                                _arrivalDateError = FormValidators.validateDate(
+                                    _arrivalDateController.text);
+                                _packageError =
+                                    FormValidators.validatePackageSelection(
+                                        widget.deliverOrSend == true
+                                            ? sendCubit.boxType
+                                            : deliveryCubit.boxType);
+                                _fullNameError =
+                                    FormValidators.validatefullName(
+                                        _fullNameController.text);
+                              });
+
+                              if (_formKey.currentState!.validate() &&
+                                  _packageError == null &&
+                                  _fromWhereError == null &&
+                                  _toWhereError == null &&
+                                  _dispatchDateError == null &&
+                                  _arrivalDateError == null &&
+                                  _fullNameError == null) {
+                                context
+                                    .read<DeliveryCubit>()
+                                    .createDelivery(CreateDeliveryModel(
+                                      userName: _fullNameController.text,
+                                      fromWhere: _fromWhereController.text,
+                                      toWhere: _toWhereController.text,
+                                      dispatchDate:
+                                          _dispatchDateController.text,
+                                      arrivalDate: _arrivalDateController.text,
+                                      size: widget
+                                          .packageOptions[deliveryCubit.boxType]
+                                          .type,
+                                      transportNumber: 'AWC666F',
+                                    ));
+                              }
+                            },
+                          );
+                        },
+                      ),
                 32.h,
               ],
             ),
