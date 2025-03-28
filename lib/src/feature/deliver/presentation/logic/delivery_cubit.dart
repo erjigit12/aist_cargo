@@ -72,22 +72,20 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     result.fold(
       (l) => emit(DeliveryFailure(message: l)),
       (r) {
-        if (r is CreateDeliveryModel) {
-          final responseData = r.toJson();
+        final responseData = r.toJson();
 
-          if (responseData["success"] == true) {
-            emit(
-              DeliverySuccess(
-                deliveries: responseData,
-                orderNumber: r.random ?? 0,
-              ),
-            );
-          } else {
-            emit(const DeliveryFailure(message: "Доставка не создана"));
-          }
+        if (responseData["success"] == true) {
+          emit(
+            DeliverySuccess(
+              deliveries: responseData,
+              orderNumber: r.random ?? 0,
+            ),
+          );
         } else {
-          log("⚠️ Белгисиз жооп форматы!");
-          emit(const DeliveryFailure(message: "Белгисиз жооп форматы!"));
+          emit(const DeliveryFailure(
+            message:
+                "Доставка не создана {Раньше таким номером была создана доставка}",
+          ));
         }
       },
     );

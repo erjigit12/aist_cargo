@@ -6,6 +6,7 @@ class CreateDeliveryUsecase {
 
   final DeliveryRepository repository;
 
-  Future<Either> call(CreateDeliveryModel delivery) async =>
+  Future<Either<String, CreateDeliveryModel>> call(
+          CreateDeliveryModel delivery) async =>
       await repository.createDelivery(delivery);
 }
