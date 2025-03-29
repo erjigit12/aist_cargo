@@ -1,5 +1,9 @@
 import 'package:aist_cargo/src/feature/feature.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class UserModel {
   final String? firstName;
   final String? lastName;
@@ -17,29 +21,10 @@ class UserModel {
     required this.image,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'phoneNumber': phoneNumber,
-      'dateOfBirth': dateOfBirth,
-      'image': image,
-    };
-  }
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      firstName: map['firstName'] != null ? map['firstName'] as String : null,
-      lastName: map['lastName'] != null ? map['lastName'] as String : null,
-      email: map['email'] != null ? map['email'] as String : null,
-      phoneNumber:
-          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      dateOfBirth:
-          map['dateOfBirth'] != null ? map['dateOfBirth'] as String : null,
-      image: map['image'] != null ? map['image'] as String : null,
-    );
-  }
+  factory UserModel.fromMap(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }
 
 extension UserXModel on UserModel {

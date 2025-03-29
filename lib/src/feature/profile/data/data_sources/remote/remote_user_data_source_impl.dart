@@ -37,14 +37,14 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
         '${ApiConst.userUpdate}/$id',
         options: Options(
           headers: {
-            'accept': ' */*',
+            'accept': '*/*',
             'Content-Type': 'application/json',
           },
         ),
-        data: userModel.toMap(),
+        data: userModel.toJson(),
       );
 
-      log('📩 Жөнөтүлгөн маалымат: ${userModel.toMap()}');
+      log('📩 Жөнөтүлгөн маалымат: ${userModel.toJson()}');
       log('📩 Сервердин жообу (data): ${response.data}');
       log('📩 Сервердин жообу (statusCode): ${response.statusCode}');
 

@@ -14,7 +14,9 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   bool isCheck = false;
+  late UserCubit _userCubit;
 
+  // Контроллеры будем инициализировать в initState
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController dateOfBirthController;
@@ -23,20 +25,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
+    _userCubit = context.read<UserCubit>();
 
-    // Получаем начальные данные из cubit
-    final initialState = context.read<UserCubit>().state;
+    // Инициализируем контроллеры с текущими значениями
+    _initializeControllers();
+  }
 
-    if (initialState is UserSuccess) {
+  void _initializeControllers() {
+    final currentState = _userCubit.state;
+
+    if (currentState is UserSuccess) {
       firstNameController =
-          TextEditingController(text: initialState.user.firstName);
+          TextEditingController(text: currentState.user.firstName);
       lastNameController =
-          TextEditingController(text: initialState.user.lastName);
+          TextEditingController(text: currentState.user.lastName);
       dateOfBirthController =
-          TextEditingController(text: initialState.user.dateOfBirth);
-      emailController = TextEditingController(text: initialState.user.email);
+          TextEditingController(text: currentState.user.dateOfBirth);
+      emailController = TextEditingController(text: currentState.user.email);
     } else {
-      // Запасные значения на случай ошибки
+      // Запасные значения
       firstNameController = TextEditingController();
       lastNameController = TextEditingController();
       dateOfBirthController = TextEditingController();
@@ -57,7 +64,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is UserFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+          if (state is UserSuccess && state.isUpdated) {
+            // Navigator.pop(context);
+          }
+        },
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state is UserLoading) {
@@ -154,7 +170,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               image: '',
                             );
                             context.read<UserCubit>().updateUserData(user);
-                            Navigator.pop(context);
                           }
                         },
                       ),

@@ -28,7 +28,6 @@ class UserCubit extends Cubit<UserState> {
 
   void updateUserData(UserModel userModel) async {
     final user = UserModel(
-      // id: userModel.id,
       firstName: userModel.firstName,
       lastName: userModel.lastName,
       email: userModel.email,
@@ -39,13 +38,12 @@ class UserCubit extends Cubit<UserState> {
     var result = await updateUserDataUsecase.call(user);
     result.fold(
       (l) {
-        String errorMessage =
-            l.toString(); // Ката тууралуу маалыматты String кылуу
-        log('❌ Ката кетти: $errorMessage'); // Логдоону кошуу
+        String errorMessage = l.toString();
+        log('❌ Ката кетти: $errorMessage');
         emit(UserFailure(message: errorMessage));
       },
       (r) {
-        emit(UserSuccess(user: r));
+        emit(UserSuccess(user: r, isUpdated: true));
       },
     );
   }
