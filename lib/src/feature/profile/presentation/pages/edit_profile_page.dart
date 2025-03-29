@@ -86,8 +86,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                       20.h,
                       TextFieldWithTitle(
-                          controller: lastNameController,
-                          title: '${state.user.lastName}'),
+                        controller: lastNameController,
+                        title: '${state.user.lastName}',
+                      ),
                       20.h,
                       TextFieldWithTitle(
                           controller: dateOfBirthController,
