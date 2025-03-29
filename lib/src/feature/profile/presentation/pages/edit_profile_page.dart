@@ -14,6 +14,7 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   bool isCheck = false;
+  late UserEntity _currentUser;
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -32,6 +33,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
+    final state = context.read<UserCubit>().state;
+    if (state is UserSuccess) {
+      _currentUser = state.user;
+      _initializeControllers();
+    }
+  }
+
+  void _initializeControllers() {
+    firstNameController.text = _currentUser.firstName ?? '';
+    lastNameController.text = _currentUser.lastName ?? '';
+    dateOfBirthController.text = _currentUser.dateOfBirth ?? '';
+    emailController.text = _currentUser.email ?? '';
   }
 
   @override
@@ -39,13 +52,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          // if (state is UserFailure) {
-          //   var snackBar = SnackBar(content: Text(state.message));
-          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          // }
-          // if (state is UserSuccess) {
-          //   Navigator.pop(context);
-          // }
+          if (state is UserFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+          if (state is UserSuccess && state.isUpdated) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Профиль успешно обновлён')),
+            );
+            Navigator.pop(context);
+          }
         },
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
