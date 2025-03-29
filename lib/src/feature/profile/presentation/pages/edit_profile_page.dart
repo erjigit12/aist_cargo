@@ -83,21 +83,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       TextFieldWithTitle(
                         controller: firstNameController,
                         title: '${state.user.firstName}',
+                        onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
                         controller: lastNameController,
                         title: '${state.user.lastName}',
+                        onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
                         controller: dateOfBirthController,
                         title: '${state.user.dateOfBirth}',
+                        onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
+                        hintText: '${state.user.email}',
                         controller: emailController,
-                        title: 'Email для восстановление: ${state.user.email}',
+                        title: 'Email для восстановление:',
+                        isRead: true,
                       ),
                       20.h,
                       Row(
