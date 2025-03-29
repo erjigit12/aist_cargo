@@ -9,10 +9,9 @@ final class UserInitial extends UserState {}
 final class UserLoading extends UserState {}
 
 final class UserSuccess extends UserState {
-  const UserSuccess({required this.user, this.isUpdated = false});
+  const UserSuccess({required this.user});
 
   final UserEntity user;
-  final bool isUpdated;
 }
 
 final class UserFailure extends UserState {

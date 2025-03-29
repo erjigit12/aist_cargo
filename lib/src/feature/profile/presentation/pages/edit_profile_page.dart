@@ -14,12 +14,35 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   bool isCheck = false;
-  late UserEntity _currentUser;
 
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController dateOfBirthController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController dateOfBirthController;
+  late TextEditingController emailController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Получаем начальные данные из cubit
+    final initialState = context.read<UserCubit>().state;
+
+    if (initialState is UserSuccess) {
+      firstNameController =
+          TextEditingController(text: initialState.user.firstName);
+      lastNameController =
+          TextEditingController(text: initialState.user.lastName);
+      dateOfBirthController =
+          TextEditingController(text: initialState.user.dateOfBirth);
+      emailController = TextEditingController(text: initialState.user.email);
+    } else {
+      // Запасные значения на случай ошибки
+      firstNameController = TextEditingController();
+      lastNameController = TextEditingController();
+      dateOfBirthController = TextEditingController();
+      emailController = TextEditingController();
+    }
+  }
 
   @override
   void dispose() {
@@ -31,39 +54,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    final state = context.read<UserCubit>().state;
-    if (state is UserSuccess) {
-      _currentUser = state.user;
-      _initializeControllers();
-    }
-  }
-
-  void _initializeControllers() {
-    firstNameController.text = _currentUser.firstName ?? '';
-    lastNameController.text = _currentUser.lastName ?? '';
-    dateOfBirthController.text = _currentUser.dateOfBirth ?? '';
-    emailController.text = _currentUser.email ?? '';
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {
-          if (state is UserFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-          if (state is UserSuccess && state.isUpdated) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Профиль успешно обновлён')),
-            );
-            Navigator.pop(context);
-          }
-        },
+        listener: (context, state) {},
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state is UserLoading) {
@@ -99,24 +93,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       20.h,
                       TextFieldWithTitle(
                         controller: firstNameController,
-                        title: '${state.user.firstName}',
+                        title: 'Имя',
                         onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
                         controller: lastNameController,
-                        title: '${state.user.lastName}',
+                        title: 'Фамилия',
                         onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
                         controller: dateOfBirthController,
-                        title: '${state.user.dateOfBirth}',
+                        title: 'День рождения',
                         onChanged: (value) {},
                       ),
                       20.h,
                       TextFieldWithTitle(
-                        hintText: '${state.user.email}',
                         controller: emailController,
                         title: 'Email для восстановление:',
                         isRead: true,
@@ -145,6 +138,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         onPressed: () {
                           if (!isCheck) {
                             var snackBar = const SnackBar(
+                              behavior: SnackBarBehavior.floating,
                               content: Text(
                                   'Вы не дали согласие на обработку персональных данных'),
                             );
