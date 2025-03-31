@@ -33,6 +33,7 @@ Future<void> init() async {
       getUserDataUsecase: sl.call(),
       updateUserDataUsecase: sl.call(),
       pickImageUsecase: sl.call(),
+      uploadImageUsecase: sl.call(),
     ),
   );
 
@@ -102,6 +103,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<PickImageUsecase>(
       () => PickImageUsecase(picker: sl.call()));
+
+  sl.registerLazySingleton<UploadImageUsecase>(
+      () => UploadImageUsecase(repository: sl.call()));
 
   //! Repositories
   sl.registerLazySingleton<AuthRepository>(

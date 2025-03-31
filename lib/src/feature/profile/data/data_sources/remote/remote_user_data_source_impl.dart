@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:aist_cargo/injection_container.dart';
 import 'package:aist_cargo/src/core/core.dart';
@@ -56,5 +57,19 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
       return Left(Exception('Серверден ката жооп келди!'));
     }
+  }
+
+  @override
+  Future<String> uploadImage(File imageFile) async {
+    final formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(imageFile.path),
+    });
+
+    final response = await sl<DioClient>().post(
+      ApiConst.cloudinaryUpload,
+      data: formData,
+    );
+
+    return response.data['url'];
   }
 }

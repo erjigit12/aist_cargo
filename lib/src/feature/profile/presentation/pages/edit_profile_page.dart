@@ -195,15 +195,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           } else {
-                            final user = UserModel(
+                            final currentState =
+                                _userCubit.state as UserSuccess;
+                            final user = currentState.user.copyWith(
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
-                              email: state.user.email,
-                              phoneNumber: state.user.phoneNumber,
                               dateOfBirth: dateOfBirthController.text,
-                              image: state.user.image,
+                              // imageFile сохраняется при выборе фото
                             );
-                            context.read<UserCubit>().updateUserData(user);
+
+                            context.read<UserCubit>().updateUserWithImage(user);
                           }
                         },
                       ),

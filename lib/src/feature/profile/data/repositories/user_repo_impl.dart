@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
@@ -43,5 +44,15 @@ class UserRepositoryImpl implements UserRepository {
         return Left(Exception('Маалыматты иштетүүдө ката кетти.'));
       }
     });
+  }
+
+  @override
+  Future<Either<String, String>> uploadImage(File imageFile) async {
+    try {
+      final url = await remoteUserDataSource.uploadImage(imageFile);
+      return Right(url);
+    } catch (e) {
+      return Left(e.toString());
+    }
   }
 }

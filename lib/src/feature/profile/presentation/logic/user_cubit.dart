@@ -10,10 +10,12 @@ class UserCubit extends Cubit<UserState> {
   final GetUserDataUsecase getUserDataUsecase;
   final UpdateUserDataUsecase updateUserDataUsecase;
   final PickImageUsecase pickImageUsecase;
+  final UploadImageUsecase uploadImageUsecase;
   UserCubit({
     required this.getUserDataUsecase,
     required this.updateUserDataUsecase,
     required this.pickImageUsecase,
+    required this.uploadImageUsecase,
   }) : super(UserInitial());
 
   void getUserData() async {
@@ -73,5 +75,50 @@ class UserCubit extends Cubit<UserState> {
         emit(currentState.copyWith(user: updatedUser));
       },
     );
+  }
+
+  Future<void> updateUserWithImage(UserEntity user) async {
+    if (state is! UserSuccess) return;
+
+    emit(UserLoading());
+
+    try {
+      String? imageUrl = user.image;
+
+      // 1. Загружаем новое изображение если есть
+      if (user.imageFile != null) {
+        final uploadResult = await uploadImageUsecase(user.imageFile!);
+        imageUrl = uploadResult.fold(
+          (error) => throw Exception(error),
+          (url) => url,
+        );
+      }
+
+      // 2. Конвертируем UserEntity в UserModel (если требуется)
+      final userModel = UserModel(
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        dateOfBirth: user.dateOfBirth,
+        image: imageUrl,
+      );
+
+      // 3. Обновляем данные пользователя
+      final updateResult = await updateUserDataUsecase(userModel);
+
+      updateResult.fold(
+        (error) => emit(UserFailure(message: error)),
+        (updatedUserModel) {
+          // 4. Обновляем состояние - используем user с обновленным imageUrl
+          emit(UserSuccess(
+            user: user.copyWith(image: imageUrl), // Фиксим здесь
+            isUpdated: true,
+          ));
+        },
+      );
+    } catch (e) {
+      emit(UserFailure(message: 'Ошибка обновления: ${e.toString()}'));
+    }
   }
 }
