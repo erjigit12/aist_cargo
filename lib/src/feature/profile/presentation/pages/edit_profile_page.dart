@@ -103,7 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             );
           }
           if (state is UserSuccess && state.isUpdated) {
-            // Navigator.pop(context);
+            Navigator.pop(context);
           }
         },
         child: BlocBuilder<UserCubit, UserState>(
@@ -201,7 +201,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               email: state.user.email,
                               phoneNumber: state.user.phoneNumber,
                               dateOfBirth: dateOfBirthController.text,
-                              image: '',
+                              image: state.user.image,
                             );
                             context.read<UserCubit>().updateUserData(user);
                           }
@@ -224,8 +224,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (user.imageFile != null) {
       return FileImage(user.imageFile!);
     } else if (user.image != null && user.image!.isNotEmpty) {
-      return NetworkImage(user.image!);
+      // Если image содержит URL
+      if (user.image!.startsWith('http')) {
+        return NetworkImage(user.image!);
+      }
+      // Если image содержит локальный путь
+      return AssetImage(user.image!);
     }
+    // Дефолтное изображение из assets
     return const AssetImage('assets/images/profile.jpeg');
   }
 }
