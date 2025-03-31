@@ -112,7 +112,7 @@ class UserCubit extends Cubit<UserState> {
         (updatedUserModel) {
           // 4. Обновляем состояние - используем user с обновленным imageUrl
           emit(UserSuccess(
-            user: user.copyWith(image: imageUrl), // Фиксим здесь
+            user: user.copyWith(image: imageUrl),
             isUpdated: true,
           ));
         },
