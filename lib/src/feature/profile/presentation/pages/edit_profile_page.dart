@@ -201,7 +201,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
                               dateOfBirth: dateOfBirthController.text,
-                              // imageFile сохраняется при выборе фото
+                              // imageFile: тандалган фото (автоматтык түрдө сакталат)
                             );
 
                             context.read<UserCubit>().updateUserWithImage(user);

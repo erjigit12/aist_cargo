@@ -61,15 +61,21 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
   @override
   Future<String> uploadImage(File imageFile) async {
-    final formData = FormData.fromMap({
-      'file': await MultipartFile.fromFile(imageFile.path),
-    });
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(imageFile.path),
+      });
 
-    final response = await sl<DioClient>().post(
-      ApiConst.cloudinaryUpload,
-      data: formData,
-    );
+      final response = await sl<DioClient>().post(
+        ApiConst.cloudinaryUpload,
+        data: formData,
+      );
 
-    return response.data['url'];
+      log('Cloudinary жообу: ${response.data}');
+      return response.data['url'];
+    } catch (e) {
+      log('Фото жүктөө катасы: $e');
+      rethrow;
+    }
   }
 }

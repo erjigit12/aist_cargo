@@ -97,40 +97,37 @@ class UserCubit extends Cubit<UserState> {
     try {
       String? imageUrl = user.image;
 
-      // 1. Загружаем новое изображение если есть
+      // 1. Фото тандалса, Cloudinary-ге жүктөө
       if (user.imageFile != null) {
         final uploadResult = await uploadImageUsecase(user.imageFile!);
         imageUrl = uploadResult.fold(
-          (error) => throw Exception(error),
-          (url) => url,
+          (error) => throw Exception("Фото жүктөө катасы: $error"),
+          (url) => url, // Cloudinary URL алабыз
         );
       }
 
-      // 2. Конвертируем UserEntity в UserModel (если требуется)
+      // 2. UserModel түзүү (серверге жөнөтүү үчүн)
       final userModel = UserModel(
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         phoneNumber: user.phoneNumber,
         dateOfBirth: user.dateOfBirth,
-        image: imageUrl,
+        image: imageUrl, // Cloudinary URL же мурунку URL
       );
 
-      // 3. Обновляем данные пользователя
-      final updateResult = await updateUserDataUsecase(userModel);
+      // 3. Серверге жөнөтүү
+      final result = await updateUserDataUsecase(userModel);
 
-      updateResult.fold(
+      result.fold(
         (error) => emit(UserFailure(message: error)),
-        (updatedUserModel) {
-          // 4. Обновляем состояние - используем user с обновленным imageUrl
-          emit(UserSuccess(
-            user: user.copyWith(image: imageUrl),
-            isUpdated: true,
-          ));
-        },
+        (updatedUser) => emit(UserSuccess(
+          user: updatedUser,
+          isUpdated: true,
+        )),
       );
     } catch (e) {
-      emit(UserFailure(message: 'Ошибка обновления: ${e.toString()}'));
+      emit(UserFailure(message: e.toString()));
     }
   }
 }
