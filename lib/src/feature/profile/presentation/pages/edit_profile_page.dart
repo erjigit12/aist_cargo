@@ -2,6 +2,7 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
@@ -51,6 +52,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
+  Future<void> _pickImage(ImageSource source) async {
+    await context.read<UserCubit>().pickProfileImage(source);
+  }
+
+  void _showImagePickerDialog() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.camera),
+            title: const Text('Сделать фото'),
+            onTap: () {
+              Navigator.pop(context);
+              _pickImage(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: const Text('Выбрать из галереи'),
+            onTap: () {
+              Navigator.pop(context);
+              _pickImage(ImageSource.gallery);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
     firstNameController.dispose();
@@ -95,10 +127,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         textAlign: TextAlign.center,
                       ),
                       20.h,
-                      const CircleAvatar(
-                        radius: 60,
-                        backgroundImage:
-                            AssetImage('assets/images/profile.jpeg'),
+                      GestureDetector(
+                        onTap: () => _showImagePickerDialog(),
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: _getProfileImage(state.user),
+                        ),
                       ),
                       10.h,
                       Text(
@@ -184,5 +218,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
     );
+  }
+
+  ImageProvider _getProfileImage(UserEntity user) {
+    if (user.imageFile != null) {
+      return FileImage(user.imageFile!);
+    } else if (user.image != null && user.image!.isNotEmpty) {
+      return NetworkImage(user.image!);
+    }
+    return const AssetImage('assets/images/profile.jpeg');
   }
 }

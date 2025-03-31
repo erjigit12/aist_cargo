@@ -13,6 +13,16 @@ final class UserSuccess extends UserState {
 
   final UserEntity user;
   final bool isUpdated;
+
+  UserSuccess copyWith({
+    UserEntity? user,
+    bool? isUpdated,
+  }) {
+    return UserSuccess(
+      user: user ?? this.user,
+      isUpdated: isUpdated ?? this.isUpdated,
+    );
+  }
 }
 
 final class UserFailure extends UserState {

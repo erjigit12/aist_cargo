@@ -3,6 +3,7 @@ import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -31,6 +32,7 @@ Future<void> init() async {
     () => UserCubit(
       getUserDataUsecase: sl.call(),
       updateUserDataUsecase: sl.call(),
+      pickImageUsecase: sl.call(),
     ),
   );
 
@@ -98,6 +100,9 @@ Future<void> init() async {
     () => CreateDeliveryUsecase(repository: sl.call()),
   );
 
+  sl.registerLazySingleton<PickImageUsecase>(
+      () => PickImageUsecase(picker: sl.call()));
+
   //! Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -142,7 +147,9 @@ Future<void> init() async {
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   final dio = Dio();
+  final imagePicker = ImagePicker();
 
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => dio);
+  sl.registerLazySingleton(() => imagePicker);
 }

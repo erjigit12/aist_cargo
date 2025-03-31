@@ -2,15 +2,18 @@ import 'dart:developer';
 
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   final GetUserDataUsecase getUserDataUsecase;
   final UpdateUserDataUsecase updateUserDataUsecase;
+  final PickImageUsecase pickImageUsecase;
   UserCubit({
     required this.getUserDataUsecase,
     required this.updateUserDataUsecase,
+    required this.pickImageUsecase,
   }) : super(UserInitial());
 
   void getUserData() async {
@@ -44,6 +47,30 @@ class UserCubit extends Cubit<UserState> {
       },
       (r) {
         emit(UserSuccess(user: r, isUpdated: true));
+      },
+    );
+  }
+
+  Future<void> pickProfileImage(ImageSource source) async {
+    if (state is! UserSuccess) return;
+
+    final currentState = state as UserSuccess;
+    emit(UserLoading());
+
+    final result = await pickImageUsecase(source);
+
+    result.fold(
+      (error) => emit(UserFailure(message: error)),
+      (imageFile) {
+        // Конвертируем File в String (путь к файлу) или сохраняем File
+        final imagePath = imageFile.path;
+
+        // Создаем обновленный UserEntity
+        final updatedUser = currentState.user.copyWith(
+          image: imagePath, // или другой логикой обработки изображения
+        );
+
+        emit(currentState.copyWith(user: updatedUser));
       },
     );
   }
