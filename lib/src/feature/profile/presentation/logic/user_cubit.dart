@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:bloc/bloc.dart';
@@ -51,6 +52,17 @@ class UserCubit extends Cubit<UserState> {
         emit(UserSuccess(user: r, isUpdated: true));
       },
     );
+  }
+
+  void uploadImage(File imageFile) async {
+    emit(UserLoading());
+
+    var result = await uploadImageUsecase.call(imageFile);
+    result.fold((l) {
+      emit(UserFailure(message: l));
+    }, (r) {
+      emit(UserSuccess(user: r as UserEntity));
+    });
   }
 
   Future<void> pickProfileImage(ImageSource source) async {
