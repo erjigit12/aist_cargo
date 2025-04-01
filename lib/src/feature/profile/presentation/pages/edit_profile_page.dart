@@ -128,7 +128,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                       20.h,
                       GestureDetector(
-                        onTap: () => _showImagePickerDialog(),
+                        onTap: () {
+                          _showImagePickerDialog();
+                        },
                         child: CircleAvatar(
                           radius: 60,
                           backgroundImage: _getProfileImage(state.user),
