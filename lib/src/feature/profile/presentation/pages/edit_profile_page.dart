@@ -28,7 +28,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
     _userCubit = context.read<UserCubit>();
 
-    // Инициализируем контроллеры с текущими значениями
     _initializeControllers();
   }
 
@@ -44,7 +43,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           TextEditingController(text: currentState.user.dateOfBirth);
       emailController = TextEditingController(text: currentState.user.email);
     } else {
-      // Запасные значения
       firstNameController = TextEditingController();
       lastNameController = TextEditingController();
       dateOfBirthController = TextEditingController();
