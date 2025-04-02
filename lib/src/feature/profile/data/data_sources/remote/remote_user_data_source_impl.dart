@@ -61,20 +61,39 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
   @override
   Future<String> uploadImage(File imageFile) async {
+    final fileSizeMB = imageFile.lengthSync() / (1024 * 1024);
+    if (fileSizeMB > 10) {
+      // Лимит Cloudinary обычно 10-20MB
+      throw Exception('Файл слишком большой ($fileSizeMB MB). Максимум: 10MB');
+    }
     try {
+      // Сжимаем изображение
+      final compressedFile = await compressImage(imageFile);
+      log('Compressed size: ${compressedFile.lengthSync() ~/ 1024} KB');
+
       final formData = FormData.fromMap({
-        'file': await MultipartFile.fromFile(imageFile.path),
+        'file': await MultipartFile.fromFile(
+          compressedFile.path,
+          filename: 'upload_${DateTime.now().millisecondsSinceEpoch}.jpg',
+        ),
       });
 
       final response = await sl<DioClient>().post(
         ApiConst.cloudinaryUpload,
         data: formData,
+        options: Options(
+          headers: {'Content-Type': 'multipart/form-data'},
+          validateStatus: (status) =>
+              status! < 500, // Игнорировать 413 для кастомной обработки
+        ),
       );
 
-      log('Cloudinary жообу: ${response.data}');
-      return response.data['url'];
+      if (response.statusCode == 413) {
+        throw Exception('Слишком большой файл. Максимальный размер: 10MB');
+      }
+      return response.data['secure_url'];
     } catch (e) {
-      log('Фото жүктөө катасы: $e');
+      log('Upload error: $e');
       rethrow;
     }
   }

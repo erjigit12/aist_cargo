@@ -65,6 +65,30 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
+  // Future<void> pickProfileImage(ImageSource source) async {
+  //   if (state is! UserSuccess) return;
+
+  //   final currentState = state as UserSuccess;
+  //   emit(UserLoading());
+
+  //   final result = await pickImageUsecase(source);
+
+  //   result.fold(
+  //     (error) => emit(UserFailure(message: error)),
+  //     (imageFile) {
+  //       // Конвертируем File в String (путь к файлу) или сохраняем File
+  //       final imagePath = imageFile.path;
+
+  //       // Создаем обновленный UserEntity
+  //       final updatedUser = currentState.user.copyWith(
+  //         image: imagePath, // или другой логикой обработки изображения
+  //       );
+
+  //       emit(currentState.copyWith(user: updatedUser));
+  //     },
+  //   );
+  // }
+
   Future<void> pickProfileImage(ImageSource source) async {
     if (state is! UserSuccess) return;
 
@@ -76,12 +100,10 @@ class UserCubit extends Cubit<UserState> {
     result.fold(
       (error) => emit(UserFailure(message: error)),
       (imageFile) {
-        // Конвертируем File в String (путь к файлу) или сохраняем File
-        final imagePath = imageFile.path;
-
-        // Создаем обновленный UserEntity
+        // Сохраняем File объект, а не путь
         final updatedUser = currentState.user.copyWith(
-          image: imagePath, // или другой логикой обработки изображения
+          imageFile: imageFile, // Сохраняем сам файл
+          image: null, // Очищаем старый URL, если был
         );
 
         emit(currentState.copyWith(user: updatedUser));
@@ -97,30 +119,34 @@ class UserCubit extends Cubit<UserState> {
     try {
       String? imageUrl = user.image;
 
-      // 1. Фото тандалса, Cloudinary-ге жүктөө
+      // Если выбрано новое изображение (есть imageFile)
       if (user.imageFile != null) {
-        final uploadResult = await uploadImageUsecase(user.imageFile!);
+        // Загружаем изображение на сервер
+        final uploadResult = await uploadImageUsecase.call(user.imageFile!);
+
+        // Обрабатываем результат загрузки
         imageUrl = uploadResult.fold(
-          (error) => throw Exception("Фото жүктөө катасы: $error"),
-          (url) => url, // Cloudinary URL алабыз
+          (error) => throw Exception("Image upload failed: $error"),
+          (url) => url, // Явное приведение типа
         );
       }
 
-      // 2. UserModel түзүү (серверге жөнөтүү үчүн)
+      // Создаем модель для обновления данных
       final userModel = UserModel(
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         phoneNumber: user.phoneNumber,
         dateOfBirth: user.dateOfBirth,
-        image: imageUrl, // Cloudinary URL же мурунку URL
+        image:
+            imageUrl, // Используем новый URL или старый, если не было нового изображения
       );
 
-      // 3. Серверге жөнөтүү
-      final result = await updateUserDataUsecase(userModel);
+      // Обновляем данные пользователя
+      final updateResult = await updateUserDataUsecase.call(userModel);
 
-      result.fold(
-        (error) => emit(UserFailure(message: error)),
+      updateResult.fold(
+        (error) => emit(UserFailure(message: error.toString())),
         (updatedUser) => emit(UserSuccess(
           user: updatedUser,
           isUpdated: true,

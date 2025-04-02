@@ -189,13 +189,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         title: 'Сохранить',
                         onPressed: () {
                           if (!isCheck) {
-                            var snackBar = const SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              content: Text(
-                                  'Вы не дали согласие на обработку персональных данных'),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                    'Вы не дали согласие на обработку персональных данных'),
+                              ),
                             );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
                           } else {
                             final currentState =
                                 _userCubit.state as UserSuccess;
@@ -203,9 +203,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
                               dateOfBirth: dateOfBirthController.text,
-                              // imageFile: тандалган фото (автоматтык түрдө сакталат)
+                              imageFile: currentState
+                                  .user.imageFile, // Сохраняем выбранный файл
                             );
-
                             context.read<UserCubit>().updateUserWithImage(user);
                           }
                         },
