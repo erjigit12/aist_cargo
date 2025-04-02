@@ -20,7 +20,6 @@ class UserCubit extends Cubit<UserState> {
   }) : super(UserInitial());
 
   void getUserData() async {
-    // Не эмитим Loading если данные уже загружены
     if (state is! UserSuccess) {
       emit(UserLoading());
     }
@@ -29,7 +28,6 @@ class UserCubit extends Cubit<UserState> {
     result.fold(
       (l) => emit(UserFailure(message: l)),
       (r) {
-        // Проверяем, действительно ли данные изменились
         if (state is! UserSuccess || (state as UserSuccess).user != r) {
           emit(UserSuccess(user: r));
         }
@@ -83,8 +81,8 @@ class UserCubit extends Cubit<UserState> {
       (imageFile) {
         // Сохраняем File объект, а не путь
         final updatedUser = currentState.user.copyWith(
-          imageFile: imageFile, // Сохраняем сам файл
-          image: null, // Очищаем старый URL, если был
+          imageFile: imageFile,
+          image: null,
         );
 
         emit(currentState.copyWith(user: updatedUser));
@@ -100,30 +98,24 @@ class UserCubit extends Cubit<UserState> {
     try {
       String? imageUrl = user.image;
 
-      // Если выбрано новое изображение (есть imageFile)
       if (user.imageFile != null) {
-        // Загружаем изображение на сервер
         final uploadResult = await uploadImageUsecase.call(user.imageFile!);
 
-        // Обрабатываем результат загрузки
         imageUrl = uploadResult.fold(
           (error) => throw Exception("Image upload failed: $error"),
-          (url) => url, // Явное приведение типа
+          (url) => url,
         );
       }
 
-      // Создаем модель для обновления данных
       final userModel = UserModel(
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         phoneNumber: user.phoneNumber,
         dateOfBirth: user.dateOfBirth,
-        image:
-            imageUrl, // Используем новый URL или старый, если не было нового изображения
+        image: imageUrl,
       );
 
-      // Обновляем данные пользователя
       final updateResult = await updateUserDataUsecase.call(userModel);
 
       updateResult.fold(

@@ -17,7 +17,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool isCheck = false;
   late UserCubit _userCubit;
 
-  // Контроллеры будем инициализировать в initState
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController dateOfBirthController;
@@ -28,20 +27,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
     _userCubit = context.read<UserCubit>();
 
-    // Инициализируем контроллеры с пустыми значениями
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
     dateOfBirthController = TextEditingController();
     emailController = TextEditingController();
 
-    // Подписываемся на изменения состояния
     _userCubit.stream.listen((state) {
       if (state is UserSuccess && mounted) {
         _updateControllers(state.user);
       }
     });
 
-    // Загружаем данные если их нет
     if (_userCubit.state is! UserSuccess) {
       _userCubit.getUserData();
     } else {
@@ -227,21 +223,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
-
-  // ImageProvider _getProfileImage(UserEntity user) {
-  //   if (user.imageFile != null) {
-  //     return FileImage(user.imageFile!);
-  //   } else if (user.image != null && user.image!.isNotEmpty) {
-  //     // Если image содержит URL
-  //     if (user.image!.startsWith('http')) {
-  //       return NetworkImage(user.image!);
-  //     }
-  //     // Если image содержит локальный путь
-  //     return AssetImage(user.image!);
-  //   }
-  //   // Дефолтное изображение из assets
-  //   return const AssetImage('assets/images/profile.jpeg');
-  // }
 
   ImageProvider _getProfileImage(UserEntity user) {
     if (user.imageFile != null) {
