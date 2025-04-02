@@ -83,8 +83,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
         data: formData,
         options: Options(
           headers: {'Content-Type': 'multipart/form-data'},
-          validateStatus: (status) =>
-              status! < 500, // Игнорировать 413 для кастомной обработки
+          validateStatus: (status) => status! < 500,
         ),
       );
 

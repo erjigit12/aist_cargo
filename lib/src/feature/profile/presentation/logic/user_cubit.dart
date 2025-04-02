@@ -65,30 +65,6 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
-  // Future<void> pickProfileImage(ImageSource source) async {
-  //   if (state is! UserSuccess) return;
-
-  //   final currentState = state as UserSuccess;
-  //   emit(UserLoading());
-
-  //   final result = await pickImageUsecase(source);
-
-  //   result.fold(
-  //     (error) => emit(UserFailure(message: error)),
-  //     (imageFile) {
-  //       // Конвертируем File в String (путь к файлу) или сохраняем File
-  //       final imagePath = imageFile.path;
-
-  //       // Создаем обновленный UserEntity
-  //       final updatedUser = currentState.user.copyWith(
-  //         image: imagePath, // или другой логикой обработки изображения
-  //       );
-
-  //       emit(currentState.copyWith(user: updatedUser));
-  //     },
-  //   );
-  // }
-
   Future<void> pickProfileImage(ImageSource source) async {
     if (state is! UserSuccess) return;
 
