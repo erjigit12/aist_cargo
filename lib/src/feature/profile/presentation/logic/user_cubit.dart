@@ -20,14 +20,19 @@ class UserCubit extends Cubit<UserState> {
   }) : super(UserInitial());
 
   void getUserData() async {
-    emit(UserLoading());
+    // Не эмитим Loading если данные уже загружены
+    if (state is! UserSuccess) {
+      emit(UserLoading());
+    }
+
     var result = await getUserDataUsecase.call();
     result.fold(
-      (l) {
-        emit(UserFailure(message: l));
-      },
+      (l) => emit(UserFailure(message: l)),
       (r) {
-        emit(UserSuccess(user: r));
+        // Проверяем, действительно ли данные изменились
+        if (state is! UserSuccess || (state as UserSuccess).user != r) {
+          emit(UserSuccess(user: r));
+        }
       },
     );
   }

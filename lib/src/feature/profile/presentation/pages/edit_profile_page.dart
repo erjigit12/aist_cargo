@@ -28,26 +28,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
     _userCubit = context.read<UserCubit>();
 
-    _initializeControllers();
+    // Инициализируем контроллеры с пустыми значениями
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    dateOfBirthController = TextEditingController();
+    emailController = TextEditingController();
+
+    // Подписываемся на изменения состояния
+    _userCubit.stream.listen((state) {
+      if (state is UserSuccess && mounted) {
+        _updateControllers(state.user);
+      }
+    });
+
+    // Загружаем данные если их нет
+    if (_userCubit.state is! UserSuccess) {
+      _userCubit.getUserData();
+    } else {
+      _updateControllers((_userCubit.state as UserSuccess).user);
+    }
   }
 
-  void _initializeControllers() {
-    final currentState = _userCubit.state;
-
-    if (currentState is UserSuccess) {
-      firstNameController =
-          TextEditingController(text: currentState.user.firstName);
-      lastNameController =
-          TextEditingController(text: currentState.user.lastName);
-      dateOfBirthController =
-          TextEditingController(text: currentState.user.dateOfBirth);
-      emailController = TextEditingController(text: currentState.user.email);
-    } else {
-      firstNameController = TextEditingController();
-      lastNameController = TextEditingController();
-      dateOfBirthController = TextEditingController();
-      emailController = TextEditingController();
-    }
+  void _updateControllers(UserEntity user) {
+    firstNameController.text = user.firstName ?? '';
+    lastNameController.text = user.lastName ?? '';
+    dateOfBirthController.text = user.dateOfBirth ?? '';
+    emailController.text = user.email ?? '';
+    if (mounted) setState(() {});
   }
 
   Future<void> _pickImage(ImageSource source) async {
@@ -221,18 +228,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // ImageProvider _getProfileImage(UserEntity user) {
+  //   if (user.imageFile != null) {
+  //     return FileImage(user.imageFile!);
+  //   } else if (user.image != null && user.image!.isNotEmpty) {
+  //     // Если image содержит URL
+  //     if (user.image!.startsWith('http')) {
+  //       return NetworkImage(user.image!);
+  //     }
+  //     // Если image содержит локальный путь
+  //     return AssetImage(user.image!);
+  //   }
+  //   // Дефолтное изображение из assets
+  //   return const AssetImage('assets/images/profile.jpeg');
+  // }
+
   ImageProvider _getProfileImage(UserEntity user) {
     if (user.imageFile != null) {
       return FileImage(user.imageFile!);
-    } else if (user.image != null && user.image!.isNotEmpty) {
-      // Если image содержит URL
+    }
+    if (user.image != null && user.image!.isNotEmpty) {
       if (user.image!.startsWith('http')) {
         return NetworkImage(user.image!);
       }
-      // Если image содержит локальный путь
       return AssetImage(user.image!);
     }
-    // Дефолтное изображение из assets
     return const AssetImage('assets/images/profile.jpeg');
   }
 }

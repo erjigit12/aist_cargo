@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.sl<UserCubit>()..getUserData(),
+          lazy: false,
         ),
         BlocProvider(
           create: (context) => di.sl<DeliveryCubit>(),
