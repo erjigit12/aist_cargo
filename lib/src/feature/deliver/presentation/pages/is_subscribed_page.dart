@@ -504,8 +504,14 @@ class _IsSubscribedPageState extends State<IsSubscribedPage> {
               const Center(child: CircularProgressIndicator());
             }
             if (state is DeliverySuccess) {
-              Navigator.pushNamed(context, AppRoutes.placeOrder,
-                  arguments: packageOptions);
+              Navigator.pushNamed(
+                context,
+                AppRoutes.placeOrder,
+                arguments: {
+                  'packageOptions': packageOptions,
+                  'deliverOrSend': widget.deliverOrSend,
+                },
+              );
             }
             if (state is DeliveryFailure) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
