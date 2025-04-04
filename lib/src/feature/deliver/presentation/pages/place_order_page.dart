@@ -25,6 +25,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   late final TextEditingController _dispatchDateController;
   late final TextEditingController _arrivalDateController;
   late final TextEditingController _descriptionController;
+  late final TextEditingController _transportNumberController;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -36,6 +37,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   String? _arrivalDateError;
   String? _packageError;
   String? _fullNameError;
+  String? _transportNumberError;
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
     final sendCubit = context.read<SendCubit>();
 
     _fullNameController = TextEditingController();
+    _transportNumberController = TextEditingController();
     // _phoneController = TextEditingController();
     _fromWhereController = TextEditingController(
         text: widget.deliverOrSend == true
@@ -70,6 +73,7 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
   @override
   void dispose() {
     _fullNameController.dispose();
+    _transportNumberController.dispose();
     // _phoneController.dispose();
     _fromWhereController.dispose();
     _toWhereController.dispose();
@@ -207,6 +211,14 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                   hintText: 'Нап: Асан Асанов',
                   errorText: _fullNameError,
                 ),
+                20.h,
+                TextFieldWithTitle(
+                  controller: _transportNumberController,
+                  backgroundColor: Colors.transparent,
+                  title: 'Номер транспорта',
+                  hintText: 'Нап: XXXXXX',
+                  errorText: _transportNumberError,
+                ),
                 // 20.h,
                 // const TextFieldWithTitle(
                 //   title: 'Номер телефона',
@@ -317,6 +329,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                 _fullNameError =
                                     FormValidators.validatefullName(
                                         _fullNameController.text);
+                                _transportNumberError =
+                                    FormValidators.validatefullName(
+                                        _transportNumberController.text);
                               });
 
                               if (_formKey.currentState!.validate() &&
@@ -325,7 +340,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                   _toWhereError == null &&
                                   _dispatchDateError == null &&
                                   _arrivalDateError == null &&
-                                  _fullNameError == null) {
+                                  _fullNameError == null &&
+                                  _transportNumberError == null) {
                                 context
                                     .read<DeliveryCubit>()
                                     .createDelivery(CreateDeliveryModel(
@@ -338,7 +354,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                       size: widget
                                           .packageOptions[deliveryCubit.boxType]
                                           .type,
-                                      transportNumber: 'RTY231D',
+                                      transportNumber:
+                                          _transportNumberController.text,
                                     ));
                               }
                             },
@@ -373,6 +390,9 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                 _fullNameError =
                                     FormValidators.validatefullName(
                                         _fullNameController.text);
+                                _transportNumberError =
+                                    FormValidators.validatefullName(
+                                        _transportNumberController.text);
                               });
 
                               if (_formKey.currentState!.validate() &&
@@ -381,7 +401,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                   _toWhereError == null &&
                                   _dispatchDateError == null &&
                                   _arrivalDateError == null &&
-                                  _fullNameError == null) {
+                                  _fullNameError == null &&
+                                  _transportNumberError == null) {
                                 context
                                     .read<SendCubit>()
                                     .createSend(CreateDeliveryModel(
@@ -394,7 +415,8 @@ class _PlaceOrderPageState extends State<PlaceOrderPage> {
                                       size: widget
                                           .packageOptions[deliveryCubit.boxType]
                                           .type,
-                                      transportNumber: 'AWC666F',
+                                      transportNumber:
+                                          _transportNumberController.text,
                                     ));
                               }
                             },
