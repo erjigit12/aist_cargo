@@ -17,7 +17,7 @@ class TripsOrParcelsPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: title),
       body: ListView.builder(
-          itemCount: 2,
+          itemCount: 1,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 38),

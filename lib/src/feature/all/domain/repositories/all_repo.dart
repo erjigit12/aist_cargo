@@ -1,1 +1,5 @@
-abstract class AllRepo {}
+import 'package:aist_cargo/src/feature/feature.dart';
+
+abstract class AllRepo {
+  Future<DeliveryEntity> getDeliveryById(int id);
+}
