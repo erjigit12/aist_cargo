@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:dartz/dartz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryRepositoryImpl implements DeliveryRepository {
   DeliveryRepositoryImpl({required this.remoteDeliveryDataSource});
@@ -34,8 +37,14 @@ class DeliveryRepositoryImpl implements DeliveryRepository {
       (l) {
         return Left(l);
       },
-      (r) {
-        return Right(r);
+      (r) async {
+        final delivery = r as CreateDeliveryModel;
+
+        log("✅ Delivery ID: ${delivery.id}");
+        SharedPreferences storage = await SharedPreferences.getInstance();
+        storage.setInt('deliveryId', delivery.id ?? -1);
+
+        return Right(delivery);
       },
     );
   }

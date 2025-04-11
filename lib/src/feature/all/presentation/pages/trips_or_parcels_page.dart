@@ -54,7 +54,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                         child: TripCard(
                           title: title,
                           name: delivery.fullName,
-                          tripNumber: delivery.transportNumber,
+                          tripNumber: delivery.id.toString(),
                           from: delivery.fromWhere,
                           to: delivery.toWhere,
                           packageSize: delivery.size,
@@ -72,7 +72,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                   return Center(child: Text('Error: ${state.message}'));
                 }
 
-                context.read<AllCubit>().fetchDelivery(16);
+                context.read<AllCubit>().fetchDelivery();
                 return const SizedBox();
               },
             ),

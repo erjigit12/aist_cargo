@@ -15,8 +15,10 @@ class CreateDeliveryModel {
     this.size,
     this.success,
     this.random,
+    this.id,
   });
 
+  final int? id;
   final String? fromWhere;
   final String? toWhere;
   final String? description;

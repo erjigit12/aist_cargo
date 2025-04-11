@@ -15,6 +15,8 @@ class UserModel {
   final String? phoneNumber;
   final String? dateOfBirth;
   final String? image;
+
+  @JsonKey(ignore: true)
   final File? imageFile;
 
   UserModel({

@@ -18,11 +18,13 @@ CreateDeliveryModel _$CreateDeliveryModelFromJson(Map<String, dynamic> json) =>
       size: json['size'] as String?,
       success: json['success'] as bool?,
       random: (json['random'] as num?)?.toInt(),
+      id: (json['id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CreateDeliveryModelToJson(
         CreateDeliveryModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'fromWhere': instance.fromWhere,
       'toWhere': instance.toWhere,
       'description': instance.description,

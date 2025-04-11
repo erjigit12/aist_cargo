@@ -183,9 +183,9 @@ class TripCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 60,
-                  backgroundImage: AssetImage('assets/images/profile.jpeg'),
+                  backgroundImage: NetworkImage(profileImageUrl),
                 ),
                 Text(
                   name,
