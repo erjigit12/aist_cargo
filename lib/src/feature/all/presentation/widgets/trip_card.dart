@@ -34,7 +34,7 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      clipBehavior: Clip.none, // Позволяет выходить за границы
+      clipBehavior: Clip.none,
       children: [
         Container(
           padding: const EdgeInsets.all(16),
@@ -87,8 +87,8 @@ class TripCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Бишкек',
+                      Text(
+                        from,
                         style: AppTextStyles.f12w700,
                       ),
                       const Text(
@@ -103,9 +103,9 @@ class TripCard extends StatelessWidget {
                         'Авто номер',
                         style: AppTextStyles.f12w600,
                       ),
-                      Text(
-                        packageType,
-                        style: const TextStyle(fontSize: 14),
+                      const Text(
+                        'Каробка',
+                        style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
@@ -113,8 +113,8 @@ class TripCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Баткен',
+                      Text(
+                        to,
                         style: AppTextStyles.f12w700,
                       ),
                       Text(
