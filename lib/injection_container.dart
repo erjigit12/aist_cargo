@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/all/presentation/logic/all_cubit.dart';
 import 'package:aist_cargo/src/feature/deliver/domain/usecases/create_delivery_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
@@ -50,6 +51,10 @@ Future<void> init() async {
       createSendUsecase: sl.call(),
       isSubscribedSendUsecase: sl.call(),
     ),
+  );
+
+  sl.registerFactory<AllCubit>(
+    () => AllCubit(getDeliveryByIdUsecase: sl.call()),
   );
 
   //! Use Cases
@@ -107,6 +112,10 @@ Future<void> init() async {
   sl.registerLazySingleton<UploadImageUsecase>(
       () => UploadImageUsecase(repository: sl.call()));
 
+  sl.registerLazySingleton<GetDeliveryByIdUsecase>(
+    () => GetDeliveryByIdUsecase(repository: sl.call()),
+  );
+
   //! Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -123,6 +132,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SendRepository>(
     () => SendRepositoryImpl(remoteSendDataSource: sl.call()),
+  );
+
+  sl.registerLazySingleton<AllRepo>(
+    () => AllRepoImpl(remoteAllDataSource: sl.call()),
   );
 
   //! Data Sources
@@ -144,6 +157,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<RemoteSendDataSource>(
       () => RemoteSendDataSourceImpl());
+
+  sl.registerLazySingleton<RemoteAllDataSource>(
+      () => RemoteAllDataSourceImpl());
 
   //! Network
   sl.registerSingleton<DioClient>(DioClient());

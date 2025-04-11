@@ -1,11 +1,11 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 
 class GetDeliveryByIdUsecase {
-  final AllRepo repo;
+  final AllRepo repository;
 
-  GetDeliveryByIdUsecase({required this.repo});
+  GetDeliveryByIdUsecase({required this.repository});
 
   Future<DeliveryEntity> call(int id) {
-    return repo.getDeliveryById(id);
+    return repository.getDeliveryById(id);
   }
 }

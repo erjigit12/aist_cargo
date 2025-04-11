@@ -7,10 +7,12 @@ part 'all_state.dart';
 class AllCubit extends Cubit<AllState> {
   final GetDeliveryByIdUsecase getDeliveryByIdUsecase;
 
-  AllCubit({required this.getDeliveryByIdUsecase}) : super(AllInitial());
+  AllCubit({
+    required this.getDeliveryByIdUsecase,
+  }) : super(AllInitial());
 
   Future<void> fetchDelivery(int id) async {
-    emit(DeliveryLoading());
+    emit(DeliveryLoadin());
     try {
       final delivery = await getDeliveryByIdUsecase(id);
       emit(DeliveryLoaded(delivery));

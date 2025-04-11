@@ -9,7 +9,7 @@ sealed class AllState extends Equatable {
 
 final class AllInitial extends AllState {}
 
-final class DeliveryLoading extends AllState {}
+final class DeliveryLoadin extends AllState {}
 
 final class DeliveryLoaded extends AllState {
   final DeliveryEntity delivery;
