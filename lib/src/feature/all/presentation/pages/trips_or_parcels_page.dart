@@ -46,7 +46,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                 } else if (state is DeliveryLoaded) {
                   final delivery = state.delivery;
                   return ListView.builder(
-                    itemCount: 1, // кийин динамикалуу болушу мүмкүн
+                    itemCount: 1, // кийин динамикалуу болот
                     itemBuilder: (context, index) {
                       return Padding(
                         padding:
