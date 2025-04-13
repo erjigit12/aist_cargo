@@ -24,4 +24,15 @@ class AllCubit extends Cubit<AllState> {
       emit(DeliveryError(e.toString()));
     }
   }
+
+  Future<void> fetchSend() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var sendId = storage.getInt('sendId');
+    try {
+      final send = await getDeliveryByIdUsecase(sendId ?? -1);
+      emit(DeliveryLoaded(send));
+    } catch (e) {
+      emit(DeliveryError(e.toString()));
+    }
+  }
 }
