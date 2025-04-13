@@ -3,9 +3,14 @@ import 'package:aist_cargo/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,25 +29,37 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/images/profile.jpeg'),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Айжан Асылова",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "+996 503-00-00-00",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                  ],
-                ),
+              BlocBuilder<UserCubit, UserState>(
+                builder: (context, state) {
+                  if (state is UserLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is UserSuccess) {
+                    return Center(
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage:
+                                NetworkImage(state.user.image ?? ''),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${state.user.firstName} ${state.user.lastName}',
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            state.user.phoneNumber ?? '',
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
               const SizedBox(height: 20),
               Container(
