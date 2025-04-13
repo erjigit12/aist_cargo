@@ -18,27 +18,43 @@ class TripsOrParcelsPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: title),
       body: isParcel == false
-          ? ListView.builder(
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 38),
-                  child: TripCard(
-                    title: title,
-                    name: 'Асел Асылбекова',
-                    tripNumber: '12345',
-                    from: 'Batken',
-                    to: 'Osh',
-                    packageSize: 'M',
-                    arrivalDate: '2023-09-01',
-                    departureDate: '2323-09-01',
-                    autoNumber: 'IA 3456 K',
-                    packageType: 'Box',
-                    profileImageUrl: 'assets/images/truck_mx3.png',
-                    isParcel: isParcel,
-                  ),
-                );
-              })
+          ? BlocBuilder<AllCubit, AllState>(
+              builder: (context, state) {
+                if (state is DeliveryLoadin) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is DeliveryLoaded) {
+                  final send = state.send;
+                  return ListView.builder(
+                    itemCount: 1, // кийин динамикалуу болот
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16, right: 16, top: 38),
+                        child: TripCard(
+                          title: title,
+                          name: send!.fullName,
+                          tripNumber: send.id.toString(),
+                          from: send.fromWhere,
+                          to: send.toWhere,
+                          packageSize: send.size,
+                          arrivalDate: send.arrivalDate,
+                          departureDate: send.dispatchDate,
+                          // autoNumber: send.transportNumber,
+                          packageType: send.description,
+                          profileImageUrl: 'assets/images/profile.png',
+                          isParcel: isParcel,
+                        ),
+                      );
+                    },
+                  );
+                } else if (state is DeliveryError) {
+                  return Center(child: Text('Error: ${state.message}'));
+                }
+
+                context.read<AllCubit>().fetchSend();
+                return const SizedBox();
+              },
+            )
           : BlocBuilder<AllCubit, AllState>(
               builder: (context, state) {
                 if (state is DeliveryLoadin) {
@@ -53,7 +69,7 @@ class TripsOrParcelsPage extends StatelessWidget {
                             const EdgeInsets.only(left: 16, right: 16, top: 38),
                         child: TripCard(
                           title: title,
-                          name: delivery.fullName,
+                          name: delivery!.fullName,
                           tripNumber: delivery.id.toString(),
                           from: delivery.fromWhere,
                           to: delivery.toWhere,

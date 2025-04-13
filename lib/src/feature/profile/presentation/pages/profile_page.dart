@@ -285,7 +285,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: 'Выйти из аккаунта',
                 titleColor: AppColors.buttonColor,
                 onPressed: () async {
-                  context.read<CredentialCubit>().logout();
+                  showCustomLeaveBottomSheet(context,
+                      title: 'Вы действительно хотите выйти из аккаунта?',
+                      widget: OutlineButtonWidget(
+                        icon: 'assets/icons/logout.png',
+                        title: 'Выйти из аккаунта',
+                        titleColor: AppColors.buttonColor,
+                        onPressed: () async {
+                          context.read<CredentialCubit>().logout();
+                        },
+                      ));
                 },
               )
             ],

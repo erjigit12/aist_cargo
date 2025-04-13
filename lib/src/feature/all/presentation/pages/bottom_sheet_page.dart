@@ -82,3 +82,51 @@ void showCustomBottomSheet(
     },
   );
 }
+
+void showCustomLeaveBottomSheet(
+  BuildContext context, {
+  String? title,
+  Widget? widget,
+}) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    transitionAnimationController: AnimationController(
+      vsync: Navigator.of(context),
+      duration: const Duration(milliseconds: 300),
+    ),
+    builder: (BuildContext context) {
+      return FractionallySizedBox(
+        heightFactor: 0.5,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+          transform: Matrix4.translationValues(0, 10, 0),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60),
+                topRight: Radius.circular(60),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Spacer(flex: 4),
+                  Text(title ?? '', style: AppTextStyles.f16w500),
+                  const Spacer(flex: 1),
+                  widget ?? const SizedBox(),
+                  const Spacer(flex: 4),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}

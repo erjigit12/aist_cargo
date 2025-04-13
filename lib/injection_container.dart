@@ -1,3 +1,4 @@
+import 'package:aist_cargo/src/feature/all/domain/usecases/get_send_by_id_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
@@ -52,7 +53,10 @@ Future<void> init() async {
   );
 
   sl.registerFactory<AllCubit>(
-    () => AllCubit(getDeliveryByIdUsecase: sl.call()),
+    () => AllCubit(
+      getDeliveryByIdUsecase: sl.call(),
+      getSendByIdUsecase: sl.call(),
+    ),
   );
 
   //! Use Cases
@@ -113,6 +117,9 @@ Future<void> init() async {
   sl.registerLazySingleton<GetDeliveryByIdUsecase>(
     () => GetDeliveryByIdUsecase(repository: sl.call()),
   );
+
+  sl.registerLazySingleton<GetSendByIdUsecase>(
+      () => GetSendByIdUsecase(repository: sl.call()));
 
   //! Repositories
   sl.registerLazySingleton<AuthRepository>(

@@ -1,9 +1,9 @@
 import 'package:aist_cargo/src/feature/feature.dart';
 
 class GetSendByIdUsecase {
-  final AllRepo allRepo;
+  final AllRepo repository;
 
-  GetSendByIdUsecase({required this.allRepo});
+  GetSendByIdUsecase({required this.repository});
 
-  Future<SendEntity> call(int id) async => await allRepo.getSendById(id);
+  Future<SendEntity> call(int id) async => await repository.getSendById(id);
 }

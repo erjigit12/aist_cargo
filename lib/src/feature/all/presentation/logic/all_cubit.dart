@@ -7,9 +7,11 @@ part 'all_state.dart';
 
 class AllCubit extends Cubit<AllState> {
   final GetDeliveryByIdUsecase getDeliveryByIdUsecase;
+  final GetSendByIdUsecase getSendByIdUsecase;
 
   AllCubit({
     required this.getDeliveryByIdUsecase,
+    required this.getSendByIdUsecase,
   }) : super(AllInitial());
 
   Future<void> fetchDelivery() async {
@@ -19,7 +21,7 @@ class AllCubit extends Cubit<AllState> {
     var deliveryId = storage.getInt('deliveryId');
     try {
       final delivery = await getDeliveryByIdUsecase(deliveryId ?? -1);
-      emit(DeliveryLoaded(delivery));
+      emit(DeliveryLoaded(delivery: delivery));
     } catch (e) {
       emit(DeliveryError(e.toString()));
     }
@@ -29,8 +31,8 @@ class AllCubit extends Cubit<AllState> {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var sendId = storage.getInt('sendId');
     try {
-      final send = await getDeliveryByIdUsecase(sendId ?? -1);
-      emit(DeliveryLoaded(send));
+      final send = await getSendByIdUsecase(sendId ?? -1);
+      emit(DeliveryLoaded(send: send));
     } catch (e) {
       emit(DeliveryError(e.toString()));
     }
