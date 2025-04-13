@@ -6,7 +6,12 @@ class AllRepoImpl implements AllRepo {
   final RemoteAllDataSource remoteAllDataSource;
 
   @override
-  Future<DeliveryEntity> getDeliveryById(int id) {
-    return remoteAllDataSource.getDeliveryById(id);
+  Future<DeliveryEntity> getDeliveryById(int id) async {
+    return await remoteAllDataSource.getDeliveryById(id);
+  }
+
+  @override
+  Future<SendEntity> getSendById(int id) async {
+    return await remoteAllDataSource.getSendById(id);
   }
 }

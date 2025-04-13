@@ -14,6 +14,7 @@ class ApiConst {
   static const createSubscription = '$domain/api/subscriptions';
   static const cloudinaryUpload = '$domain/api/cloudinary/upload';
   static const getDeliveryById = '$domain/api/deliveryApi';
+  static const getSendById = '$domain/api/sendings/get';
   // static const googleSignIn = '$domain/api/auth/withGoogle';
   // static const announcement = '$domain/api/announcements/getAll';
   // static const userUpdateProfile = '$domain/api/users/updateProfile';
