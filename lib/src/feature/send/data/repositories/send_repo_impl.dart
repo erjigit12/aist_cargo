@@ -34,7 +34,7 @@ class SendRepositoryImpl implements SendRepository {
       (r) async {
         final send = r as CreateDeliveryModel;
 
-        log("✅ Delivery ID: ${send.id}");
+        log("✅ Send ID: ${send.id}");
         SharedPreferences storage = await SharedPreferences.getInstance();
         storage.setInt('sendId', send.id ?? -1);
 

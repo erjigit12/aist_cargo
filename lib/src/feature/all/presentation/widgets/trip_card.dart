@@ -10,12 +10,13 @@ class TripCard extends StatelessWidget {
     required this.to,
     required this.departureDate,
     required this.arrivalDate,
-    required this.packageType,
+    this.packageType,
     required this.packageSize,
     required this.profileImageUrl,
     this.autoNumber,
     this.isParcel,
     required this.title,
+    required this.description,
   });
 
   final String title;
@@ -25,11 +26,12 @@ class TripCard extends StatelessWidget {
   final String to;
   final String departureDate;
   final String arrivalDate;
-  final String packageType;
+  final String? packageType;
   final String packageSize;
   final String? autoNumber;
   final String profileImageUrl;
   final bool? isParcel;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +75,8 @@ class TripCard extends StatelessWidget {
                 padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width * 0.3,
                 ),
-                child: const Text(
-                  'Я даю гарантию безопасную транспортировку.',
+                child: Text(
+                  description,
                   style: AppTextStyles.f12w400,
                 ),
               ),

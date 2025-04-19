@@ -32,7 +32,7 @@ class AllCubit extends Cubit<AllState> {
     var sendId = storage.getInt('sendId');
     try {
       final send = await getSendByIdUsecase(sendId ?? -1);
-      emit(DeliveryLoaded(send: send));
+      emit(SendLoaded(send: send));
     } catch (e) {
       emit(DeliveryError(e.toString()));
     }

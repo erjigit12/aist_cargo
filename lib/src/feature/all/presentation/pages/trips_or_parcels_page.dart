@@ -22,7 +22,7 @@ class TripsOrParcelsPage extends StatelessWidget {
               builder: (context, state) {
                 if (state is DeliveryLoadin) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is DeliveryLoaded) {
+                } else if (state is SendLoaded) {
                   final send = state.send;
                   return ListView.builder(
                     itemCount: 1, // кийин динамикалуу болот
@@ -32,17 +32,19 @@ class TripsOrParcelsPage extends StatelessWidget {
                             const EdgeInsets.only(left: 16, right: 16, top: 38),
                         child: TripCard(
                           title: title,
-                          name: send!.fullName,
-                          tripNumber: send.id.toString(),
-                          from: send.fromWhere,
-                          to: send.toWhere,
-                          packageSize: send.size,
-                          arrivalDate: send.arrivalDate,
-                          departureDate: send.dispatchDate,
-                          // autoNumber: send.transportNumber,
-                          packageType: send.description,
-                          profileImageUrl: 'assets/images/profile.png',
+                          name: send?.fullName ?? '',
+                          tripNumber: send?.id.toString() ?? '',
+                          from: send?.fromWhere ?? '',
+                          to: send?.toWhere ?? '',
+                          packageSize: send?.size ?? '',
+                          arrivalDate: send?.arrivalDate ?? '',
+                          departureDate: send?.dispatchDate ?? '',
+                          autoNumber: 'send.transportNumber',
+                          // packageType: send?.packageType ?? '',
+                          profileImageUrl:
+                              'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
                           isParcel: isParcel,
+                          description: send?.description ?? '',
                         ),
                       );
                     },
@@ -77,9 +79,10 @@ class TripsOrParcelsPage extends StatelessWidget {
                           arrivalDate: delivery.arrivalDate,
                           departureDate: delivery.dispatchDate,
                           autoNumber: delivery.transportNumber,
-                          packageType: delivery.description,
+                          // packageType: delivery.phoneNumber,
                           profileImageUrl: delivery.userImage,
                           isParcel: isParcel,
+                          description: delivery.description,
                         ),
                       );
                     },

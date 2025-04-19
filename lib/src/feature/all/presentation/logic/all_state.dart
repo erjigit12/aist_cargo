@@ -13,12 +13,20 @@ final class DeliveryLoadin extends AllState {}
 
 final class DeliveryLoaded extends AllState {
   final DeliveryEntity? delivery;
-  final SendEntity? send;
 
-  const DeliveryLoaded({this.delivery, this.send});
+  const DeliveryLoaded({this.delivery});
 
   @override
-  List<Object> get props => [delivery ?? [], send ?? []];
+  List<Object> get props => [delivery ?? []];
+}
+
+final class SendLoaded extends AllState {
+  final SendEntity? send;
+
+  const SendLoaded({required this.send});
+
+  @override
+  List<Object> get props => [send ?? []];
 }
 
 final class DeliveryError extends AllState {
