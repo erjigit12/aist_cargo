@@ -1,4 +1,3 @@
-import 'package:aist_cargo/src/feature/all/domain/usecases/get_send_by_id_usecase.dart';
 import 'package:aist_cargo/src/feature/feature.dart';
 import 'package:aist_cargo/src/core/core.dart';
 import 'package:dio/dio.dart';
