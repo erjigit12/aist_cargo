@@ -6,7 +6,7 @@ class SendEntity {
   final String toWhere;
   final String dispatchDate;
   final String arrivalDate;
-  final String description;
+  final String? description;
   final String packageType;
   final String size;
   final String status;

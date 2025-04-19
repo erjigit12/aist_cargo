@@ -18,16 +18,16 @@ class GetSendById extends SendEntity {
   factory GetSendById.fromJson(Map<String, dynamic> json) {
     return GetSendById(
       id: json['id'],
-      fullName: json['fullName'],
-      phoneNumber: json['phoneNumber'],
-      fromWhere: json['fromWhere'],
-      toWhere: json['toWhere'],
-      dispatchDate: json['dispatchDate'],
-      arrivalDate: json['arrivalDate'],
-      description: json['description'],
-      packageType: json['packageType'],
-      size: json['size'],
-      status: json['status'],
+      fullName: json['fullName'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      fromWhere: json['fromWhere'] ?? '',
+      toWhere: json['toWhere'] ?? '',
+      dispatchDate: json['dispatchDate'] ?? '',
+      arrivalDate: json['arrivalDate'] ?? '',
+      description: json['description'] ?? '', // <- ВАЖНО!
+      packageType: json['packageType'] ?? '',
+      size: json['size'] ?? '',
+      status: json['status'] ?? '',
     );
   }
 }

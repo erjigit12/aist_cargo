@@ -50,7 +50,8 @@ class TripsOrParcelsPage extends StatelessWidget {
                     },
                   );
                 } else if (state is DeliveryError) {
-                  return Center(child: Text('Error: ${state.message}'));
+                  return Center(
+                      child: Text('Маалымат базада жок: ${state.message}'));
                 }
 
                 context.read<AllCubit>().fetchSend();
@@ -88,7 +89,8 @@ class TripsOrParcelsPage extends StatelessWidget {
                     },
                   );
                 } else if (state is DeliveryError) {
-                  return Center(child: Text('Error: ${state.message}'));
+                  return Center(
+                      child: Text('Маалымат базада жок: ${state.message}'));
                 }
 
                 context.read<AllCubit>().fetchDelivery();
